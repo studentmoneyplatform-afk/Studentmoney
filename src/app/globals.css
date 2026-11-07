@@ -1,26 +1,107 @@
 @import "tailwindcss";
 
+/*
+  StudentMoney · Brand Pack v1 "The Ledger"
+  Colour, type and spacing tokens. Do not hardcode hex values in components.
+
+  THE OWNABLE RULE: --color-hibiscus marks money earned or the growth share.
+  Never a background, never a button, never decoration.
+*/
+
+@theme static {
+  /* Core palette */
+  --color-forest: #0e4b37;
+  --color-forest-deep: #0a3828;
+  --color-cream: #f1e9da;
+  --color-cream-raised: #f8f4ec;
+  --color-hibiscus: #b82a55;
+  --color-hibiscus-light: #ff9db5;
+  --color-ink: #16130f;
+  --color-moss: #5a5f4d;
+
+  /* Functional. Error is brick, not hibiscus, so a problem never reads as earnings. */
+  --color-success: #1f7a4d;
+  --color-warning: #b7791f;
+  --color-error: #8f2d1b;
+
+  /* Hairlines */
+  --color-rule: rgba(22, 19, 15, 0.14);
+  --color-rule-reversed: rgba(241, 233, 218, 0.22);
+
+  /* Type */
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+
+  /* Scale · ratio 1.25 from 16px */
+  --text-fine: 0.8rem;
+  --text-body: 1rem;
+  --text-body-lg: 1.25rem;
+  --text-subhead: 1.5625rem;
+  --text-headline: 2.4375rem;
+  --text-display: 3.8125rem;
+
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headlines and every money figure carry Fraunces. */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+
+/* Money figures: Fraunces 700, naira beside in italic. */
+.money {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.money-ngn {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.eyebrow {
+  font-size: var(--text-fine);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Focus ring that works on both grounds. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-hibiscus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

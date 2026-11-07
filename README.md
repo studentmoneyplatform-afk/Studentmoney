@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# StudentMoney
 
-## Getting Started
+Learn. Connect. Create. Earn.
 
-First, run the development server:
+A student earning, referral and opportunity platform for Nigerian university
+students. This repository holds the public website and the Supabase schema
+behind it.
+
+## Running it
 
 ```bash
+npm install
+cp .env.example .env.local   # then fill in the Supabase values
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | What it is |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key, safe in the browser |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server only. Never import this into a client component. |
+| `NEXT_PUBLIC_NGN_PER_USD` | The posted naira rate. Every dollar figure converts with it. |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Without the Supabase values the site still renders; the join form reports that
+signups are not connected rather than pretending a submission was saved.
 
-## Learn More
+## The database
 
-To learn more about Next.js, take a look at the following resources:
+`supabase/migrations` holds the schema. Apply it in order:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. `0001_core.sql` — tables, the reward ledger and `recompute_project_reward()`
+2. `0002_rls.sql` — row level security
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The ledger is never incremented by hand. `recompute_project_reward()` derives a
+student's earned total from cleared payments alone, so a reward cannot be paid
+twice and a refund reverses the part of the reward it funded. Nothing that
+moves money is writable from the browser.
 
-## Deploy on Vercel
+## Brand
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Brand Pack v1, "The Ledger". All tokens live in `src/app/globals.css`; no
+component hardcodes a hex value.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Forest** `#0E4B37` primary · **Cream** `#F1E9DA` ground · **Ink** `#16130F`
+- **Hibiscus** `#B82A55` marks money earned or the Grow share, and nothing
+  else. Never a background, a button or decoration. That rule is what makes it
+  recognisable.
+- Fraunces for headlines and every money figure, Plus Jakarta Sans for body
+  and UI.
+- Naira beside every dollar. The `<Money>` component enforces it.
+
+## Writing rules
+
+Lead with the number and the action. Say who pays and when. Never write
+"guaranteed income", "easy money", "passive income", or an earning target
+without the rules that apply to it.

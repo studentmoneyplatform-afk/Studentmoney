@@ -75,7 +75,7 @@ export function SiteHeader({ logo }: { logo?: { src?: string; reversedSrc?: stri
             href="/join"
             className="rounded-full bg-forest px-4 py-2 text-caption font-bold text-[color:var(--on-dark-1)] transition-colors duration-200 hover:bg-forest-deep"
           >
-            Join free
+            Join now
           </Link>
           <button
             type="button"
@@ -116,7 +116,7 @@ export function SiteHeader({ logo }: { logo?: { src?: string; reversedSrc?: stri
                 href="/join"
                 className="block rounded-full bg-forest px-5 py-3 text-center font-bold text-[color:var(--on-dark-1)]"
               >
-                Join free
+                Join now
               </Link>
             </li>
           </ul>

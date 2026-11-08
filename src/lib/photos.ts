@@ -27,32 +27,32 @@ const unsplash = (photographer: string, handle: string): Credit => ({
 /** Keyed by the local path a slot asks for. */
 export const CURATED: Record<string, CuratedPhoto> = {
   "/photos/hero-student-1.jpg": {
-    url: "https://images.unsplash.com/photo-1687422808424-4a8e78fa6ae8",
-    credit: unsplash("Ali Mkumbwa", "mkumbwa"),
+    url: "https://images.unsplash.com/photo-1758270705518-b61b40527e76",
+    credit: unsplash("Vitaly Gariev", "vitalygariev"),
   },
   "/photos/hero-student-2.jpg": {
-    url: "https://images.unsplash.com/photo-1531482615713-2afd69097998",
-    credit: unsplash("Headway", "headwayio"),
+    url: "https://images.unsplash.com/photo-1620829813573-7c9e1877706f",
+    credit: unsplash("Kojo Kwarteng", "kojokwarteng"),
   },
   "/photos/hero-student-3.jpg": {
-    url: "https://images.unsplash.com/photo-1764013003044-6b52d85995f4",
-    credit: unsplash("Ben Iwara", "beniwara"),
+    url: "https://images.unsplash.com/photo-1528980917907-8df7f48f6f2a",
+    credit: unsplash("Andre Hunter", "dre0316"),
   },
   "/photos/track-referral.jpg": {
-    url: "https://images.unsplash.com/photo-1761370571806-886404629697",
-    credit: unsplash("Muhammad-Taha Ibrahim", "m_taha"),
+    url: "https://images.unsplash.com/photo-1677594334053-afe4b41aa0a3",
+    credit: unsplash("The Jopwell Collection", "jopwellcollection"),
   },
   "/photos/track-content.jpg": {
-    url: "https://images.unsplash.com/photo-1659362768558-fcdc835e04d1",
-    credit: unsplash("Lukas Menke", "lukasmenke"),
+    url: "https://images.unsplash.com/photo-1648301033733-44554c74ec50",
+    credit: unsplash("Creab ThePolymath", "creabthepolymath"),
   },
   "/photos/track-gigs.jpg": {
-    url: "https://images.unsplash.com/photo-1694175271713-a6e2cc378980",
-    credit: unsplash("Seth Ebenezer Tetteh", "sethebenezer"),
+    url: "https://images.unsplash.com/photo-1758270705317-3ef6142d306f",
+    credit: unsplash("Vitaly Gariev", "vitalygariev"),
   },
   "/photos/profile-1.jpg": {
-    url: "https://images.unsplash.com/photo-1546525848-3ce03ca516f6",
-    credit: unsplash("Mubarak Showole", "mubarakshowole"),
+    url: "https://images.unsplash.com/photo-1594750852563-5ed8e0421d40",
+    credit: unsplash("Nqobile Vundla", "nqobilevundla"),
   },
 };
 
@@ -78,3 +78,14 @@ export function unsplashSrc(url: string, width: number, ratio: string): string {
 export function getCurated(path: string | undefined): CuratedPhoto | undefined {
   return path ? CURATED[path] : undefined;
 }
+
+/**
+ * Hero video. Free under the Pexels licence; attribution is not required but
+ * is given anyway. It is ~6.7MB, so nothing fetches it until a viewer
+ * presses play — see HeroVideo.
+ */
+export const HERO_VIDEO = {
+  src: "https://videos.pexels.com/video-files/9198421/9198421-hd_1920_1080_25fps.mp4",
+  credit: "Mikhail Nilov / Pexels",
+  label: "A student working on a laptop in class",
+};

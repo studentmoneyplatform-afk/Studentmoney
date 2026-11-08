@@ -1,4 +1,6 @@
 import { Figure } from "@/components/figure";
+import { HeroVideo } from "@/components/hero-video";
+import { CURATED, HERO_VIDEO, unsplashSrc } from "@/lib/photos";
 import { LineReveal, Parallax } from "@/components/motion";
 import { Money } from "@/components/money";
 import { OpportunityCard } from "@/components/opportunity-card";
@@ -106,12 +108,16 @@ export default async function HomePage() {
 
           <div className="relative grid grid-cols-5 gap-3 sm:gap-4">
             <Parallax strength={24} className="col-span-3">
-              <Figure
-                src="/photos/hero-student-1.jpg"
-                alt="A student checking an opportunity on their phone"
-                brief="Student on a phone, campus, natural light"
+              <HeroVideo
+                src={HERO_VIDEO.src}
+                poster={unsplashSrc(
+                  CURATED["/photos/hero-student-1.jpg"].url,
+                  900,
+                  "4/5",
+                )}
+                label={HERO_VIDEO.label}
+                credit={HERO_VIDEO.credit}
                 ratio="4/5"
-                priority
               />
             </Parallax>
 

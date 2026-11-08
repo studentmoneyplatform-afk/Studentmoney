@@ -10,24 +10,25 @@
 */
 
 @theme static {
-  /* Ground: cool near-white, which is what the new logo sits on */
-  --color-paper: #ffffff;
-  --color-paper-2: #f5f7f5;
-  --color-cream: #eaf2ec;
-  --color-cream-deep: #d9e7dc;
+  /* Ground: airy cream, with the true brand cream as a section tone.
+     The approved codes are the source of truth; nothing here invents a hue. */
+  --color-paper: #faf6ee;
+  --color-paper-2: #f1e9da;
+  --color-cream: #f1e9da;
+  --color-cream-deep: #e6dcc6;
 
-  /* Brand, taken from the Learn · Earn · Thrive mark */
-  --color-forest: #0b3b2c;
-  --color-forest-deep: #072a1f;
-  --color-money: #16a34a;
-  --color-money-soft: #6ee7a0;
-  --color-ink: #1b1d1c;
-  --color-moss: #5f6b63;
+  /* Brand Pack v1 "The Ledger" — approved codes */
+  --color-forest: #0e4b37;
+  --color-forest-deep: #0a3828;
+  --color-money: #b82a55;
+  --color-money-soft: #ff9db5;
+  --color-ink: #16130f;
+  --color-moss: #5a5f4d;
 
   /* Functional. Error is brick so a problem never reads as earnings. */
-  --color-success: #15803d;
+  --color-success: #1f7a4d;
   --color-warning: #b7791f;
-  --color-error: #a3301b;
+  --color-error: #8f2d1b;
 
   /* Type */
   --font-display: var(--font-fraunces), Georgia, serif;
@@ -175,30 +176,12 @@ body {
   --accent-wash: var(--color-cream);
 }
 
-[data-page="home"] {
-  --accent: #0b3b2c;
-  --accent-wash: #f1e9da;
-}
-[data-page="earn"] {
-  --accent: #1c3f6e;
-  --accent-wash: #e4ecf6;
-}
-[data-page="marketplace"] {
-  --accent: #6b3fa0;
-  --accent-wash: #efe7f8;
-}
-[data-page="students"] {
-  --accent: #a8541b;
-  --accent-wash: #fbeadb;
-}
-[data-page="business"] {
-  --accent: #0f5560;
-  --accent-wash: #e0f0f1;
-}
-[data-page="rewards"] {
-  --accent: #0b3b2c;
-  --accent-wash: #e6efe9;
-}
+[data-page="home"] { --accent-wash: #f1e9da; }
+[data-page="earn"] { --accent-wash: #ece6da; }
+[data-page="marketplace"] { --accent-wash: #e9e7dd; }
+[data-page="students"] { --accent-wash: #f0e7d8; }
+[data-page="business"] { --accent-wash: #e6ebe3; }
+[data-page="rewards"] { --accent-wash: #e9efe9; }
 
 .accent-text { color: var(--accent); }
 .accent-bg { background-color: var(--accent); }

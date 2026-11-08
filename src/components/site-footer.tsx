@@ -38,7 +38,7 @@ export function SiteFooter({ logo }: { logo?: { src?: string; reversedSrc?: stri
           <div>
             <Logo tone="reversed" size={30} src={logo?.src} reversedSrc={logo?.reversedSrc} />
             <p className="mt-4 max-w-xs text-[0.9375rem] text-[color:var(--on-dark-1)]/80">
-              Learn · Earn · Thrive
+              Learn. Connect. Create. Earn.
             </p>
           </div>
 

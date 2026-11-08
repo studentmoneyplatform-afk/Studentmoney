@@ -23,13 +23,13 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://studentmoney.ng"),
   title: {
-    default: "StudentMoney — Learn · Earn · Thrive",
+    default: "StudentMoney — Learn. Connect. Create. Earn.",
     template: "%s · StudentMoney",
   },
   description:
     "Nine ways for Nigerian students to earn before graduation — referrals, freelance gigs, content, tutoring and more. Every opportunity says who pays, how much, and when.",
   openGraph: {
-    title: "StudentMoney — Learn · Earn · Thrive",
+    title: "StudentMoney — Learn. Connect. Create. Earn.",
     description:
       "Nine ways for Nigerian students to earn before graduation.",
     type: "website",

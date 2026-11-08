@@ -68,18 +68,34 @@ function Wordmark({ tone, size }: { tone: Tone; size: number }) {
   );
 }
 
-/** A graduation cap over a rising bar chart — learn, earn, thrive. */
+/**
+ * The mark: a rounded square split 80 / 20 — the share a student can
+ * withdraw beside the share that grows.
+ */
 export function Mark({ size = 30, tone = "primary" }: { size?: number; tone?: Tone }) {
-  const deep = tone === "reversed" ? "var(--on-dark-1)" : "var(--color-forest)";
-  const bright = tone === "ink" ? "var(--color-ink)" : "var(--color-money)";
+  const [body, split] =
+    tone === "reversed"
+      ? ["var(--color-cream)", "var(--color-money-soft)"]
+      : tone === "ink"
+        ? ["var(--color-ink)", "var(--color-ink)"]
+        : ["var(--color-forest)", "var(--color-money)"];
+
+  const id = `sm-mark-${tone}`;
 
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" role="img" aria-label="StudentMoney" fill="none">
-      <path d="M16 4.2 29 10l-13 5.8L3 10l13-5.8Z" fill={deep} />
-      <path d="M8.4 14.2v5.3c0 2.6 3.4 4.3 7.6 4.3s7.6-1.7 7.6-4.3v-5.3" stroke={deep} strokeWidth="2.1" strokeLinecap="round" />
-      <rect x="11.4" y="22.4" width="2.7" height="5.4" rx="1" fill={bright} />
-      <rect x="15.6" y="19.6" width="2.7" height="8.2" rx="1" fill={bright} />
-      <rect x="19.8" y="16.6" width="2.7" height="11.2" rx="1" fill={bright} />
+    <svg width={size} height={size} viewBox="0 0 40 40" role="img" aria-label="StudentMoney">
+      <defs>
+        <clipPath id={id}>
+          <rect x="0" y="0" width="40" height="40" rx="12" />
+        </clipPath>
+      </defs>
+      <g clipPath={`url(#${id})`}>
+        <rect x="0" y="0" width="32" height="40" fill={body} />
+        <rect x="32" y="0" width="8" height="40" fill={split} />
+        {tone === "ink" && (
+          <rect x="30.5" y="0" width="1.5" height="40" fill="var(--color-paper)" />
+        )}
+      </g>
     </svg>
   );
 }

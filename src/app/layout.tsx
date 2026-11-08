@@ -23,15 +23,15 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://studentmoney.ng"),
   title: {
-    default: "StudentMoney — Learn. Connect. Create. Earn.",
+    default: "StudentMoney — Learn · Earn · Thrive",
     template: "%s · StudentMoney",
   },
   description:
-    "Introduce a business to a project you believe in and earn as the client pays. Every opportunity shows what you do, who pays, and when you get paid.",
+    "Nine ways for Nigerian students to earn before graduation — referrals, freelance gigs, content, tutoring and more. Every opportunity says who pays, how much, and when.",
   openGraph: {
-    title: "StudentMoney — Learn. Connect. Create. Earn.",
+    title: "StudentMoney — Learn · Earn · Thrive",
     description:
-      "Introduce a business to a project you believe in and earn as the client pays.",
+      "Nine ways for Nigerian students to earn before graduation.",
     type: "website",
   },
 };

@@ -42,3 +42,7 @@ next-env.d.ts
 
 # ...but the example file is part of the repo.
 !.env.example
+
+# Static demo export for Netlify
+/out/
+*.zip

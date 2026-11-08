@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 import { Logo } from "@/components/logo";
 
 const NAV = [
+  { href: "/opportunities", label: "Explore opportunities" },
   { href: "/how-it-works", label: "How it works" },
-  { href: "/opportunities", label: "Ways to earn" },
   { href: "/marketplace", label: "Marketplace" },
-  { href: "/students", label: "Students" },
-  { href: "/for-businesses", label: "For businesses" },
+  { href: "/about", label: "About" },
+  { href: "/faqs", label: "FAQs" },
 ];
 
 export function SiteHeader({ logo }: { logo?: { src?: string; reversedSrc?: string } }) {

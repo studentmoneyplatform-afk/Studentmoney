@@ -6,24 +6,26 @@ const COLUMNS = [
   {
     heading: "Earn",
     links: [
-      { href: "/opportunities", label: "Ways to earn" },
-      { href: "/marketplace", label: "Marketplace" },
-      { href: "/students", label: "Student profiles" },
-      { href: "/rewards", label: "Rewards and payouts" },
+      { href: "/opportunities", label: "Explore opportunities" },
+      { href: "/opportunities/software-referrals", label: "Software referrals" },
+      { href: "/opportunities/dare-company-global", label: "DARE Company Global" },
+      { href: "/opportunities/tobi-music-academy", label: "Tobi Music Academy" },
     ],
   },
   {
     heading: "Understand it",
     links: [
       { href: "/how-it-works", label: "How it works" },
+      { href: "/about", label: "About" },
+      { href: "/faqs", label: "FAQs" },
       { href: "/join", label: "Join free" },
     ],
   },
   {
-    heading: "Business",
+    heading: "More",
     links: [
-      { href: "/for-businesses", label: "Post a gig" },
-      { href: "/join?as=business", label: "Run a campaign" },
+      { href: "/marketplace", label: "Marketplace" },
+      { href: "/for-businesses", label: "For businesses" },
       { href: "/terms", label: "Terms" },
       { href: "/privacy", label: "Privacy" },
     ],

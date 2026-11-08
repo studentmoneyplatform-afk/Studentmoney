@@ -5,13 +5,17 @@ import { Money } from "@/components/money";
 import { Reveal } from "@/components/reveal";
 import { RewardBar } from "@/components/reward-bar";
 import { Button, Card, Chip, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
-import { CATEGORIES, LIVE_TRACKS } from "@/lib/catalog";
+import { CATEGORIES } from "@/lib/catalog";
+import { OpportunityCard } from "@/components/opportunity-card";
+import { getLiveOpportunities } from "@/lib/opportunities-data";
 import { PROJECT_REWARD_USD, rewardAtProgress } from "@/lib/rewards";
 import { formatPercent, formatUsd } from "@/lib/money";
 
 const MILESTONES = [0.3, 0.7, 1];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const opportunities = await getLiveOpportunities();
+
   return (
     <div data-page="home">
       {/* ── Hero ───────────────────────────────────────────── */}
@@ -121,7 +125,7 @@ export default function HomePage() {
       {/* ── Ticker ─────────────────────────────────────────── */}
       <div className="mt-20 border-y border-[color:var(--hair)] bg-white py-4">
         <Marquee speed={46}>
-          {[...CATEGORIES, ...LIVE_TRACKS.map((t) => ({ slug: t.slug, name: t.title }))].map(
+          {CATEGORIES.map(
             (item) => (
               <span
                 key={`${item.slug}-${item.name}`}
@@ -157,70 +161,43 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* ── Ways to earn, editorial ────────────────────────── */}
+      {/* ── The three opportunities ────────────────────── */}
       <Section tone="paper-2">
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-          <Reveal>
-            <div className="lg:sticky lg:top-28">
-              <Eyebrow>Ways to earn</Eyebrow>
-              <H2 className="mt-4">
-                Nine ways to make money, not one.
+        <Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Eyebrow>Live right now</Eyebrow>
+              <H2 className="mt-4 max-w-2xl">
+                Three ways to earn. One StudentMoney.
               </H2>
               <Lede className="mt-5">
-                Some students have a network. Some have a skill. Some only have the
-                hour between lectures. Pick what fits this week, change it next week.
+                Join one of them, or run all three at once. Each has its own target and
+                its own reward, and each one says what counts before you start.
               </Lede>
-              <div className="mt-8">
-                <Button href="/opportunities" variant="ghost">
-                  See all nine with the rules
-                </Button>
-              </div>
-
-              <div className="mt-10 hidden lg:block">
-                <Figure
-                  src="/photos/track-referral.jpg"
-                  alt="A student introducing a client to a service provider"
-                  brief="Student talking to a shop owner"
-                  ratio="3/2"
-                />
-              </div>
             </div>
-          </Reveal>
+            <Button href="/opportunities" variant="ghost">
+              Explore all three
+            </Button>
+          </div>
+        </Reveal>
 
-          <ol className="divide-y divide-[color:var(--hair)] border-y border-[color:var(--hair)]">
-            {LIVE_TRACKS.map((track, i) => (
-              <Reveal key={track.slug} delay={(i % 4) * 45}>
-                <li>
-                  <Link
-                    href={`/opportunities#${track.slug}`}
-                    className="group grid gap-3 py-6 transition-colors duration-300 hover:bg-white sm:grid-cols-[auto_1fr_auto] sm:items-baseline sm:gap-6 sm:px-4"
-                  >
-                    <span className="money text-[1.125rem] text-[color:var(--ink-4)]">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span>
-                      <span className="font-display block text-[1.5rem] leading-tight transition-colors group-hover:accent-text">
-                        {track.title}
-                      </span>
-                      <span className="mt-1.5 block text-[color:var(--ink-2)]">
-                        {track.blurb}
-                      </span>
-                      <span className="mt-3 block text-caption font-bold accent-text">
-                        {track.paid}
-                      </span>
-                    </span>
-                    <span
-                      aria-hidden="true"
-                      className="hidden text-[color:var(--ink-4)] transition-transform duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:translate-x-1 group-hover:text-[color:var(--ink-1)] sm:block"
-                    >
-                      →
-                    </span>
-                  </Link>
-                </li>
-              </Reveal>
-            ))}
-          </ol>
+        <div className="mt-14 grid gap-5 lg:grid-cols-3">
+          {opportunities.map((o, i) => (
+            <Reveal key={o.slug} delay={i * 70}>
+              <OpportunityCard opportunity={o} />
+            </Reveal>
+          ))}
         </div>
+
+        <Reveal>
+          <div className="mt-10 max-w-3xl">
+            <FinePrint>
+              A click is not a referral and a referral is not a reward. Every referral
+              is verified and approved before anything is paid, and you can see which
+              stage each one is at.
+            </FinePrint>
+          </div>
+        </Reveal>
       </Section>
 
       {/* ── Marketplace ────────────────────────────────────── */}

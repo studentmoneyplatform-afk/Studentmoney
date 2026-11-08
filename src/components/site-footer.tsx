@@ -30,15 +30,15 @@ const COLUMNS = [
   },
 ];
 
-export function SiteFooter() {
+export function SiteFooter({ logo }: { logo?: { src?: string; reversedSrc?: string } }) {
   return (
     <footer className="bg-forest text-[color:var(--on-dark-1)]">
       <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Logo tone="reversed" size={30} />
+            <Logo tone="reversed" size={30} src={logo?.src} reversedSrc={logo?.reversedSrc} />
             <p className="mt-4 max-w-xs text-[0.9375rem] text-[color:var(--on-dark-1)]/80">
-              Learn. Connect. Create. Earn.
+              Learn · Earn · Thrive
             </p>
           </div>
 

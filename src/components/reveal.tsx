@@ -45,7 +45,18 @@ export function Reveal({
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+
+    // Failsafe. A backgrounded tab can suspend observer callbacks, and an
+    // element armed but never revealed stays at opacity 0 — content lost to
+    // a decoration. If nothing has fired by now, just show it.
+    const failsafe = window.setTimeout(() => {
+      if (el.dataset.reveal !== "in") el.dataset.reveal = "in";
+    }, 2500);
+
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(failsafe);
+    };
   }, [delay]);
 
   return (

@@ -4,37 +4,37 @@
   StudentMoney — design system.
 
   The brand pack's 70/20/10 is the law: the page is mostly light, forest is
-  punctuation, hibiscus is money and nothing else. Earlier builds drowned the
+  punctuation, money is money and nothing else. Earlier builds drowned the
   site in forest; the ground here is a warm off-white and cream is demoted to
   one surface among several, so the green lands when it finally arrives.
 */
 
 @theme static {
-  /* Ground: warm paper, several steps, so sections can differ without colour */
-  --color-paper: #fbfaf7;
-  --color-paper-2: #f6f4ee;
-  --color-cream: #f1e9da;
-  --color-cream-deep: #e8dfcc;
+  /* Ground: cool near-white, which is what the new logo sits on */
+  --color-paper: #ffffff;
+  --color-paper-2: #f5f7f5;
+  --color-cream: #eaf2ec;
+  --color-cream-deep: #d9e7dc;
 
-  /* Brand */
-  --color-forest: #0e4b37;
-  --color-forest-deep: #0a3828;
-  --color-hibiscus: #b82a55;
-  --color-hibiscus-light: #ff9db5;
-  --color-ink: #16130f;
-  --color-moss: #5a5f4d;
+  /* Brand, taken from the Learn · Earn · Thrive mark */
+  --color-forest: #0b3b2c;
+  --color-forest-deep: #072a1f;
+  --color-money: #16a34a;
+  --color-money-soft: #6ee7a0;
+  --color-ink: #1b1d1c;
+  --color-moss: #5f6b63;
 
   /* Functional. Error is brick so a problem never reads as earnings. */
-  --color-success: #1f7a4d;
+  --color-success: #15803d;
   --color-warning: #b7791f;
-  --color-error: #8f2d1b;
+  --color-error: #a3301b;
 
   /* Type */
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-sans: var(--font-jakarta), system-ui, sans-serif;
 
   /* Fluid display sizing: no mid-breakpoint jumps */
-  --text-hero: clamp(2.75rem, 7.5vw, 6rem);
+  --text-hero: clamp(2.5rem, 5.6vw, 5rem);
   --text-h1: clamp(2.25rem, 5vw, 3.75rem);
   --text-h2: clamp(1.875rem, 3.4vw, 2.75rem);
   --text-h3: 1.375rem;
@@ -163,4 +163,67 @@ body {
     opacity: 1;
     transform: none;
   }
+}
+
+/* ── Per-page identity ───────────────────────────────────────────────
+   Each route sets --accent and --accent-wash on <main>, so a page can
+   have its own temperature without touching the brand marks. Hibiscus
+   stays out of this: it only ever means money earned. */
+
+[data-page] {
+  --accent: var(--color-forest);
+  --accent-wash: var(--color-cream);
+}
+
+[data-page="home"] {
+  --accent: #0b3b2c;
+  --accent-wash: #f1e9da;
+}
+[data-page="earn"] {
+  --accent: #1c3f6e;
+  --accent-wash: #e4ecf6;
+}
+[data-page="marketplace"] {
+  --accent: #6b3fa0;
+  --accent-wash: #efe7f8;
+}
+[data-page="students"] {
+  --accent: #a8541b;
+  --accent-wash: #fbeadb;
+}
+[data-page="business"] {
+  --accent: #0f5560;
+  --accent-wash: #e0f0f1;
+}
+[data-page="rewards"] {
+  --accent: #0b3b2c;
+  --accent-wash: #e6efe9;
+}
+
+.accent-text { color: var(--accent); }
+.accent-bg { background-color: var(--accent); }
+.accent-wash { background-color: var(--accent-wash); }
+.accent-border { border-color: var(--accent); }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-slow { animation: none; }
 }

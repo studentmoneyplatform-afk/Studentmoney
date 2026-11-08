@@ -13,7 +13,7 @@ const NAV = [
   { href: "/for-businesses", label: "For businesses" },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ logo }: { logo?: { src?: string; reversedSrc?: string } }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -43,7 +43,7 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center gap-6 px-5 py-3.5 sm:px-8">
-        <Logo size={28} />
+        <Logo size={28} src={logo?.src} reversedSrc={logo?.reversedSrc} />
 
         <nav className="hidden flex-1 items-center justify-center gap-1 lg:flex" aria-label="Main">
           {NAV.map((item) => {

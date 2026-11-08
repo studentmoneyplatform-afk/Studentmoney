@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { Figure } from "@/components/figure";
+import { Counter, LineReveal, Marquee, Parallax, Tilt } from "@/components/motion";
 import { Money } from "@/components/money";
 import { Reveal } from "@/components/reveal";
 import { RewardBar } from "@/components/reward-bar";
 import { Button, Card, Chip, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
-import { LIVE_TRACKS, CATEGORIES } from "@/lib/catalog";
+import { CATEGORIES, LIVE_TRACKS } from "@/lib/catalog";
 import { PROJECT_REWARD_USD, rewardAtProgress } from "@/lib/rewards";
 import { formatPercent, formatUsd } from "@/lib/money";
 
@@ -11,211 +13,296 @@ const MILESTONES = [0.3, 0.7, 1];
 
 export default function HomePage() {
   return (
-    <>
-      {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden">
-        {/* A single soft wash, so the hero has depth without a green slab. */}
+    <div data-page="home">
+      {/* ── Hero ───────────────────────────────────────────── */}
+      <section className="relative overflow-hidden pb-8 pt-12 sm:pt-16">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 -top-40 h-[32rem] bg-[radial-gradient(60%_60%_at_50%_40%,var(--color-cream),transparent_70%)]"
+          className="pointer-events-none absolute -top-56 left-1/2 h-[40rem] w-[72rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,var(--accent-wash),transparent)] opacity-80"
         />
-        <div className="relative mx-auto w-full max-w-6xl px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24">
-          <Reveal>
-            <Chip>Now opening on Nigerian campuses</Chip>
-          </Reveal>
 
-          <Reveal delay={60}>
-            <h1 className="font-display mt-7 max-w-4xl text-hero">
-              Students don&apos;t have to wait{" "}
-              <em className="font-display not-italic text-forest">
-                <span className="italic">to earn.</span>
-              </em>
+        <div className="relative mx-auto grid w-full max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+          <div>
+            <Reveal>
+              <div className="flex flex-wrap items-center gap-2.5">
+                <Chip tone="forest">Opening on Nigerian campuses</Chip>
+                <span className="text-caption text-[color:var(--ink-3)]">
+                  Bells · McPherson · OOU
+                </span>
+              </div>
+            </Reveal>
+
+            <h1 className="font-display mt-7 text-hero">
+              <LineReveal
+                lines={[
+                  "Students don't",
+                  "have to wait",
+                  <span key="l3">
+                    <span className="italic accent-text">to earn.</span>
+                  </span>,
+                ]}
+              />
             </h1>
-          </Reveal>
 
-          <Reveal delay={120}>
-            <Lede className="mt-7 text-lead">
-              StudentMoney turns what you already have — a network, a skill, a phone
-              and some hustle — into real income. Refer a business, sell a skill, make
-              content, teach a junior. Every opportunity tells you who pays, how much,
-              and when.
-            </Lede>
-          </Reveal>
+            <Reveal delay={420}>
+              <Lede className="mt-7">
+                A network, a skill, a phone and some hustle. That is already a
+                business — StudentMoney is where you run it. Refer a client, sell a
+                design, edit a reel, teach a junior. Every opportunity says who pays,
+                how much, and when.
+              </Lede>
+            </Reveal>
 
-          <Reveal delay={180}>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <Button href="/join" size="lg">
-                Start earning — it&apos;s free
-              </Button>
-              <Button href="/marketplace" variant="ghost" size="lg">
-                Browse the marketplace
-              </Button>
+            <Reveal delay={480}>
+              <div className="mt-9 flex flex-wrap items-center gap-3">
+                <Button href="/join" size="lg">
+                  Start earning — it&apos;s free
+                </Button>
+                <Button href="/marketplace" variant="ghost" size="lg">
+                  Browse the marketplace
+                </Button>
+              </div>
+            </Reveal>
+
+            <Reveal delay={540}>
+              <p className="mt-6 text-caption text-[color:var(--ink-3)]">
+                Free to join · No fee to list a skill · Paid to your own bank account
+              </p>
+            </Reveal>
+          </div>
+
+          {/* Photo cluster */}
+          <div className="relative grid grid-cols-5 gap-3 sm:gap-4">
+            <Parallax strength={26} className="col-span-3">
+              <Figure
+                src="/photos/hero-student-1.jpg"
+                alt="A student checking an opportunity on their phone between lectures"
+                brief="Student on a phone, campus, natural light"
+                ratio="4/5"
+                priority
+              />
+            </Parallax>
+
+            <div className="col-span-2 flex flex-col gap-3 sm:gap-4">
+              <Parallax strength={-18}>
+                <Figure
+                  src="/photos/hero-student-2.jpg"
+                  alt="Two students working together on a laptop outdoors"
+                  brief="Two students, one laptop, laughing"
+                  ratio="1/1"
+                />
+              </Parallax>
+
+              <Parallax strength={-34}>
+                <Figure
+                  src="/photos/hero-student-3.jpg"
+                  alt="A student filming a short product video on a phone tripod"
+                  brief="Filming a reel on a phone tripod"
+                  ratio="3/4"
+                />
+              </Parallax>
             </div>
-          </Reveal>
 
-          {/* The product, shown rather than described. */}
-          <Reveal delay={240}>
-            <div className="mt-16 grid gap-4 sm:grid-cols-3">
-              <Card className="sm:col-span-2">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <Eyebrow>Referral · website project</Eyebrow>
-                    <p className="mt-2 font-bold">Mama Nkechi Catering</p>
-                  </div>
-                  <Chip tone="forest">Client paid 70%</Chip>
-                </div>
-                <div className="mt-6">
-                  <Money usd={17.5} size="lg" tone="earned" />
-                </div>
-                <RewardBar cash={14} grow={3.5} surface="light" className="mt-6" />
-                <div className="mt-4">
-                  <FinePrint>
-                    Your ledger moves the moment a client payment clears. Nothing is
-                    estimated.
-                  </FinePrint>
-                </div>
-              </Card>
-
-              <Card tone="cream">
-                <Eyebrow>This week</Eyebrow>
-                <ul className="mt-5 space-y-4">
-                  {[
-                    ["Logo for a barber", "$30"],
-                    ["Edit 3 reels", "$18"],
-                    ["Tutor ECO 201", "$12"],
-                  ].map(([job, fee]) => (
-                    <li
-                      key={job}
-                      className="flex items-baseline justify-between gap-3 border-b border-[color:var(--hair)] pb-3 last:border-0"
-                    >
-                      <span className="text-[color:var(--ink-2)]">{job}</span>
-                      <span className="money text-[1.0625rem] text-hibiscus">{fee}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-5">
-                  <FinePrint>Illustrative gigs. Real listings open at launch.</FinePrint>
-                </div>
-              </Card>
+            {/* Floating proof chip over the cluster */}
+            <div className="float-slow pointer-events-none absolute -bottom-5 -left-3 w-[16rem] max-w-[78%] rounded-[var(--radius-lg)] border border-[color:var(--hair)] bg-white/95 p-4 shadow-[0_24px_60px_-30px_rgba(22,19,15,0.55)] backdrop-blur sm:-left-7">
+              <p className="text-micro font-bold uppercase tracking-widest text-[color:var(--ink-3)]">
+                Reward released
+              </p>
+              <div className="mt-1.5 flex items-baseline gap-2">
+                <Money usd={17.5} size="sm" tone="earned" showNgn={false} />
+                <span className="text-caption text-[color:var(--ink-3)]">of $25</span>
+              </div>
+              <RewardBar cash={14} grow={3.5} surface="light" className="mt-3" />
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* ── Ways to earn ─────────────────────────────────────── */}
-      <Section tone="paper-2">
-        <Reveal>
-          <Eyebrow>Ways to earn</Eyebrow>
-          <H2 className="mt-4 max-w-3xl">
-            Nine ways to make money, not one.
-          </H2>
-          <Lede className="mt-5">
-            Different students have different things to sell. Some have a network, some
-            have a skill, some just have time between lectures. Pick what fits this
-            week and change it next week.
-          </Lede>
-        </Reveal>
+      {/* ── Ticker ─────────────────────────────────────────── */}
+      <div className="mt-20 border-y border-[color:var(--hair)] bg-white py-4">
+        <Marquee speed={46}>
+          {[...CATEGORIES, ...LIVE_TRACKS.map((t) => ({ slug: t.slug, name: t.title }))].map(
+            (item) => (
+              <span
+                key={`${item.slug}-${item.name}`}
+                className="flex shrink-0 items-center gap-4 whitespace-nowrap text-[1.0625rem] font-bold text-[color:var(--ink-2)]"
+              >
+                {item.name}
+                <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-money" />
+              </span>
+            ),
+          )}
+        </Marquee>
+      </div>
 
-        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {LIVE_TRACKS.map((track, i) => (
-            <Reveal key={track.slug} delay={i * 45}>
-              <Link href={`/opportunities#${track.slug}`} className="block h-full">
-                <Card interactive className="flex h-full flex-col">
-                  <h3 className="font-display text-h3">{track.title}</h3>
-                  <p className="mt-3 flex-1 text-[color:var(--ink-2)]">{track.blurb}</p>
-                  <div className="mt-5 flex flex-wrap gap-1.5">
-                    {track.examples.slice(0, 3).map((e) => (
-                      <Chip key={e}>{e}</Chip>
-                    ))}
-                  </div>
-                  <p className="mt-5 border-t border-[color:var(--hair)] pt-4 text-caption font-bold text-forest">
-                    {track.paid}
-                  </p>
-                </Card>
-              </Link>
+      {/* ── The numbers that are actually true ─────────────── */}
+      <Section>
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { n: 9, suffix: "", label: "ways to earn", sub: "Not one gimmick. Nine real tracks." },
+            { n: 12, suffix: "", label: "marketplace categories", sub: "Design, video, tutoring, tech, more." },
+            { n: 25, prefix: "$", label: "top referral reward", sub: "Per qualifying project, as the client pays." },
+            { n: 80, suffix: "%", label: "of every reward is cash", sub: "The other 20% is your Grow share." },
+          ].map((stat, i) => (
+            <Reveal key={stat.label} delay={i * 70}>
+              <div className="border-t-2 border-[color:var(--ink-1)] pt-5">
+                <p className="money text-[clamp(2.5rem,5vw,3.5rem)] leading-none">
+                  <Counter to={stat.n} prefix={stat.prefix ?? ""} suffix={stat.suffix ?? ""} />
+                </p>
+                <p className="mt-3 font-bold">{stat.label}</p>
+                <p className="mt-1 text-caption text-[color:var(--ink-3)]">{stat.sub}</p>
+              </div>
             </Reveal>
           ))}
         </div>
-
-        <Reveal>
-          <div className="mt-10">
-            <Button href="/opportunities" variant="ghost">
-              See all nine, with the rules on each
-            </Button>
-          </div>
-        </Reveal>
       </Section>
 
-      {/* ── Marketplace ──────────────────────────────────────── */}
-      <Section>
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      {/* ── Ways to earn, editorial ────────────────────────── */}
+      <Section tone="paper-2">
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <Reveal>
-            <div>
-              <Eyebrow>The marketplace</Eyebrow>
+            <div className="lg:sticky lg:top-28">
+              <Eyebrow>Ways to earn</Eyebrow>
               <H2 className="mt-4">
-                A profile that earns while you sleep.
+                Nine ways to make money, not one.
               </H2>
               <Lede className="mt-5">
-                List what you can do. Businesses find you, hire you, and the work you
-                deliver builds a record nobody can argue with — the closest thing to a
-                CV that actually proves something.
+                Some students have a network. Some have a skill. Some only have the
+                hour between lectures. Pick what fits this week, change it next week.
               </Lede>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button href="/marketplace">Browse the marketplace</Button>
-                <Button href="/students" variant="ghost">
-                  See student profiles
+              <div className="mt-8">
+                <Button href="/opportunities" variant="ghost">
+                  See all nine with the rules
                 </Button>
+              </div>
+
+              <div className="mt-10 hidden lg:block">
+                <Figure
+                  src="/photos/track-referral.jpg"
+                  alt="A student introducing a client to a service provider"
+                  brief="Student talking to a shop owner"
+                  ratio="3/2"
+                />
               </div>
             </div>
           </Reveal>
 
-          <Reveal delay={100}>
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-              {CATEGORIES.map((c, i) => (
-                <div
+          <ol className="divide-y divide-[color:var(--hair)] border-y border-[color:var(--hair)]">
+            {LIVE_TRACKS.map((track, i) => (
+              <Reveal key={track.slug} delay={(i % 4) * 45}>
+                <li>
+                  <Link
+                    href={`/opportunities#${track.slug}`}
+                    className="group grid gap-3 py-6 transition-colors duration-300 hover:bg-white sm:grid-cols-[auto_1fr_auto] sm:items-baseline sm:gap-6 sm:px-4"
+                  >
+                    <span className="money text-[1.125rem] text-[color:var(--ink-4)]">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span>
+                      <span className="font-display block text-[1.5rem] leading-tight transition-colors group-hover:accent-text">
+                        {track.title}
+                      </span>
+                      <span className="mt-1.5 block text-[color:var(--ink-2)]">
+                        {track.blurb}
+                      </span>
+                      <span className="mt-3 block text-caption font-bold accent-text">
+                        {track.paid}
+                      </span>
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="hidden text-[color:var(--ink-4)] transition-transform duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:translate-x-1 group-hover:text-[color:var(--ink-1)] sm:block"
+                    >
+                      →
+                    </span>
+                  </Link>
+                </li>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </Section>
+
+      {/* ── Marketplace ────────────────────────────────────── */}
+      <Section>
+        <Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Eyebrow>The marketplace</Eyebrow>
+              <H2 className="mt-4 max-w-xl">A profile that earns while you sleep.</H2>
+            </div>
+            <Button href="/marketplace" variant="ghost">
+              Browse everything
+            </Button>
+          </div>
+        </Reveal>
+
+        <div className="mt-12 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+          <Reveal>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {CATEGORIES.slice(0, 9).map((c) => (
+                <Link
                   key={c.slug}
-                  className="lift rounded-[var(--radius-lg)] border border-[color:var(--hair)] bg-white px-4 py-5"
-                  style={{ transitionDelay: `${i * 12}ms` }}
+                  href={`/marketplace#${c.slug}`}
+                  className="lift group rounded-[var(--radius-lg)] border border-[color:var(--hair)] bg-white px-4 py-5"
                 >
-                  <p className="font-bold">{c.name}</p>
+                  <p className="font-bold transition-colors group-hover:accent-text">{c.name}</p>
                   <p className="mt-1 text-caption text-[color:var(--ink-3)]">
                     {c.blurb.split(",")[0]}
                   </p>
-                </div>
+                </Link>
               ))}
             </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <Tilt>
+              <Card className="h-full">
+                <Figure
+                  src="/photos/track-gigs.jpg"
+                  alt="A student working on a design commission"
+                  brief="Hands on a laptop, design open"
+                  ratio="3/2"
+                  rounded="lg"
+                />
+                <div className="mt-5 flex items-start justify-between gap-4">
+                  <div>
+                    <p className="font-display text-h3">Logo and brand kit</p>
+                    <p className="mt-1 text-caption text-[color:var(--ink-3)]">
+                      Design · 3-day turnaround
+                    </p>
+                  </div>
+                  <span className="money text-[1.5rem] text-money">$35</span>
+                </div>
+                <div className="mt-4">
+                  <FinePrint>
+                    The listing format. Real listings open with the first verified
+                    students.
+                  </FinePrint>
+                </div>
+              </Card>
+            </Tilt>
           </Reveal>
         </div>
       </Section>
 
-      {/* ── The ledger: the trust machinery ─────────────────── */}
+      {/* ── Ledger ─────────────────────────────────────────── */}
       <Section tone="forest">
         <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-start">
           <Reveal>
             <div>
               <Eyebrow tone="reversed">Why you can trust the number</Eyebrow>
-              <H2 className="mt-4">
-                Every naira is traceable to a payment that cleared.
-              </H2>
+              <H2 className="mt-4">Every naira traces back to a payment that cleared.</H2>
               <Lede tone="reversed" className="mt-5">
                 Most &ldquo;earn online&rdquo; offers go quiet exactly when you ask how
-                the money is calculated. Here is ours, in public, before you join.
+                the money is calculated. Ours is public before you join.
               </Lede>
 
               <dl className="mt-10 space-y-6">
                 {[
-                  [
-                    "You earn as the client pays",
-                    "Not on signature, not on promise. Your reward is the campaign reward multiplied by the share the client has actually paid.",
-                  ],
-                  [
-                    "Never paid twice",
-                    "The ledger recalculates and pays the difference. It is derived from cleared payments, not a balance someone types in.",
-                  ],
-                  [
-                    "A refund walks it back",
-                    "If a payment is reversed, the part of your reward it funded reverses with it. We would rather tell you that now than surprise you later.",
-                  ],
+                  ["You earn as the client pays", "Not on signature, not on promise. Your reward tracks the share the client has actually paid."],
+                  ["Never paid twice", "The ledger recalculates and pays the difference. It is derived from cleared payments, not a number someone types in."],
+                  ["A refund walks it back", "If a payment reverses, the part of your reward it funded reverses too. Better you hear that now."],
                 ].map(([term, def]) => (
                   <div key={term} className="border-t border-[color:var(--hair-reversed)] pt-5">
                     <dt className="font-bold">{term}</dt>
@@ -229,7 +316,6 @@ export default function HomePage() {
           <Reveal delay={120}>
             <div className="rounded-[var(--radius-xl)] border border-[color:var(--hair-reversed)] p-6 sm:p-8">
               <Eyebrow tone="reversed">A $25 referral, step by step</Eyebrow>
-
               <div className="mt-7 space-y-5">
                 {MILESTONES.map((progress) => {
                   const split = rewardAtProgress(progress);
@@ -244,29 +330,14 @@ export default function HomePage() {
                           {formatUsd(split.cash)} cash · {formatUsd(split.grow)} Grow
                         </p>
                       </div>
-                      <Money
-                        usd={split.earned}
-                        size="sm"
-                        tone="earned-reversed"
-                        showNgn={false}
-                      />
+                      <Money usd={split.earned} size="sm" tone="earned-reversed" showNgn={false} />
                     </div>
                   );
                 })}
               </div>
-
               <div className="mt-7">
                 <RewardBar />
               </div>
-
-              <p className="mt-6 text-[color:var(--on-dark-2)]">
-                Of every {formatUsd(PROJECT_REWARD_USD)},{" "}
-                <strong className="text-[color:var(--on-dark-1)]">
-                  {formatUsd(20)} is yours to withdraw
-                </strong>{" "}
-                and {formatUsd(5)} is held as your Grow share.
-              </p>
-
               <div className="mt-6">
                 <Button href="/rewards" variant="light" size="sm">
                   Read the full reward rules
@@ -277,55 +348,55 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* ── How it works ────────────────────────────────────── */}
+      {/* ── Profiles ───────────────────────────────────────── */}
       <Section tone="paper-2">
-        <Reveal>
-          <Eyebrow>Getting started</Eyebrow>
-          <H2 className="mt-4 max-w-2xl">Three steps, and the first one is free.</H2>
-        </Reveal>
+        <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <Reveal>
+            <div>
+              <Eyebrow>Student profiles</Eyebrow>
+              <H2 className="mt-4">A CV that actually proves something.</H2>
+              <Lede className="mt-5">
+                Anyone can write &ldquo;hardworking and detail-oriented&rdquo;. Nobody
+                can fake twelve delivered jobs, a verified university and ratings from
+                the people who paid. By graduation this is worth more than the
+                certificate in the conversations that matter.
+              </Lede>
+              <div className="mt-8">
+                <Button href="/students">See how profiles work</Button>
+              </div>
+            </div>
+          </Reveal>
 
-        <ol className="mt-14 grid gap-10 md:grid-cols-3">
-          {[
-            [
-              "Join and get verified",
-              "Sign in with Google or leave your WhatsApp number. Verification matters because attribution has to belong to a real person.",
-            ],
-            [
-              "Pick what fits you",
-              "A referral if you know people. A gig if you have a skill. A challenge if you want pressure. You are never locked into one track.",
-            ],
-            [
-              "Get paid, and see why",
-              "Your ledger shows what you earned, what is still coming, and which payment moved it. Withdraw to your own bank account.",
-            ],
-          ].map(([title, body], i) => (
-            <Reveal key={title} delay={i * 80}>
-              <li className="border-t-2 border-forest pt-5">
-                <span className="money text-[1.75rem] text-[color:var(--ink-4)]">
-                  0{i + 1}
-                </span>
-                <h3 className="font-display mt-2 text-h3">{title}</h3>
-                <p className="mt-3 text-[color:var(--ink-2)]">{body}</p>
-              </li>
-            </Reveal>
-          ))}
-        </ol>
+          <Reveal delay={100}>
+            <div className="grid grid-cols-3 gap-3 sm:gap-4">
+              {[1, 2, 3, 4, 5, 6].map((n) => (
+                <Figure
+                  key={n}
+                  src={`/photos/profile-${n}.jpg`}
+                  alt={`Portrait of a StudentMoney member`}
+                  brief="Portrait, plain background"
+                  ratio="1/1"
+                  rounded="lg"
+                  className={n % 2 === 0 ? "mt-6" : ""}
+                />
+              ))}
+            </div>
+          </Reveal>
+        </div>
       </Section>
 
-      {/* ── For businesses ──────────────────────────────────── */}
+      {/* ── Businesses ─────────────────────────────────────── */}
       <Section>
         <Reveal>
-          <div className="rounded-[var(--radius-xl)] bg-cream p-8 sm:p-14">
-            <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="overflow-hidden rounded-[var(--radius-xl)] accent-wash">
+            <div className="grid gap-10 p-8 sm:p-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
               <div>
                 <Eyebrow>For businesses</Eyebrow>
-                <H2 className="mt-4">
-                  Hire students who have something to prove.
-                </H2>
+                <H2 className="mt-4">Hire students who have something to prove.</H2>
                 <Lede className="mt-5">
                   Post a gig, run a referral campaign, or commission content from
-                  students who know the audience you are trying to reach. You pay for
-                  outcomes, not impressions.
+                  students who already live inside the audience you are chasing. You
+                  pay for outcomes, not impressions.
                 </Lede>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Button href="/for-businesses">Post a gig</Button>
@@ -335,30 +406,23 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <ul className="space-y-4">
-                {[
-                  "Rewards funded per campaign, agreed before launch.",
-                  "Unique attribution per student, with duplicate controls.",
-                  "Providers vetted for real delivery capacity.",
-                  "Nothing published to students that we cannot describe honestly.",
-                ].map((line) => (
-                  <li
-                    key={line}
-                    className="border-b border-[color:var(--hair-strong)] pb-4 text-[color:var(--ink-2)] last:border-0"
-                  >
-                    {line}
-                  </li>
-                ))}
-              </ul>
+              <Figure
+                src="/photos/business-hero.jpg"
+                alt="A small business owner in their shop"
+                brief="Small business owner in their shop"
+                ratio="4/5"
+              />
             </div>
           </div>
         </Reveal>
       </Section>
 
-      {/* ── Honest close ────────────────────────────────────── */}
+      {/* ── Close ──────────────────────────────────────────── */}
       <Section tone="paper-2" width="narrow" className="text-center">
         <Reveal>
-          <H2>Your next {formatUsd(PROJECT_REWARD_USD)} starts with one introduction.</H2>
+          <H2>
+            Your next {formatUsd(PROJECT_REWARD_USD)} starts with one introduction.
+          </H2>
           <p className="mx-auto mt-6 max-w-xl text-lead text-[color:var(--ink-2)]">
             Or one logo, one reel, one tutoring session. Whatever you are already good
             at, somebody is willing to pay for it.
@@ -370,12 +434,13 @@ export default function HomePage() {
           </div>
           <div className="mx-auto mt-7 max-w-lg">
             <FinePrint>
-              No fee to join. Earning targets are goals, not guarantees — every campaign
-              publishes what qualifies, who funds the reward and when it is paid.
+              No fee to join. Earning targets are goals, not guarantees — every
+              campaign publishes what qualifies, who funds the reward and when it is
+              paid.
             </FinePrint>
           </div>
         </Reveal>
       </Section>
-    </>
+    </div>
   );
 }

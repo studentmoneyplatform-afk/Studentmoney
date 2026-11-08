@@ -12,7 +12,7 @@ export function Money({
 }: {
   usd: number;
   size?: "sm" | "md" | "lg" | "xl";
-  /** "earned" paints the figure hibiscus — only ever for money earned. */
+  /** "earned" paints the figure money — only ever for money earned. */
   tone?: "default" | "earned" | "reversed" | "earned-reversed";
   showNgn?: boolean;
 }) {
@@ -25,9 +25,9 @@ export function Money({
 
   const colour = {
     default: "text-ink",
-    earned: "text-hibiscus",
+    earned: "text-money",
     reversed: "text-[color:var(--on-dark-1)]",
-    "earned-reversed": "text-hibiscus-light",
+    "earned-reversed": "text-money-soft",
   }[tone];
 
   const ngnColour =

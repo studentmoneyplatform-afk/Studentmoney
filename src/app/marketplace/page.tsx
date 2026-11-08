@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { Button, Card, Chip, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
 import { CATEGORIES } from "@/lib/catalog";
@@ -25,35 +26,28 @@ const STUDENT_STEPS = [
 
 export default function MarketplacePage() {
   return (
-    <>
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 -top-32 h-96 bg-[radial-gradient(50%_60%_at_50%_40%,var(--color-cream),transparent_70%)]"
-        />
-        <div className="relative mx-auto w-full max-w-6xl px-5 pb-16 pt-14 sm:px-8 sm:pb-24 sm:pt-20">
-          <Reveal>
-            <Eyebrow>Marketplace</Eyebrow>
-            <h1 className="font-display mt-5 max-w-4xl text-h1">
-              Hire a student who has something{" "}
-              <span className="italic text-forest">to prove.</span>
-            </h1>
-            <Lede className="mt-6">
-              Design, video, writing, tutoring, translation, tech help — done by
-              Nigerian university students who are building a record, not just taking a
-              job. Cheaper than an agency, and the money reaches someone who needs it.
-            </Lede>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Button href="/for-businesses" size="lg">
-                Post a gig
-              </Button>
-              <Button href="/join" variant="ghost" size="lg">
-                List your skill
-              </Button>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+    <div data-page="marketplace">
+      <PageHero
+        variant="stacked"
+        eyebrow="Marketplace"
+        lines={[
+          "Hire a student who has",
+          <span key="l2" className="italic accent-text">something to prove.</span>,
+        ]}
+        lede="Design, video, writing, tutoring, translation, tech help — delivered by Nigerian university students building a record, not just taking a job. Cheaper than an agency, and the money reaches someone who needs it."
+        actions={
+          <>
+            <Button href="/for-businesses" size="lg">Post a gig</Button>
+            <Button href="/join" variant="ghost" size="lg">List your skill</Button>
+          </>
+        }
+        photo={{
+          src: "/photos/marketplace-hero.jpg",
+          alt: "A student at work on a commission",
+          brief: "Wide shot, student working, warm light",
+          ratio: "3/2",
+        }}
+      />
 
       {/* Categories */}
       <Section tone="paper-2">
@@ -147,7 +141,7 @@ export default function MarketplacePage() {
                     Design · 3-day turnaround
                   </p>
                 </div>
-                <span className="money text-[1.5rem] text-hibiscus">$35</span>
+                <span className="money text-[1.5rem] text-money">$35</span>
               </div>
 
               <p className="mt-5 text-[color:var(--ink-2)]">
@@ -205,6 +199,6 @@ export default function MarketplacePage() {
           </div>
         </Reveal>
       </Section>
-    </>
+    </div>
   );
 }

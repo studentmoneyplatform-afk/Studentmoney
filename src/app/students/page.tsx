@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { Button, Card, Chip, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
 
@@ -29,35 +30,27 @@ const PROOF = [
 
 export default function StudentsPage() {
   return (
-    <>
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 -top-32 h-96 bg-[radial-gradient(50%_60%_at_50%_40%,var(--color-cream),transparent_70%)]"
-        />
-        <div className="relative mx-auto w-full max-w-6xl px-5 pb-16 pt-14 sm:px-8 sm:pb-24 sm:pt-20">
-          <Reveal>
-            <Eyebrow>Student profiles</Eyebrow>
-            <h1 className="font-display mt-5 max-w-4xl text-h1">
-              A CV that actually{" "}
-              <span className="italic text-forest">proves something.</span>
-            </h1>
-            <Lede className="mt-6">
-              Anyone can write &ldquo;hardworking and detail-oriented&rdquo; on a CV.
-              Nobody can fake twelve delivered jobs, a verified university and ratings
-              from the people who paid. That is what a StudentMoney profile is.
-            </Lede>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Button href="/join" size="lg">
-                Build your profile
-              </Button>
-              <Button href="/marketplace" variant="ghost" size="lg">
-                See the marketplace
-              </Button>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+    <div data-page="students">
+      <PageHero
+        eyebrow="Student profiles"
+        lines={[
+          "A CV that actually",
+          <span key="l2" className="italic accent-text">proves something.</span>,
+        ]}
+        lede="Anyone can write hardworking and detail-oriented on a CV. Nobody can fake twelve delivered jobs, a verified university and ratings from the people who paid. That is what a StudentMoney profile is."
+        actions={
+          <>
+            <Button href="/join" size="lg">Build your profile</Button>
+            <Button href="/marketplace" variant="ghost" size="lg">See the marketplace</Button>
+          </>
+        }
+        photo={{
+          src: "/photos/profile-1.jpg",
+          alt: "Portrait of a StudentMoney member",
+          brief: "Portrait, plain background, confident",
+          ratio: "4/5",
+        }}
+      />
 
       <Section tone="paper-2">
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-start">
@@ -155,6 +148,6 @@ export default function StudentsPage() {
           </div>
         </Reveal>
       </Section>
-    </>
+    </div>
   );
 }

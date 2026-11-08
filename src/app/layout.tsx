@@ -3,6 +3,7 @@ import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { getBrandLogo } from "@/lib/brand";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -38,6 +39,8 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const logo = getBrandLogo();
+
   return (
     // The font variables live on <html> so that the --font-display and
     // --font-sans tokens, which Tailwind declares at :root, can resolve them.
@@ -49,9 +52,9 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <SiteHeader />
+        <SiteHeader logo={logo} />
         <main id="main">{children}</main>
-        <SiteFooter />
+        <SiteFooter logo={logo} />
       </body>
     </html>
   );

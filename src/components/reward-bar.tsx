@@ -55,7 +55,7 @@ export function RewardBar({
           </span>
         </div>
         <div
-          className="flex items-center justify-end bg-hibiscus-light px-4 py-3 sm:px-6 sm:py-3.5"
+          className="flex items-center justify-end bg-money-soft px-4 py-3 sm:px-6 sm:py-3.5"
           style={{ width: pct(grow) }}
         >
           <span className="whitespace-nowrap text-caption font-extrabold text-forest sm:text-body">
@@ -70,12 +70,12 @@ export function RewardBar({
     <div className={className}>
       <div className={`flex h-9 w-full overflow-hidden rounded-full ${track}`} role="img" aria-label={label}>
         <div className={cashFill} style={{ width: pct(cash) }} />
-        <div className="bg-hibiscus-light" style={{ width: pct(grow) }} />
+        <div className="bg-money-soft" style={{ width: pct(grow) }} />
       </div>
 
       <dl className="mt-3.5 flex flex-wrap gap-x-5 gap-y-2">
         <Legend swatch={cashFill} term="Cash" value={formatUsd(cash)} termCls={legendTerm} valueCls={legendValue} />
-        <Legend swatch="bg-hibiscus-light" term="Grow" value={formatUsd(grow)} termCls={legendTerm} valueCls={legendValue} />
+        <Legend swatch="bg-money-soft" term="Grow" value={formatUsd(grow)} termCls={legendTerm} valueCls={legendValue} />
         <Legend swatch={track} term="Still to come" value={formatUsd(remaining)} termCls={legendTerm} valueCls={legendValue} />
       </dl>
     </div>

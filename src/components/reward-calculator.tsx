@@ -19,7 +19,7 @@ export function RewardCalculator({ projectPrice = 1200 }: { projectPrice?: numbe
 
   return (
     <div className="rounded-[var(--radius-xl)] bg-forest p-6 text-[color:var(--on-dark-1)] sm:p-8">
-      <label htmlFor="paid" className="eyebrow block text-hibiscus-light">
+      <label htmlFor="paid" className="eyebrow block text-money-soft">
         Client has paid {percent}% of {formatUsd(projectPrice)}
       </label>
 
@@ -31,7 +31,7 @@ export function RewardCalculator({ projectPrice = 1200 }: { projectPrice?: numbe
         step={5}
         value={percent}
         onChange={(event) => setPercent(Number(event.target.value))}
-        className="mt-5 w-full accent-[color:var(--color-hibiscus-light)]"
+        className="mt-5 w-full accent-[color:var(--color-money-soft)]"
         aria-describedby="paid-help"
       />
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { Button, Card, Chip, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
 import { TRACKS } from "@/lib/catalog";
@@ -11,41 +12,22 @@ export const metadata: Metadata = {
 
 export default function OpportunitiesPage() {
   return (
-    <>
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 -top-32 h-96 bg-[radial-gradient(50%_60%_at_50%_40%,var(--color-cream),transparent_70%)]"
-        />
-        <div className="relative mx-auto w-full max-w-6xl px-5 pb-16 pt-14 sm:px-8 sm:pb-24 sm:pt-20">
-          <Reveal>
-            <Eyebrow>Ways to earn</Eyebrow>
-            <h1 className="font-display mt-5 max-w-4xl text-h1">
-              Nine ways to make money{" "}
-              <span className="italic text-forest">before you graduate.</span>
-            </h1>
-            <Lede className="mt-6">
-              Some need a network. Some need a skill. Some only need the hour between
-              lectures. Every one of them tells you how the money arrives before you
-              start — that is the part most platforms leave out.
-            </Lede>
-          </Reveal>
-
-          <Reveal delay={120}>
-            <nav aria-label="Jump to a track" className="mt-10 flex flex-wrap gap-2">
-              {TRACKS.map((t) => (
-                <a
-                  key={t.slug}
-                  href={`#${t.slug}`}
-                  className="rounded-full border border-[color:var(--hair-strong)] px-3.5 py-1.5 text-caption font-bold text-[color:var(--ink-2)] transition-colors hover:border-[color:var(--ink-1)] hover:text-ink"
-                >
-                  {t.title}
-                </a>
-              ))}
-            </nav>
-          </Reveal>
-        </div>
-      </section>
+    <div data-page="earn">
+      <PageHero
+        eyebrow="Ways to earn"
+        lines={[
+          "Nine ways to make",
+          "money before you",
+          <span key="l3" className="italic accent-text">graduate.</span>,
+        ]}
+        lede="Some need a network. Some need a skill. Some only need the hour between lectures. Every one of them tells you how the money arrives before you start — the part most platforms leave out."
+        photo={{
+          src: "/photos/track-content.jpg",
+          alt: "A student filming a short product video",
+          brief: "Phone on a gimbal, filming a product",
+          ratio: "4/5",
+        }}
+      />
 
       <Section tone="paper-2">
         <div className="space-y-5">
@@ -109,7 +91,7 @@ export default function OpportunitiesPage() {
                   key={line}
                   className="flex gap-3 border-b border-[color:var(--hair-reversed)] pb-3.5 text-[color:var(--on-dark-2)] last:border-0"
                 >
-                  <span aria-hidden="true" className="font-bold text-hibiscus-light">
+                  <span aria-hidden="true" className="font-bold text-money-soft">
                     —
                   </span>
                   {line}
@@ -136,6 +118,6 @@ export default function OpportunitiesPage() {
           </div>
         </Reveal>
       </Section>
-    </>
+    </div>
   );
 }

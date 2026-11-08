@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SignupForm } from "@/components/signup-form";
+import { GoogleButton } from "@/components/google-button";
 import { RewardBar } from "@/components/reward-bar";
 import { Money } from "@/components/money";
 import { Card, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
@@ -21,10 +22,11 @@ const WHAT_HAPPENS = [
 export default async function JoinPage({
   searchParams,
 }: {
-  searchParams: Promise<{ as?: string }>;
+  searchParams: Promise<{ as?: string; error?: string }>;
 }) {
   const params = await searchParams;
   const isBusiness = params.as === "business";
+  const signInError = params.error;
 
   return (
     <Section tone="forest">
@@ -83,10 +85,31 @@ export default async function JoinPage({
           <h2 className="font-display text-subhead">
             {isBusiness ? "Talk to us about a campaign" : "Join the network"}
           </h2>
+
+          {signInError && (
+            <p
+              role="alert"
+              className="mt-5 rounded-2xl bg-error px-4 py-3 font-bold text-cream"
+            >
+              Sign-in did not complete: {signInError}
+            </p>
+          )}
+
+          {!isBusiness && (
+            <div className="mt-6">
+              <GoogleButton label="Sign up with Google" />
+              <div className="mt-7 flex items-center gap-4">
+                <span className="h-px flex-1 bg-[color:var(--color-rule-reversed)]" />
+                <span className="eyebrow text-cream/60">or leave your number</span>
+                <span className="h-px flex-1 bg-[color:var(--color-rule-reversed)]" />
+              </div>
+            </div>
+          )}
+
           <div className="mt-6">
             <SignupForm
               audience={isBusiness ? "business" : "student"}
-              label={isBusiness ? "Send this to the team" : "Get your link"}
+              label={isBusiness ? "Send this to the team" : "Message me on WhatsApp"}
             />
           </div>
         </Card>

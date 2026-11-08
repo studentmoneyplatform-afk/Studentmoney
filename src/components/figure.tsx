@@ -1,16 +1,20 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import { getCurated, unsplashSrc } from "@/lib/photos";
 
 /**
- * A photo slot.
+ * A photo slot, resolved in three steps.
  *
- * The site is designed around student photography that does not exist yet, so
- * a slot whose file is missing renders the brief for the shot it wants
- * instead. A missing photo should read as a brief, not as a broken page.
+ *  1. A real photograph in /public/photos always wins. Drop one in and it
+ *     replaces the stock shot with no code change.
+ *  2. Otherwise a curated Unsplash photo stands in, credited as the licence
+ *     requires.
+ *  3. Otherwise the slot renders the brief for the shot it wants, so a
+ *     missing photo reads as a brief rather than a broken page.
  *
- * Existence is checked on the server, so there is no flash of a broken image
- * and no JavaScript is needed. Drop files into /public/photos; in production
- * the check runs at build time, so rebuild after adding one.
+ * Existence is checked on the server, so there is no flash and no JavaScript
+ * is needed. In production the check runs at build time: rebuild after
+ * adding a file.
  */
 export function Figure({
   src,
@@ -36,27 +40,48 @@ export function Figure({
     none: "",
   }[rounded];
 
-  const present =
+  const localPresent =
     typeof src === "string" &&
     src.startsWith("/") &&
     existsSync(join(process.cwd(), "public", src));
+
+  const curated = localPresent ? undefined : getCurated(src);
+
+  // Portrait crops need far fewer pixels across than a wide hero.
+  const width = ratio === "9/16" || ratio === "3/4" || ratio === "4/5" ? 900 : 1400;
+  const resolved = localPresent
+    ? src
+    : curated
+      ? unsplashSrc(curated.url, width, ratio)
+      : undefined;
 
   return (
     <div
       className={`relative overflow-hidden bg-cream ${radius} ${className}`}
       style={{ aspectRatio: ratio.replace("/", " / ") }}
     >
-      {present ? (
-        // next/image cannot express "render nothing if the file is absent",
-        // and these slots must survive a missing photo. Existence is already
-        // confirmed above, so a plain img is correct here.
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={src}
-          alt={alt}
-          loading={priority ? "eager" : "lazy"}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+      {resolved ? (
+        <>
+          {/* next/image cannot express "render nothing if the file is absent",
+              and these slots must survive a missing photo. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={resolved}
+            alt={alt}
+            loading={priority ? "eager" : "lazy"}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          {curated && (
+            <a
+              href={`${curated.credit.href}?utm_source=studentmoney&utm_medium=referral`}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="absolute bottom-2 right-2 rounded-full bg-black/45 px-2.5 py-1 text-[0.625rem] font-bold text-white/90 backdrop-blur-sm transition-colors hover:bg-black/70"
+            >
+              {curated.credit.photographer} / Unsplash
+            </a>
+          )}
+        </>
       ) : (
         <div className="absolute inset-0 grid place-items-center p-5">
           <div
@@ -76,9 +101,21 @@ export function Figure({
               className="mx-auto text-[color:var(--ink-3)]"
               aria-hidden="true"
             >
-              <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" strokeWidth="1.4" />
+              <rect
+                x="2.5"
+                y="4.5"
+                width="19"
+                height="15"
+                rx="2.5"
+                stroke="currentColor"
+                strokeWidth="1.4"
+              />
               <circle cx="8.5" cy="10" r="1.8" stroke="currentColor" strokeWidth="1.4" />
-              <path d="M3 17l5.2-4.4a2 2 0 0 1 2.6 0L21 20" stroke="currentColor" strokeWidth="1.4" />
+              <path
+                d="M3 17l5.2-4.4a2 2 0 0 1 2.6 0L21 20"
+                stroke="currentColor"
+                strokeWidth="1.4"
+              />
             </svg>
             <p className="mt-2.5 text-caption font-bold leading-snug text-[color:var(--ink-2)]">
               {brief}

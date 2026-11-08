@@ -50,45 +50,9 @@ export const CURATED: Record<string, CuratedPhoto> = {
     url: "https://images.unsplash.com/photo-1694175271713-a6e2cc378980",
     credit: unsplash("Seth Ebenezer Tetteh", "sethebenezer"),
   },
-  "/photos/track-tutoring.jpg": {
-    url: "https://images.unsplash.com/photo-1632215861513-130b66fe97f4",
-    credit: unsplash("Emmanuel Ikwuegbu", "emmanuelikwuegbu"),
-  },
-  "/photos/marketplace-hero.jpg": {
-    url: "https://images.unsplash.com/photo-1507537297725-24a1c029d3ca",
-    credit: unsplash("LinkedIn Sales Solutions", "linkedinsalesnavigator"),
-  },
-  "/photos/business-hero.jpg": {
-    url: "https://images.unsplash.com/photo-1585540083814-ea6ee8af9e4f",
-    credit: unsplash("Omotayo Tajudeen", "omotayotajudeen"),
-  },
-  "/photos/join-side.jpg": {
-    url: "https://images.unsplash.com/photo-1573496782432-8690d8148c46",
-    credit: unsplash("Christina @ wocintechchat.com", "wocintechchat"),
-  },
   "/photos/profile-1.jpg": {
     url: "https://images.unsplash.com/photo-1546525848-3ce03ca516f6",
     credit: unsplash("Mubarak Showole", "mubarakshowole"),
-  },
-  "/photos/profile-2.jpg": {
-    url: "https://images.unsplash.com/photo-1759852692971-a2abc6799cbd",
-    credit: unsplash("Oluwaseyi Akinlolu", "oluwaseyiakinlolu"),
-  },
-  "/photos/profile-3.jpg": {
-    url: "https://images.unsplash.com/photo-1594750852563-5ed8e0421d40",
-    credit: unsplash("Nqobile Vundla", "nqobilevundla"),
-  },
-  "/photos/profile-4.jpg": {
-    url: "https://images.unsplash.com/photo-1716654716572-7b13ad56ba63",
-    credit: unsplash("Makmot Robin", "makmotrobin"),
-  },
-  "/photos/profile-5.jpg": {
-    url: "https://images.unsplash.com/photo-1680879275304-bbe20f7e28fb",
-    credit: unsplash("Ahmed Nasiru", "ahmednasiru"),
-  },
-  "/photos/profile-6.jpg": {
-    url: "https://images.unsplash.com/photo-1716654716572-7b13ad56ba63",
-    credit: unsplash("Makmot Robin", "makmotrobin"),
   },
 };
 

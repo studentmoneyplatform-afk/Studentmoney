@@ -8,7 +8,6 @@ import { Logo } from "@/components/logo";
 const NAV = [
   { href: "/opportunities", label: "Explore opportunities" },
   { href: "/how-it-works", label: "How it works" },
-  { href: "/marketplace", label: "Marketplace" },
   { href: "/about", label: "About" },
   { href: "/faqs", label: "FAQs" },
 ];

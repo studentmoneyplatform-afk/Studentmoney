@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal";
-import { GROW_USD, PROJECT_REWARD_USD, WITHDRAWABLE_USD } from "@/lib/rewards";
-import { formatUsd } from "@/lib/money";
 
 export const metadata: Metadata = {
   title: "Terms",
@@ -15,7 +13,7 @@ export default function TermsPage() {
       eyebrow="Terms"
       title="The rules, written down before you start."
       intro="These are the operating rules of the platform. Each campaign may add its own published requirements, but no campaign may contradict what is on this page."
-      reviewNote="This page states StudentMoney's operating rules in plain words. It is not yet the final contract: the binding terms, including the Grow share, dispute handling and the governing law, are being prepared with a qualified Nigerian legal adviser and will be published here before the first reward is paid."
+      reviewNote="This page states StudentMoney's operating rules in plain words. It is not yet the final contract: the binding terms, including dispute handling and the governing law, are being prepared with a qualified Nigerian legal adviser and will be published here before the first reward is paid."
       sections={[
         {
           heading: "Who can take part",
@@ -41,33 +39,23 @@ export default function TermsPage() {
           ),
         },
         {
-          heading: "How the reward is calculated",
+          heading: "How each reward is calculated",
           body: (
             <>
               <p>
-                The standard referral reward is {formatUsd(PROJECT_REWARD_USD)} for one
-                qualifying project. Your cumulative reward is the campaign reward
-                multiplied by the cleared client payments, divided by the qualifying
-                project price.
+                Each opportunity publishes its own reward and the rule that releases
+                it. Software Service Referrals pays a fixed amount for each approved
+                referral. DARE Company Global releases one reward across a target
+                number of referrals, in proportion to how far along you are. Tobi
+                Music Academy releases its reward once the required number of students
+                have been confirmed.
               </p>
               <p>
-                The reward is for the project, not for each instalment. Cumulative
-                rewards are never paid twice: each recalculation pays only the
-                difference.
+                Only approved referrals count toward any of them. Figures shown to you
+                are derived from approved referrals, never from clicks or
+                submissions, and a reward is never paid twice for the same referral.
               </p>
             </>
-          ),
-        },
-        {
-          heading: "The cash and Grow split",
-          body: (
-            <p>
-              Of every reward, {formatUsd(WITHDRAWABLE_USD)} in each{" "}
-              {formatUsd(PROJECT_REWARD_USD)} is withdrawable cash and{" "}
-              {formatUsd(GROW_USD)} is held as your Grow share. Both are visible in your
-              ledger from the day they are earned. StudentMoney does not promise any
-              return on the Grow share.
-            </p>
           ),
         },
         {

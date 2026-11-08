@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { SignupForm } from "@/components/signup-form";
 import { GoogleButton } from "@/components/google-button";
-import { RewardBar } from "@/components/reward-bar";
 import { Money } from "@/components/money";
 import { Card, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
-import { PROJECT_REWARD_USD } from "@/lib/rewards";
 
 export const metadata: Metadata = {
   title: "Join",
@@ -54,9 +52,8 @@ export default async function JoinPage({
               >
                 <Eyebrow tone="reversed">The standard referral reward</Eyebrow>
                 <div className="mt-4">
-                  <Money usd={PROJECT_REWARD_USD} size="lg" tone="earned-reversed" />
+                  <Money usd={25} size="lg" tone="earned-reversed" />
                 </div>
-                <RewardBar className="mt-6" />
                 <div className="mt-5">
                   <FinePrint tone="reversed">
                     Per qualifying project, released as the client pays. Terms apply.

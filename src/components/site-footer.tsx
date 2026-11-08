@@ -4,28 +4,26 @@ import { FinePrint } from "@/components/ui";
 
 const COLUMNS = [
   {
-    heading: "Earn",
+    heading: "Opportunities",
     links: [
-      { href: "/opportunities", label: "Explore opportunities" },
-      { href: "/opportunities/software-referrals", label: "Software referrals" },
+      { href: "/opportunities/software-referrals", label: "Software Service Referrals" },
       { href: "/opportunities/dare-company-global", label: "DARE Company Global" },
       { href: "/opportunities/tobi-music-academy", label: "Tobi Music Academy" },
     ],
   },
   {
-    heading: "Understand it",
+    heading: "The platform",
     links: [
       { href: "/how-it-works", label: "How it works" },
       { href: "/about", label: "About" },
       { href: "/faqs", label: "FAQs" },
-      { href: "/join", label: "Join free" },
     ],
   },
   {
-    heading: "More",
+    heading: "Your account",
     links: [
-      { href: "/marketplace", label: "Marketplace" },
-      { href: "/for-businesses", label: "For businesses" },
+      { href: "/join", label: "Join now" },
+      { href: "/dashboard", label: "Sign in" },
       { href: "/terms", label: "Terms" },
       { href: "/privacy", label: "Privacy" },
     ],

@@ -39,7 +39,7 @@ export default function AboutPage() {
           "have to wait until",
           <span key="l3" className="italic text-forest">graduation.</span>,
         ]}
-        lede="StudentMoney is a Nigerian platform where university students find legitimate earning opportunities, refer real customers to real businesses, and build a track record while they are still in school."
+        lede="StudentMoney is a Nigerian platform where university students find legitimate earning opportunities, refer real customers to real businesses, and earn while they are still in school."
         actions={
           <>
             <Button href="/opportunities" size="lg">Explore opportunities</Button>
@@ -120,9 +120,9 @@ export default function AboutPage() {
           </Reveal>
           <Reveal delay={100}>
             <Figure
-              src="/photos/marketplace-hero.jpg"
+              src="/photos/track-content.jpg"
               alt="A student working on campus"
-              brief="Wide shot, student working, warm light"
+              brief="Student creating content"
               ratio="3/2"
             />
           </Reveal>

@@ -1,161 +1,196 @@
 import type { Metadata } from "next";
-import { Money } from "@/components/money";
-import { RewardBar } from "@/components/reward-bar";
+import { PageHero } from "@/components/page-hero";
+import { Reveal } from "@/components/reveal";
 import { Button, Card, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
-import { PROJECT_REWARD_USD, rewardAtProgress } from "@/lib/rewards";
-import { formatPercent, formatUsd } from "@/lib/money";
 
 export const metadata: Metadata = {
   title: "How it works",
   description:
-    "Join, get your link, introduce a real business, and earn as the client pays. Every step, with the rule that applies to it.",
+    "Create an account, pick one of the three opportunities, share your referral link and track every referral through to an approved reward.",
 };
 
 const STEPS = [
-  {
-    n: "01",
-    title: "Join and get verified",
-    body: "Register with your name, your school and a phone number that works on WhatsApp. We verify who you are before any reward is attributed to you, because attribution has to belong to a real person.",
-  },
-  {
-    n: "02",
-    title: "Pick a live campaign",
-    body: "Every campaign names the provider who delivers the work, what counts as a qualifying project, who funds the reward and when it is paid. If a campaign cannot answer those four questions, it does not go live.",
-  },
-  {
-    n: "03",
-    title: "Get your link",
-    body: "You receive a referral link or code that is yours alone. Whoever you introduce is attributed to you from the moment they arrive through it.",
-  },
-  {
-    n: "04",
-    title: "Make a genuine introduction",
-    body: "Talk to a business you actually know needs the work. Submit the lead with the contact and what they need. No spam, no made-up companies, no stuffing the form with names.",
-  },
-  {
-    n: "05",
-    title: "The provider delivers",
-    body: "The approved provider quotes, agrees a price and does the work. You are not responsible for delivery, and you are never asked to collect money from the client.",
-  },
-  {
-    n: "06",
-    title: "You earn as payments clear",
-    body: "Each time a client payment clears, your ledger moves. You can see what you have earned, what is still to come, and the date your payout is due.",
-  },
+  [
+    "Create your account",
+    "Register with your name, a phone number that works on WhatsApp, and your university. We verify who you are before a reward can be attributed to you, because attribution has to belong to a real person.",
+  ],
+  [
+    "Explore the available opportunities",
+    "There are three. Each names the organisation involved, what you are expected to do, what counts as a successful referral, and when the reward is released.",
+  ],
+  [
+    "Select an opportunity",
+    "Join one, two or all three. They run alongside each other, and progress on one never cancels another.",
+  ],
+  [
+    "Follow the participation instructions",
+    "Each opportunity states exactly what qualifies. Read it before you start rather than after, so there are no surprises about what counts.",
+  ],
+  [
+    "Share your referral link",
+    "You receive a tracking code that is yours alone for each opportunity. Anyone who arrives through it is attributed to you from that moment.",
+  ],
+  [
+    "Track your progress",
+    "Every referral appears on your dashboard at the stage it has reached, and you can see what is still being checked.",
+  ],
+  [
+    "Receive approved rewards",
+    "Once a referral is verified and approved, the reward is added to your balance and paid to a Nigerian bank account in your own name.",
+  ],
+];
+
+const STAGES = [
+  ["Clicked", "Someone opened your link. Nothing is owed yet, and we say so."],
+  ["Registered", "They signed up or made contact through you."],
+  ["Pending verification", "We are checking the referral is genuine."],
+  ["Approved", "It counts. Your progress and your earnings move."],
+  ["Rejected", "It did not qualify, and the reason is shown on the referral."],
+  ["Reward paid", "The money for it has been sent to you."],
+];
+
+const NEVER = [
+  "Promise guaranteed income or employment.",
+  "Pay for recruiting other students and nothing else.",
+  "Publish a fabricated testimonial or a doctored earnings screenshot.",
+  "Quote an earning target without the rules that apply to it.",
+  "Pay a reward on a referral that has not been verified.",
+  "Ask you to collect money from a customer on our behalf.",
 ];
 
 export default function HowItWorksPage() {
   return (
-    <>
-      <Section tone="forest">
-        <Eyebrow tone="reversed">How it works</Eyebrow>
-        <h1 className="font-display mt-5 max-w-4xl text-[2.5rem] leading-[1.05] sm:text-[3.25rem]">
-          Six steps, and the rule that applies to each one.
-        </h1>
-        <Lede className="mt-6 text-[color:var(--on-dark-1)]/90">
-          Every opportunity shows what you do, who pays, and when you get paid. Here is
-          the whole path, from joining to the money landing.
-        </Lede>
-      </Section>
+    <div data-page="earn">
+      <PageHero
+        eyebrow="How it works"
+        lines={[
+          "Seven steps, and",
+          <span key="l2" className="italic text-forest">
+            the rule behind each.
+          </span>,
+        ]}
+        lede="From creating an account to money reaching your bank. Every opportunity here says who pays, what qualifies and when — this page explains the process they all share."
+        actions={
+          <>
+            <Button href="/join" size="lg">
+              Create your account
+            </Button>
+            <Button href="/opportunities" variant="ghost" size="lg">
+              Explore opportunities
+            </Button>
+          </>
+        }
+        photo={{
+          src: "/photos/track-gigs.jpg",
+          alt: "A student working on a laptop",
+          brief: "Hands on a laptop",
+          ratio: "4/5",
+        }}
+      />
 
-      <Section tone="cream">
+      <Section tone="paper-2">
         <ol className="grid gap-px overflow-hidden rounded-[var(--radius-xl)] bg-[color:var(--hair)] sm:grid-cols-2">
-          {STEPS.map((step) => (
-            <li key={step.n} className="bg-cream p-7 sm:p-8">
-              <span className="money text-[1.75rem] text-moss">{step.n}</span>
-              <h2 className="font-display mt-2 text-h3">{step.title}</h2>
-              <p className="mt-3 text-ink/80">{step.body}</p>
-            </li>
+          {STEPS.map(([title, body], i) => (
+            <Reveal key={title} delay={(i % 2) * 50}>
+              <li className="h-full bg-paper p-7">
+                <span className="money text-[1.5rem] text-[color:var(--ink-4)]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h2 className="font-display mt-2 text-h3">{title}</h2>
+                <p className="mt-3 text-[color:var(--ink-2)]">{body}</p>
+              </li>
+            </Reveal>
           ))}
         </ol>
       </Section>
 
-      <Section tone="paper-2">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-start">
-          <div>
-            <Eyebrow>The money, worked through</Eyebrow>
-            <H2 className="mt-4">A real example.</H2>
-            <Lede className="mt-5 text-ink/80">
-              You introduce a restaurant that needs a website. The provider agrees a
-              price with them. Your reward is {formatUsd(PROJECT_REWARD_USD)} for the
-              project, released in proportion to what the client has actually paid.
-            </Lede>
-            <div className="mt-8 space-y-5">
-              {[0.3, 0.7, 1].map((progress) => {
-                const split = rewardAtProgress(progress);
-                return (
-                  <div
-                    key={progress}
-                    className="flex flex-wrap items-center justify-between gap-3 border-b border-ink/10 pb-5"
-                  >
-                    <div>
-                      <p className="font-bold">
-                        Client has paid {formatPercent(progress)}
-                      </p>
-                      <FinePrint>
-                        {formatUsd(split.cash)} cash · {formatUsd(split.grow)} Grow
-                      </FinePrint>
-                    </div>
-                    <Money usd={split.earned} size="sm" tone="earned" showNgn={false} />
-                  </div>
-                );
-              })}
+      <Section tone="forest">
+        <div className="grid gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <Reveal>
+            <div>
+              <Eyebrow tone="reversed">How referrals are counted</Eyebrow>
+              <H2 className="mt-4">A click is not a reward.</H2>
+              <Lede tone="reversed" className="mt-5">
+                This is the part most referral schemes keep vague. Every referral moves
+                through these stages, and your dashboard shows which one each has
+                reached. You are never shown an earning that has not been verified.
+              </Lede>
             </div>
-            <div className="mt-6">
-              <FinePrint>
-                The reward is {formatUsd(PROJECT_REWARD_USD)} for the project, not{" "}
-                {formatUsd(PROJECT_REWARD_USD)} per instalment. Cumulative rewards are
-                never paid twice.
-              </FinePrint>
-            </div>
-          </div>
+          </Reveal>
 
-          <Card tone="forest">
-            <Eyebrow tone="reversed">When the project completes</Eyebrow>
-            <div className="mt-5">
-              <Money usd={PROJECT_REWARD_USD} size="lg" tone="earned-reversed" />
+          <Reveal delay={120}>
+            <ol className="space-y-px overflow-hidden rounded-[var(--radius-xl)] border border-[color:var(--hair-reversed)]">
+              {STAGES.map(([stage, meaning], i) => (
+                <li key={stage} className="flex gap-5 p-5">
+                  <span className="money text-[1.125rem] text-[color:var(--on-dark-3)]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <p className="font-bold">{stage}</p>
+                    <p className="mt-1 text-[color:var(--on-dark-2)]">{meaning}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
+        </div>
+      </Section>
+
+      <Section>
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
+          <Reveal>
+            <div>
+              <Eyebrow>Our side of it</Eyebrow>
+              <H2 className="mt-4">What we will never do.</H2>
+              <Lede className="mt-5">
+                These are not aspirations. They are rules we hold ourselves to, and you
+                can hold us to them.
+              </Lede>
             </div>
-            <RewardBar className="mt-7" />
-            <p className="mt-6 text-[color:var(--on-dark-1)]/85">
-              {formatUsd(20)} is yours to withdraw once you pass the minimum payout
-              amount. {formatUsd(5)} is held as your Grow share and stays visible in
-              your ledger.
+          </Reveal>
+
+          <Reveal delay={100}>
+            <ul className="space-y-3.5">
+              {NEVER.map((line) => (
+                <li
+                  key={line}
+                  className="flex gap-3 border-b border-[color:var(--hair)] pb-3.5 text-[color:var(--ink-2)] last:border-0"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="font-bold text-[color:var(--color-error)]"
+                  >
+                    —
+                  </span>
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </Section>
+
+      <Section tone="paper-2" width="narrow" className="text-center">
+        <Reveal>
+          <Card tone="cream">
+            <H2>Ready to start?</H2>
+            <p className="mx-auto mt-5 max-w-lg text-lead text-[color:var(--ink-2)]">
+              Create your account, choose an opportunity and get your referral link
+              today.
             </p>
-            <div className="mt-4">
-              <FinePrint tone="reversed">
-                Refunds, chargebacks and cancelled projects reverse the reward they
-                relate to. The terms page sets out exactly how.
+            <div className="mt-8 flex justify-center">
+              <Button href="/join" size="lg">
+                Get started
+              </Button>
+            </div>
+            <div className="mx-auto mt-6 max-w-md">
+              <FinePrint>
+                Joining is free. Rewards are paid on verified, approved referrals only.
               </FinePrint>
             </div>
           </Card>
-        </div>
+        </Reveal>
       </Section>
-
-      <Section tone="cream">
-        <H2>What we will never do.</H2>
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2">
-          {[
-            "Promise guaranteed income, or call anything here passive.",
-            "Pay you for recruiting other students and nothing else.",
-            "Publish a fake testimonial or a doctored earnings screenshot.",
-            "Quote an earning target without the rules that apply to it.",
-            "Pay a reward on a payment that has not cleared.",
-            "Ask you to collect money from a client on our behalf.",
-          ].map((line) => (
-            <li key={line} className="flex gap-3 border-b border-ink/10 pb-4">
-              <span aria-hidden="true" className="font-bold text-error">
-                —
-              </span>
-              <span className="text-ink/85">{line}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-10">
-          <Button href="/join" size="lg">
-            Join StudentMoney
-          </Button>
-        </div>
-      </Section>
-    </>
+    </div>
   );
 }

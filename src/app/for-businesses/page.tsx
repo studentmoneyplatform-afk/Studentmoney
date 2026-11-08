@@ -47,16 +47,16 @@ export default function ForBusinessesPage() {
   return (
     <>
       <Section tone="forest">
-        <Eyebrow tone="accent">For businesses</Eyebrow>
+        <Eyebrow tone="reversed">For businesses</Eyebrow>
         <h1 className="font-display mt-5 max-w-4xl text-[2.5rem] leading-[1.05] sm:text-[3.25rem]">
           Customers, brought to you by students who know them.
         </h1>
-        <Lede className="mt-6 text-cream/90">
+        <Lede className="mt-6 text-[color:var(--on-dark-1)]/90">
           You pay for outcomes, not impressions. Rewards are funded per campaign and
           released only when your client payments clear.
         </Lede>
         <div className="mt-9 flex flex-wrap gap-3">
-          <Button href="/join?as=business" variant="cream" size="lg">
+          <Button href="/join?as=business" variant="light" size="lg">
             Talk to us about a campaign
           </Button>
         </div>
@@ -75,20 +75,20 @@ export default function ForBusinessesPage() {
         </div>
       </Section>
 
-      <Section tone="raised" id="providers">
+      <Section tone="paper-2" id="providers">
         <Eyebrow>How a campaign runs</Eyebrow>
         <H2 className="mt-4 max-w-3xl">Nothing is promised before it is funded.</H2>
-        <ol className="mt-10 space-y-px overflow-hidden rounded-[var(--radius-card)] bg-[color:var(--color-rule)]">
+        <ol className="mt-10 space-y-px overflow-hidden rounded-[var(--radius-xl)] bg-[color:var(--hair)]">
           {STEPS.map((step, index) => (
             <li
               key={step.title}
-              className="flex flex-col gap-4 bg-cream-raised p-7 sm:flex-row sm:gap-8"
+              className="flex flex-col gap-4 bg-paper-2 p-7 sm:flex-row sm:gap-8"
             >
               <span className="money text-[1.75rem] text-moss sm:w-16">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <div>
-                <h3 className="font-display text-subhead">{step.title}</h3>
+                <h3 className="font-display text-h3">{step.title}</h3>
                 <p className="mt-2 max-w-2xl text-ink/80">{step.body}</p>
               </div>
             </li>
@@ -99,18 +99,18 @@ export default function ForBusinessesPage() {
       <Section tone="forest">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
           <div>
-            <Eyebrow tone="accent">What it costs you</Eyebrow>
+            <Eyebrow tone="reversed">What it costs you</Eyebrow>
             <H2 className="mt-4">A reward you fund, and nothing you did not agree.</H2>
-            <Lede className="mt-5 text-cream/85">
+            <Lede className="mt-5 text-[color:var(--on-dark-1)]/85">
               The standard student reward on a referral campaign is{" "}
               {formatUsd(PROJECT_REWARD_USD)} per qualifying project. Campaign
               management and any content budget are agreed separately, in writing,
               before launch.
             </Lede>
           </div>
-          <Card tone="forest" className="border border-[color:var(--color-rule-reversed)]">
-            <h2 className="font-display text-subhead">What we need from you</h2>
-            <ul className="mt-5 space-y-3 text-cream/90">
+          <Card tone="forest" className="border border-[color:var(--hair-reversed)]">
+            <h2 className="font-display text-h3">What we need from you</h2>
+            <ul className="mt-5 space-y-3 text-[color:var(--on-dark-1)]/90">
               <li>A real product or service, already being delivered.</li>
               <li>Capacity to handle the leads a campaign will produce.</li>
               <li>Honest reporting of client payments as they clear.</li>

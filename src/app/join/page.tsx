@@ -32,7 +32,7 @@ export default async function JoinPage({
     <Section tone="forest">
       <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-start">
         <div>
-          <Eyebrow tone="accent">
+          <Eyebrow tone="reversed">
             {isBusiness ? "For businesses" : "Join StudentMoney"}
           </Eyebrow>
           <h1 className="font-display mt-5 text-[2.5rem] leading-[1.05] sm:text-[3.25rem]">
@@ -40,7 +40,7 @@ export default async function JoinPage({
               ? "Tell us what you need built."
               : "One introduction is all it takes to start."}
           </h1>
-          <Lede className="mt-6 text-cream/90">
+          <Lede className="mt-6 text-[color:var(--on-dark-1)]/90">
             {isBusiness
               ? "Tell us about the work you deliver and the customers you want. We will come back to you about running a campaign."
               : "Campaigns, lessons and earning updates arrive on WhatsApp. Joining is free, and you decide which campaigns you take."}
@@ -50,9 +50,9 @@ export default async function JoinPage({
             <>
               <Card
                 tone="forest"
-                className="mt-10 border border-[color:var(--color-rule-reversed)]"
+                className="mt-10 border border-[color:var(--hair-reversed)]"
               >
-                <Eyebrow tone="accent">The standard referral reward</Eyebrow>
+                <Eyebrow tone="reversed">The standard referral reward</Eyebrow>
                 <div className="mt-4">
                   <Money usd={PROJECT_REWARD_USD} size="lg" tone="earned-reversed" />
                 </div>
@@ -70,7 +70,7 @@ export default async function JoinPage({
                   {WHAT_HAPPENS.map((item) => (
                     <li
                       key={item}
-                      className="border-b border-[color:var(--color-rule-reversed)] pb-3 text-cream/90"
+                      className="border-b border-[color:var(--hair-reversed)] pb-3 text-[color:var(--on-dark-1)]/90"
                     >
                       {item}
                     </li>
@@ -81,15 +81,15 @@ export default async function JoinPage({
           )}
         </div>
 
-        <Card tone="forest" className="border border-[color:var(--color-rule-reversed)]">
-          <h2 className="font-display text-subhead">
+        <Card tone="forest" className="border border-[color:var(--hair-reversed)]">
+          <h2 className="font-display text-h3">
             {isBusiness ? "Talk to us about a campaign" : "Join the network"}
           </h2>
 
           {signInError && (
             <p
               role="alert"
-              className="mt-5 rounded-2xl bg-error px-4 py-3 font-bold text-cream"
+              className="mt-5 rounded-2xl bg-error px-4 py-3 font-bold text-[color:var(--on-dark-1)]"
             >
               Sign-in did not complete: {signInError}
             </p>
@@ -99,9 +99,9 @@ export default async function JoinPage({
             <div className="mt-6">
               <GoogleButton label="Sign up with Google" />
               <div className="mt-7 flex items-center gap-4">
-                <span className="h-px flex-1 bg-[color:var(--color-rule-reversed)]" />
-                <span className="eyebrow text-cream/60">or leave your number</span>
-                <span className="h-px flex-1 bg-[color:var(--color-rule-reversed)]" />
+                <span className="h-px flex-1 bg-[color:var(--hair-reversed)]" />
+                <span className="eyebrow text-[color:var(--on-dark-1)]/60">or leave your number</span>
+                <span className="h-px flex-1 bg-[color:var(--hair-reversed)]" />
               </div>
             </div>
           )}

@@ -42,11 +42,11 @@ export default function RewardsPage() {
   return (
     <>
       <Section tone="forest">
-        <Eyebrow tone="accent">Rewards and payouts</Eyebrow>
+        <Eyebrow tone="reversed">Rewards and payouts</Eyebrow>
         <h1 className="font-display mt-5 max-w-4xl text-[2.5rem] leading-[1.05] sm:text-[3.25rem]">
           The whole reward, in plain words.
         </h1>
-        <Lede className="mt-6 text-cream/90">
+        <Lede className="mt-6 text-[color:var(--on-dark-1)]/90">
           No part of how you get paid is hidden in a footnote. This page is the rule,
           and the ledger in your dashboard follows it exactly.
         </Lede>
@@ -64,7 +64,7 @@ export default function RewardsPage() {
               the project price the client has paid.
             </Lede>
 
-            <div className="mt-8 rounded-[var(--radius-card)] border-2 border-ink/15 p-6">
+            <div className="mt-8 rounded-[var(--radius-xl)] border-2 border-ink/15 p-6">
               <p className="font-display text-[1.375rem] leading-relaxed">
                 {formatUsd(PROJECT_REWARD_USD)} ×{" "}
                 <span className="italic">cleared client payments</span> ÷{" "}
@@ -84,7 +84,7 @@ export default function RewardsPage() {
         </div>
       </Section>
 
-      <Section tone="raised">
+      <Section tone="paper-2">
         <Eyebrow>The split</Eyebrow>
         <H2 className="mt-4 max-w-3xl">
           {formatUsd(WITHDRAWABLE_USD)} you can take out. {formatUsd(GROW_USD)} that
@@ -135,7 +135,7 @@ export default function RewardsPage() {
         <Eyebrow>The rules that govern it</Eyebrow>
         <H2 className="mt-4">Six rules, and they do not move.</H2>
 
-        <ol className="mt-10 grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-[color:var(--color-rule)] sm:grid-cols-2">
+        <ol className="mt-10 grid gap-px overflow-hidden rounded-[var(--radius-xl)] bg-[color:var(--hair)] sm:grid-cols-2">
           {RULES.map((rule, index) => (
             <li key={rule.title} className="bg-cream p-7">
               <span className="money text-[1.5rem] text-moss">
@@ -151,37 +151,37 @@ export default function RewardsPage() {
       <Section tone="forest">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
           <div>
-            <Eyebrow tone="accent">Getting paid</Eyebrow>
+            <Eyebrow tone="reversed">Getting paid</Eyebrow>
             <H2 className="mt-4">When the money reaches you.</H2>
-            <Lede className="mt-5 text-cream/85">
+            <Lede className="mt-5 text-[color:var(--on-dark-1)]/85">
               Your ledger updates as soon as a client payment clears and is verified.
               Payouts are made to a Nigerian bank account in your own name.
             </Lede>
             <div className="mt-8">
-              <Button href="/join" variant="cream">
+              <Button href="/join" variant="light">
                 Join StudentMoney
               </Button>
             </div>
           </div>
 
-          <Card tone="forest" className="border border-[color:var(--color-rule-reversed)]">
+          <Card tone="forest" className="border border-[color:var(--hair-reversed)]">
             <dl className="space-y-5">
-              <div className="border-b border-[color:var(--color-rule-reversed)] pb-5">
-                <dt className="eyebrow text-cream/60">Paid in</dt>
-                <dd className="mt-1.5 text-cream/90">
+              <div className="border-b border-[color:var(--hair-reversed)] pb-5">
+                <dt className="eyebrow text-[color:var(--on-dark-1)]/60">Paid in</dt>
+                <dd className="mt-1.5 text-[color:var(--on-dark-1)]/90">
                   Naira, to a bank account in your own name.
                 </dd>
               </div>
-              <div className="border-b border-[color:var(--color-rule-reversed)] pb-5">
-                <dt className="eyebrow text-cream/60">Conversion</dt>
-                <dd className="mt-1.5 text-cream/90">
+              <div className="border-b border-[color:var(--hair-reversed)] pb-5">
+                <dt className="eyebrow text-[color:var(--on-dark-1)]/60">Conversion</dt>
+                <dd className="mt-1.5 text-[color:var(--on-dark-1)]/90">
                   Rewards are set in dollars and paid at the rate posted on this site,
                   currently ₦{NGN_PER_USD.toLocaleString("en-NG")} to {formatUsd(1)}.
                 </dd>
               </div>
               <div>
-                <dt className="eyebrow text-cream/60">Fees and timing</dt>
-                <dd className="mt-1.5 text-cream/90">
+                <dt className="eyebrow text-[color:var(--on-dark-1)]/60">Fees and timing</dt>
+                <dd className="mt-1.5 text-[color:var(--on-dark-1)]/90">
                   Any payout fee, the minimum withdrawal amount and the processing time
                   are shown before you confirm a withdrawal.
                 </dd>

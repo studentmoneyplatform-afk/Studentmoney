@@ -48,29 +48,29 @@ export default function HowItWorksPage() {
   return (
     <>
       <Section tone="forest">
-        <Eyebrow tone="accent">How it works</Eyebrow>
+        <Eyebrow tone="reversed">How it works</Eyebrow>
         <h1 className="font-display mt-5 max-w-4xl text-[2.5rem] leading-[1.05] sm:text-[3.25rem]">
           Six steps, and the rule that applies to each one.
         </h1>
-        <Lede className="mt-6 text-cream/90">
+        <Lede className="mt-6 text-[color:var(--on-dark-1)]/90">
           Every opportunity shows what you do, who pays, and when you get paid. Here is
           the whole path, from joining to the money landing.
         </Lede>
       </Section>
 
       <Section tone="cream">
-        <ol className="grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-[color:var(--color-rule)] sm:grid-cols-2">
+        <ol className="grid gap-px overflow-hidden rounded-[var(--radius-xl)] bg-[color:var(--hair)] sm:grid-cols-2">
           {STEPS.map((step) => (
             <li key={step.n} className="bg-cream p-7 sm:p-8">
               <span className="money text-[1.75rem] text-moss">{step.n}</span>
-              <h2 className="font-display mt-2 text-subhead">{step.title}</h2>
+              <h2 className="font-display mt-2 text-h3">{step.title}</h2>
               <p className="mt-3 text-ink/80">{step.body}</p>
             </li>
           ))}
         </ol>
       </Section>
 
-      <Section tone="raised">
+      <Section tone="paper-2">
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-start">
           <div>
             <Eyebrow>The money, worked through</Eyebrow>
@@ -111,12 +111,12 @@ export default function HowItWorksPage() {
           </div>
 
           <Card tone="forest">
-            <Eyebrow tone="accent">When the project completes</Eyebrow>
+            <Eyebrow tone="reversed">When the project completes</Eyebrow>
             <div className="mt-5">
               <Money usd={PROJECT_REWARD_USD} size="lg" tone="earned-reversed" />
             </div>
             <RewardBar className="mt-7" />
-            <p className="mt-6 text-cream/85">
+            <p className="mt-6 text-[color:var(--on-dark-1)]/85">
               {formatUsd(20)} is yours to withdraw once you pass the minimum payout
               amount. {formatUsd(5)} is held as your Grow share and stays visible in
               your ledger.

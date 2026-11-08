@@ -1,203 +1,140 @@
 import type { Metadata } from "next";
-import { Money } from "@/components/money";
-import { Button, Card, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
-import { PROJECT_REWARD_USD } from "@/lib/rewards";
-import { formatUsd } from "@/lib/money";
+import { Reveal } from "@/components/reveal";
+import { Button, Card, Chip, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
+import { TRACKS } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Opportunities",
+  title: "Ways to earn",
   description:
-    "Referral campaigns, paid video campaigns, sales lessons and weekly challenges. Each one states what you do, who pays and when.",
+    "Nine ways Nigerian students earn on StudentMoney — referrals, content, freelance gigs, tutoring, campus work, micro-tasks, skills, challenges and placements.",
 };
-
-const PROJECT_TYPES = [
-  "Websites and landing pages",
-  "AI-powered tools",
-  "Machine-learning projects",
-  "Custom software",
-  "Business automation",
-  "Other approved commercial work",
-];
-
-const VIDEO_BRIEF = [
-  "The format and the length",
-  "Where it will be published",
-  "The submission deadline",
-  "Quality and originality requirements",
-  "Whether you must post it, or submitting is enough",
-  "Who owns the content and how it may be used",
-];
-
-const LESSONS = [
-  "Finding prospective customers",
-  "Understanding what a customer actually needs",
-  "Writing a message someone replies to",
-  "Presenting what a service is worth",
-  "Handling objections without arguing",
-  "Following up without becoming a nuisance",
-  "Making a marketing video that holds attention",
-  "Negotiation and professional communication",
-];
 
 export default function OpportunitiesPage() {
   return (
     <>
-      <Section tone="forest">
-        <Eyebrow tone="accent">Opportunities</Eyebrow>
-        <h1 className="font-display mt-5 max-w-4xl text-[2.5rem] leading-[1.05] sm:text-[3.25rem]">
-          Four ways to earn, and to get better at earning.
-        </h1>
-        <Lede className="mt-6 text-cream/90">
-          Campaigns reach you on WhatsApp. Every one of them carries its own brief, its
-          own rules and its own reward.
-        </Lede>
-      </Section>
-
-      {/* Referrals */}
-      <Section tone="cream" id="referrals">
-        <div className="grid gap-12 lg:grid-cols-[1.05fr_1fr] lg:items-start">
-          <div>
-            <Eyebrow>01 · Referral campaigns</Eyebrow>
-            <H2 className="mt-4">Introduce a business. Earn as the client pays.</H2>
-            <Lede className="mt-5 text-ink/80">
-              Businesses need customers. You know people who need real work done. A
-              referral campaign pays you for the introductions that turn into paid
-              projects.
+      <section className="relative overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 -top-32 h-96 bg-[radial-gradient(50%_60%_at_50%_40%,var(--color-cream),transparent_70%)]"
+        />
+        <div className="relative mx-auto w-full max-w-6xl px-5 pb-16 pt-14 sm:px-8 sm:pb-24 sm:pt-20">
+          <Reveal>
+            <Eyebrow>Ways to earn</Eyebrow>
+            <h1 className="font-display mt-5 max-w-4xl text-h1">
+              Nine ways to make money{" "}
+              <span className="italic text-forest">before you graduate.</span>
+            </h1>
+            <Lede className="mt-6">
+              Some need a network. Some need a skill. Some only need the hour between
+              lectures. Every one of them tells you how the money arrives before you
+              start — that is the part most platforms leave out.
             </Lede>
-            <p className="mt-6 text-ink/80">
-              The work is delivered by an approved provider. You make the introduction,
-              submit the lead, and your ledger moves as the client pays.
-            </p>
-            <div className="mt-8">
-              <Button href="/rewards" variant="outline">
-                See the reward rules
-              </Button>
-            </div>
-          </div>
+          </Reveal>
 
-          <Card tone="raised">
-            <Eyebrow>What gets referred</Eyebrow>
-            <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-              {PROJECT_TYPES.map((type) => (
-                <li key={type} className="border-b border-ink/10 pb-3 text-ink/85">
-                  {type}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 flex flex-wrap items-baseline gap-3">
-              <span className="text-ink/80">Standard reward</span>
-              <Money usd={PROJECT_REWARD_USD} size="sm" tone="earned" />
-            </div>
-            <div className="mt-3">
-              <FinePrint>
-                Per qualifying project, released proportionally as cleared client
-                payments come in. Duplicate and fraudulent referrals are excluded.
-              </FinePrint>
-            </div>
-          </Card>
-        </div>
-      </Section>
-
-      {/* Videos */}
-      <Section tone="raised" id="videos">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.05fr] lg:items-start">
-          <Card tone="forest" className="lg:order-2">
-            <Eyebrow tone="accent">Every video brief states</Eyebrow>
-            <ul className="mt-5 space-y-3">
-              {VIDEO_BRIEF.map((item) => (
-                <li
-                  key={item}
-                  className="border-b border-[color:var(--color-rule-reversed)] pb-3 text-cream/90"
+          <Reveal delay={120}>
+            <nav aria-label="Jump to a track" className="mt-10 flex flex-wrap gap-2">
+              {TRACKS.map((t) => (
+                <a
+                  key={t.slug}
+                  href={`#${t.slug}`}
+                  className="rounded-full border border-[color:var(--hair-strong)] px-3.5 py-1.5 text-caption font-bold text-[color:var(--ink-2)] transition-colors hover:border-[color:var(--ink-1)] hover:text-ink"
                 >
-                  {item}
+                  {t.title}
+                </a>
+              ))}
+            </nav>
+          </Reveal>
+        </div>
+      </section>
+
+      <Section tone="paper-2">
+        <div className="space-y-5">
+          {TRACKS.map((track, i) => (
+            <Reveal key={track.slug} delay={(i % 3) * 50}>
+              <Card id={track.slug} className="scroll-mt-24">
+                <div className="grid gap-7 lg:grid-cols-[0.85fr_1.15fr]">
+                  <div>
+                    <div className="flex items-center gap-3">
+                      <span className="money text-[1.5rem] text-[color:var(--ink-4)]">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      {track.status === "soon" && <Chip>Coming next</Chip>}
+                    </div>
+                    <h2 className="font-display mt-2 text-h2">{track.title}</h2>
+                  </div>
+
+                  <div>
+                    <p className="text-lead leading-relaxed text-[color:var(--ink-2)]">
+                      {track.blurb}
+                    </p>
+
+                    <div className="mt-6 flex flex-wrap gap-1.5">
+                      {track.examples.map((e) => (
+                        <Chip key={e}>{e}</Chip>
+                      ))}
+                    </div>
+
+                    <div className="mt-6 rounded-[var(--radius-lg)] bg-cream px-5 py-4">
+                      <Eyebrow>How you get paid</Eyebrow>
+                      <p className="mt-1.5 font-bold">{track.paid}</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section tone="forest">
+        <Reveal>
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+            <div>
+              <H2>What we will never do.</H2>
+              <Lede tone="reversed" className="mt-5">
+                These are not aspirations. They are the rules we hold ourselves to, and
+                you can hold us to them too.
+              </Lede>
+            </div>
+            <ul className="space-y-3.5">
+              {[
+                "Promise guaranteed income, or call any of this passive.",
+                "Pay you for recruiting other students and nothing else.",
+                "Publish a fake testimonial or a doctored earnings screenshot.",
+                "Quote an earning target without the rules that apply to it.",
+                "Pay a reward on a payment that has not cleared.",
+                "Ask you to collect money from a client on our behalf.",
+              ].map((line) => (
+                <li
+                  key={line}
+                  className="flex gap-3 border-b border-[color:var(--hair-reversed)] pb-3.5 text-[color:var(--on-dark-2)] last:border-0"
+                >
+                  <span aria-hidden="true" className="font-bold text-hibiscus-light">
+                    —
+                  </span>
+                  {line}
                 </li>
               ))}
             </ul>
-          </Card>
-
-          <div>
-            <Eyebrow>02 · Paid video campaigns</Eyebrow>
-            <H2 className="mt-4">Make the content. Get paid on approval.</H2>
-            <Lede className="mt-5 text-ink/80">
-              Some campaigns pay for approved promotional videos, product demos, or a
-              testimonial based on something you have genuinely used.
-            </Lede>
-            <p className="mt-6 text-ink/80">
-              A campaign may offer{" "}
-              <span className="font-bold">{formatUsd(PROJECT_REWARD_USD)}</span> per
-              approved video, subject to its published requirements. Video rewards are
-              separate from referral rewards, and you are not promised both for the
-              same piece of work unless the campaign says so.
-            </p>
-            <div className="mt-6">
-              <FinePrint>
-                If a campaign requires you to disclose that a post is promotional, that
-                disclosure is part of what gets approved.
-              </FinePrint>
-            </div>
           </div>
-        </div>
+        </Reveal>
       </Section>
 
-      {/* Lessons */}
-      <Section tone="cream" id="lessons">
-        <Eyebrow>03 · Sales and marketing lessons</Eyebrow>
-        <H2 className="mt-4 max-w-3xl">
-          The skill is worth more than any single reward.
-        </H2>
-        <Lede className="mt-5 text-ink/80">
-          Short, practical lessons that you apply to a live campaign the same week. No
-          theory you cannot use on Monday.
-        </Lede>
-        <ul className="mt-10 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
-          {LESSONS.map((lesson) => (
-            <li key={lesson} className="border-t-2 border-forest pt-3 text-ink/85">
-              {lesson}
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      {/* Challenges */}
-      <Section tone="forest" id="challenges">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
-          <div>
-            <Eyebrow tone="accent">04 · Weekly challenges</Eyebrow>
-            <H2 className="mt-4">Something to aim at, every week.</H2>
-            <Lede className="mt-5 text-cream/85">
-              Time-bound challenges that reward action and consistency. Leaderboards are
-              built on verified outcomes, never on clicks or message volume.
-            </Lede>
-            <div className="mt-8">
-              <Button href="/join" variant="cream">
-                Join and get this week&apos;s challenge
-              </Button>
-            </div>
+      <Section width="narrow" className="text-center">
+        <Reveal>
+          <H2>Pick one and start this week.</H2>
+          <div className="mt-8 flex justify-center">
+            <Button href="/join" size="lg">
+              Join StudentMoney free
+            </Button>
           </div>
-
-          <Card
-            tone="forest"
-            className="border border-[color:var(--color-rule-reversed)]"
-          >
-            <ul className="space-y-4 text-cream/90">
-              <li>&ldquo;Three businesses to approach this week.&rdquo;</li>
-              <li>
-                &ldquo;Learn one sales skill. Apply it to a real opportunity.&rdquo;
-              </li>
-              <li>
-                &ldquo;Create a video. Submit it. Earn when your content meets the
-                campaign requirements.&rdquo;
-              </li>
-            </ul>
-            <div className="mt-6">
-              <FinePrint tone="reversed">
-                Challenge targets are motivational goals, not guarantees. Each challenge
-                publishes how many openings exist, who is eligible, and what must happen
-                for a reward to be earned.
-              </FinePrint>
-            </div>
-          </Card>
-        </div>
+          <div className="mx-auto mt-6 max-w-lg">
+            <FinePrint>
+              Earning targets are goals, not guarantees. Each campaign publishes what
+              qualifies, who funds the reward and when it is paid.
+            </FinePrint>
+          </div>
+        </Reveal>
       </Section>
     </>
   );

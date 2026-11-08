@@ -13,7 +13,7 @@ function Submit() {
     <button
       type="submit"
       disabled={pending}
-      className="mt-2 inline-flex items-center justify-center rounded-full bg-cream px-8 py-4 text-[1.0625rem] font-bold text-forest transition-colors hover:bg-cream-raised disabled:opacity-60"
+      className="mt-2 inline-flex items-center justify-center rounded-full bg-cream px-8 py-4 text-[1.0625rem] font-bold text-forest transition-colors hover:bg-paper-2 disabled:opacity-60"
     >
       {pending ? "Saving…" : "Finish joining"}
     </button>
@@ -49,7 +49,7 @@ export function ProfileForm({
       <Submit />
 
       {state.status === "error" && (
-        <p role="alert" className="rounded-2xl bg-error px-4 py-3 font-bold text-cream">
+        <p role="alert" className="rounded-2xl bg-error px-4 py-3 font-bold text-[color:var(--on-dark-1)]">
           {state.message}
         </p>
       )}
@@ -79,17 +79,17 @@ function Field({
 }) {
   return (
     <label className="grid gap-1.5">
-      <span className="font-bold text-cream">{label}</span>
+      <span className="font-bold text-[color:var(--on-dark-1)]">{label}</span>
       <input
         name={name}
         type={type}
         defaultValue={defaultValue}
         autoComplete={autoComplete}
         aria-describedby={hint ? `${name}-hint` : undefined}
-        className="rounded-full border-2 border-[color:var(--color-rule-reversed)] bg-forest-deep px-5 py-3.5 text-cream placeholder:text-cream/40"
+        className="rounded-full border-2 border-[color:var(--hair-reversed)] bg-forest-deep px-5 py-3.5 text-[color:var(--on-dark-1)] placeholder:text-[color:var(--on-dark-1)]/40"
       />
       {hint && (
-        <span id={`${name}-hint`} className="text-fine text-cream/70">
+        <span id={`${name}-hint`} className="text-caption text-[color:var(--on-dark-1)]/70">
           {hint}
         </span>
       )}

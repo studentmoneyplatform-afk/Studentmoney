@@ -26,12 +26,12 @@ export function Money({
   const colour = {
     default: "text-ink",
     earned: "text-hibiscus",
-    reversed: "text-cream",
+    reversed: "text-[color:var(--on-dark-1)]",
     "earned-reversed": "text-hibiscus-light",
   }[tone];
 
   const ngnColour =
-    tone === "reversed" || tone === "earned-reversed" ? "text-cream/75" : "text-moss";
+    tone === "reversed" || tone === "earned-reversed" ? "text-[color:var(--on-dark-1)]/75" : "text-moss";
 
   return (
     <span className="inline-flex flex-wrap items-baseline gap-x-2.5">

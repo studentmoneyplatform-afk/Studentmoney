@@ -71,7 +71,7 @@ export default async function DashboardPage() {
       <Section tone="forest">
         <div className="flex flex-wrap items-start justify-between gap-6">
           <div>
-            <Eyebrow tone="accent">Your ledger</Eyebrow>
+            <Eyebrow tone="reversed">Your ledger</Eyebrow>
             <h1 className="font-display mt-4 text-[2.25rem] leading-[1.05] sm:text-[3rem]">
               Welcome, {firstName}.
             </h1>
@@ -79,7 +79,7 @@ export default async function DashboardPage() {
           <form action="/auth/signout" method="post">
             <button
               type="submit"
-              className="rounded-full border-2 border-cream/40 px-5 py-2.5 text-[0.9375rem] font-bold text-cream transition-colors hover:border-cream"
+              className="rounded-full border-2 border-[color:var(--hair-reversed)] px-5 py-2.5 text-[0.9375rem] font-bold text-[color:var(--on-dark-1)] transition-colors hover:border-cream"
             >
               Sign out
             </button>
@@ -88,8 +88,8 @@ export default async function DashboardPage() {
 
         {!profile.verified_at && (
           <Card tone="forest" className="mt-8 border-2 border-warning">
-            <h2 className="font-display text-subhead">Verification pending</h2>
-            <p className="mt-3 text-cream/90">
+            <h2 className="font-display text-h3">Verification pending</h2>
+            <p className="mt-3 text-[color:var(--on-dark-1)]/90">
               You can browse campaigns now. Before a reward can be attributed to you we
               verify who you are, because attribution has to belong to a real person.
               We will message you on WhatsApp when that is done.
@@ -99,9 +99,9 @@ export default async function DashboardPage() {
 
         <Card
           tone="forest"
-          className="mt-8 border border-[color:var(--color-rule-reversed)]"
+          className="mt-8 border border-[color:var(--hair-reversed)]"
         >
-          <Eyebrow tone="accent">Earned so far</Eyebrow>
+          <Eyebrow tone="reversed">Earned so far</Eyebrow>
           <div className="mt-4">
             <Money usd={total.earned} size="xl" tone="earned-reversed" />
           </div>
@@ -124,12 +124,12 @@ export default async function DashboardPage() {
             </>
           ) : (
             <div className="mt-6">
-              <p className="text-cream/90">
+              <p className="text-[color:var(--on-dark-1)]/90">
                 Nothing yet. Your first {formatUsd(PROJECT_REWARD_USD)} starts with one
                 genuine introduction.
               </p>
               <div className="mt-6">
-                <Button href="/opportunities" variant="cream">
+                <Button href="/opportunities" variant="light">
                   See what is live
                 </Button>
               </div>
@@ -145,7 +145,7 @@ export default async function DashboardPage() {
           <div className="mt-8 grid gap-5 sm:grid-cols-2">
             {campaigns.map((c) => (
               <Card key={c.id} tone="outline">
-                <h3 className="font-display text-subhead">{c.title}</h3>
+                <h3 className="font-display text-h3">{c.title}</h3>
                 <p className="mt-3 text-ink/80">{c.summary}</p>
                 <div className="mt-5">
                   <Money usd={Number(c.reward_usd)} size="sm" tone="earned" />

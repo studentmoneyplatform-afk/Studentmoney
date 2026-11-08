@@ -33,18 +33,18 @@ export default async function WelcomePage() {
   return (
     <Section tone="forest">
       <div className="mx-auto max-w-xl">
-        <Eyebrow tone="accent">One more step</Eyebrow>
+        <Eyebrow tone="reversed">One more step</Eyebrow>
         <h1 className="font-display mt-5 text-[2.25rem] leading-[1.05] sm:text-[3rem]">
           Where should your campaigns arrive?
         </h1>
-        <Lede className="mt-6 text-cream/90">
+        <Lede className="mt-6 text-[color:var(--on-dark-1)]/90">
           Google told us who you are. It cannot tell us your WhatsApp number, and that
           is where the opportunities and your earning updates go.
         </Lede>
 
         <Card
           tone="forest"
-          className="mt-10 border border-[color:var(--color-rule-reversed)]"
+          className="mt-10 border border-[color:var(--hair-reversed)]"
         >
           <ProfileForm defaultName={googleName} />
         </Card>

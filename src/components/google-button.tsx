@@ -44,8 +44,8 @@ export function GoogleButton({
 
   const look =
     tone === "cream"
-      ? "bg-cream text-forest hover:bg-cream-raised"
-      : "border-2 border-forest text-forest hover:bg-forest hover:text-cream";
+      ? "bg-cream text-forest hover:bg-paper-2"
+      : "border-2 border-forest text-forest hover:bg-forest hover:text-[color:var(--on-dark-1)]";
 
   return (
     <div className="grid gap-3">
@@ -60,7 +60,7 @@ export function GoogleButton({
       </button>
 
       {error && (
-        <p role="alert" className="rounded-2xl bg-error px-4 py-3 font-bold text-cream">
+        <p role="alert" className="rounded-2xl bg-error px-4 py-3 font-bold text-[color:var(--on-dark-1)]">
           {error}
         </p>
       )}

@@ -60,7 +60,7 @@ export function Wordmark({
 }) {
   const base =
     tone === "reversed"
-      ? "text-cream"
+      ? "text-[color:var(--on-dark-1)]"
       : tone === "ink"
         ? "text-ink"
         : "text-forest";

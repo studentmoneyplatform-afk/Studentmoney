@@ -18,7 +18,7 @@ export function RewardCalculator({ projectPrice = 1200 }: { projectPrice?: numbe
   const split = rewardFor(cleared, projectPrice);
 
   return (
-    <div className="rounded-[var(--radius-card)] bg-forest p-6 text-cream sm:p-8">
+    <div className="rounded-[var(--radius-xl)] bg-forest p-6 text-[color:var(--on-dark-1)] sm:p-8">
       <label htmlFor="paid" className="eyebrow block text-hibiscus-light">
         Client has paid {percent}% of {formatUsd(projectPrice)}
       </label>
@@ -36,7 +36,7 @@ export function RewardCalculator({ projectPrice = 1200 }: { projectPrice?: numbe
       />
 
       <div className="mt-7">
-        <p className="text-cream/75">You have earned</p>
+        <p className="text-[color:var(--on-dark-1)]/75">You have earned</p>
         <div className="mt-2">
           <Money usd={split.earned} size="lg" tone="earned-reversed" />
         </div>

@@ -25,7 +25,7 @@ export default function PrivacyPage() {
                 to verify your identity.
               </p>
               <p>
-                From your activity: the leads you submit, the campaigns you take, your
+                From your activity: the referrals you submit, the opportunities you join, your
                 content submissions, and the reward ledger that results.
               </p>
             </>
@@ -48,7 +48,7 @@ export default function PrivacyPage() {
             <p>
               To attribute referrals correctly, calculate and pay rewards, verify that
               students and projects are genuine, detect duplicate and fraudulent
-              submissions, and send you the campaigns you asked for.
+              submissions, and send you the opportunity updates you asked for.
             </p>
           ),
         },
@@ -56,7 +56,7 @@ export default function PrivacyPage() {
           heading: "Messages on WhatsApp",
           body: (
             <p>
-              You receive campaigns, lessons and earning updates because you asked to.
+              You receive opportunity and earning updates because you asked to.
               You can stop marketing messages at any time by replying STOP, and still
               keep the messages about money you have already earned.
             </p>
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
           heading: "Who sees your data",
           body: (
             <p>
-              StudentMoney staff who operate campaigns and payouts, the approved
+              StudentMoney staff who operate the opportunities and payouts, the named
               provider for a lead you submitted, and the services we use to run the
               platform and send payments. We do not sell your data, and we do not share
               your contact list.

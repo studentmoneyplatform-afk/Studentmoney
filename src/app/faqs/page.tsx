@@ -78,7 +78,7 @@ const GROUPS = [
       ],
       [
         "Do you pay for recruiting other students?",
-        "Not on its own. Any recruitment incentive must be funded by a real campaign and disclosed, never by the sign-ups themselves.",
+        "Not on its own. Any recruitment incentive must be funded by a real opportunity and disclosed, never by the sign-ups themselves.",
       ],
       [
         "Will you publish my name or earnings?",

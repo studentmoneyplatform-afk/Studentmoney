@@ -12,7 +12,7 @@ export default function TermsPage() {
     <LegalPage
       eyebrow="Terms"
       title="The rules, written down before you start."
-      intro="These are the operating rules of the platform. Each campaign may add its own published requirements, but no campaign may contradict what is on this page."
+      intro="These are the operating rules of the platform. Each opportunity adds its own published requirements, but none may contradict what is on this page."
       reviewNote="This page states StudentMoney's operating rules in plain words. It is not yet the final contract: the binding terms, including dispute handling and the governing law, are being prepared with a qualified Nigerian legal adviser and will be published here before the first reward is paid."
       sections={[
         {
@@ -32,7 +32,7 @@ export default function TermsPage() {
           body: (
             <p>
               A qualifying project is genuine work, agreed at a stated price with a real
-              customer you introduced, delivered by an approved provider. Each campaign
+              customer you introduced, delivered by the named partner. Each opportunity
               publishes its own definition, and that definition applies to the leads you
               submit under it.
             </p>
@@ -77,18 +77,6 @@ export default function TermsPage() {
               your reward that payment funded reverses with it. If this happens after a
               payout, the amount is recovered from your next rewards rather than
               demanded back from you.
-            </p>
-          ),
-        },
-        {
-          heading: "Content campaigns",
-          body: (
-            <p>
-              Video rewards are separate from referral rewards. A submission is paid
-              only if it meets the published brief and is approved. Where a campaign
-              requires you to disclose that a post is promotional, that disclosure is
-              part of approval. You keep ownership of what you make except where the
-              brief states otherwise and you accept it before submitting.
             </p>
           ),
         },

@@ -188,9 +188,13 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
         <div className="relative hidden h-[34rem] lg:block xl:h-[38rem]">
           {/* Layered green shapes behind the figure */}
           <div aria-hidden="true" className="absolute inset-0">
-            <div className="absolute right-[2%] top-[-4%] h-[72%] w-[42%] rounded-[46%_54%_40%_60%] bg-green-wash" />
-            <div className="absolute right-[6%] top-[18%] h-[70%] w-[30%] rounded-[52%_48%_44%_56%] bg-green/30" />
-            <div className="absolute right-[20%] bottom-[-6%] h-[52%] w-[26%] rounded-[48%_52%_56%_44%] bg-green/20" />
+            {/* Pale mint behind the head, then a stronger green form behind
+                his torso, which is what gives the figure something to stand
+                against rather than floating on cream. */}
+            <div className="absolute right-[1%] top-[2%] h-[72%] w-[44%] rounded-[46%_54%_40%_60%] bg-green-wash" />
+            <div className="absolute right-[4%] top-[16%] h-[80%] w-[34%] rounded-[52%_48%_42%_58%] bg-green/45" />
+            <div className="absolute right-[17%] bottom-[-10%] h-[58%] w-[30%] rounded-[48%_52%_58%_42%] bg-green/30" />
+            <div className="absolute right-[26%] top-[30%] h-[46%] w-[18%] rounded-[56%_44%_48%_52%] bg-forest/15" />
           </div>
 
           {/* The green card */}
@@ -252,23 +256,23 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
           {/* Cream curve scooping the card's top-right, around his head */}
           <div
             aria-hidden="true"
-            className="absolute left-[43%] top-[-14%] z-20 h-[62%] w-[26%] rounded-[50%] bg-paper"
+            className="absolute left-[46%] top-[-12%] z-20 h-[60%] w-[25%] rounded-[50%] bg-paper"
           />
 
           {/* The figure, crossing the card */}
-          <div className="pointer-events-none absolute bottom-0 left-[40%] z-30 h-full">
+          <div className="pointer-events-none absolute bottom-0 left-[43%] z-30 h-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/photos/hero-cutout.webp"
               alt="A Stormm student pointing, holding a phone"
-              className="h-[108%] w-auto max-w-none object-contain object-bottom"
+              className="h-[106%] w-auto max-w-none object-contain object-bottom"
             />
           </div>
 
           <Doodles />
 
           {/* Script label and the three cards */}
-          <div className="absolute -right-6 top-[1%] z-40 w-[17.5rem] xl:-right-10">
+          <div className="absolute right-0 top-[1%] z-40 w-[17.5rem]">
             <p className="font-script rotate-[-4deg] pl-6 text-[2rem] leading-[1.05] text-forest">
               Three Ways
               <br />

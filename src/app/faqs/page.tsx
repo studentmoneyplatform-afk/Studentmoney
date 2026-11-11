@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { Button, Eyebrow, FinePrint, H2, Section } from "@/components/ui";
+import { SectionHead, StatBand } from "@/components/sections";
 
 export const metadata: Metadata = {
   title: "FAQs",
@@ -100,6 +101,24 @@ export default function FaqsPage() {
         ]}
         lede="Especially the uncomfortable ones. If something here reads vaguely, tell us and we will make it plainer."
       />
+
+      <Section tone="paper">
+        <SectionHead
+          align="centre"
+          script="The short version"
+          title="If you only read four lines."
+        />
+        <div className="mt-12">
+          <StatBand
+            items={[
+              { value: "Free", label: "to join, and to take on any opportunity" },
+              { value: "5", label: "stages a referral passes before anything is owed" },
+              { value: "Naira", label: "paid to a bank account in your own name" },
+              { value: "No", label: "guaranteed income, and we will never claim otherwise" },
+            ]}
+          />
+        </div>
+      </Section>
 
       <Section tone="paper-2" width="narrow" className="[&_>div>div]:space-y-14">
         {GROUPS.map((group, gi) => (

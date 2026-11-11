@@ -3,6 +3,7 @@ import { Figure } from "@/components/figure";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { Button, Card, Eyebrow, H2, Lede, Section } from "@/components/ui";
+import { CtaBand, SectionHead, StatBand } from "@/components/sections";
 
 export const metadata: Metadata = {
   title: "About",
@@ -100,6 +101,36 @@ export default function AboutPage() {
             </Reveal>
           ))}
         </div>
+      </Section>
+
+      <Section tone="paper">
+        <SectionHead
+          script="Where we are"
+          eyebrow="The numbers that are true"
+          title="Small, deliberate, and honest about it."
+          lede="We would rather open with a handful of opportunities that pay than a long list that does not. These are the only figures we quote, because they are the only ones we can stand behind."
+        />
+        <div className="mt-12">
+          <StatBand
+            items={[
+              { value: "3", label: "live opportunities, each with published rules" },
+              { value: "5", label: "stages every referral passes before a reward" },
+              { value: "100%", label: "of rewards paid on verified referrals only" },
+              { value: "0", label: "guarantees of income, now or ever" },
+            ]}
+          />
+        </div>
+      </Section>
+
+      <Section tone="paper-2">
+        <CtaBand
+          eyebrow="Get started"
+          title="Three opportunities are open now."
+          body="Create your account, choose the one that fits the people you already know, and get your referral link today."
+          primary={{ href: "/join", label: "Create your account" }}
+          secondary={{ href: "/opportunities", label: "Explore opportunities" }}
+          note="Joining is free. Rewards are paid on referrals that have been verified and approved."
+        />
       </Section>
 
       <Section tone="forest">

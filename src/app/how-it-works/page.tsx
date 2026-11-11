@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { Button, Card, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
+import { FeatureGrid, SectionHead } from "@/components/sections";
 
 export const metadata: Metadata = {
   title: "How it works",
@@ -102,6 +103,34 @@ export default function HowItWorksPage() {
             </Reveal>
           ))}
         </ol>
+      </Section>
+
+      <Section tone="paper">
+        <SectionHead
+          script="Before we approve"
+          eyebrow="What we check"
+          title="Every referral is looked at by a person."
+          lede="This is the slow part, and we will not pretend otherwise. It is also the reason a reward here means something."
+        />
+        <div className="mt-12">
+          <FeatureGrid
+            columns={3}
+            items={[
+              {
+                title: "The person is real",
+                body: "A contact who exists, who knows you introduced them, and who can be reached. Fabricated contacts are rejected, and the reason is shown to you.",
+              },
+              {
+                title: "They are not already claimed",
+                body: "If another student referred the same person first, the earlier claim stands. You are told, rather than left wondering why your count did not move.",
+              },
+              {
+                title: "They did what the opportunity asks",
+                body: "A purchase, a sign-up, an enrolment: whatever that opportunity publishes as qualifying. Nothing else counts, however close it looks.",
+              },
+            ]}
+          />
+        </div>
       </Section>
 
       <Section tone="forest">

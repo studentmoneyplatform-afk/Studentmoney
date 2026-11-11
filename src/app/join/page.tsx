@@ -3,6 +3,7 @@ import { SignupForm } from "@/components/signup-form";
 import { GoogleButton } from "@/components/google-button";
 import { Money } from "@/components/money";
 import { Card, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
+import { CtaBand, SectionHead, StepTimeline } from "@/components/sections";
 
 export const metadata: Metadata = {
   title: "Join",
@@ -27,6 +28,7 @@ export default async function JoinPage({
   const signInError = params.error;
 
   return (
+    <div data-page="home">
     <Section tone="forest">
       <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-start">
         <div>
@@ -112,5 +114,35 @@ export default async function JoinPage({
         </Card>
       </div>
     </Section>
+
+      <Section tone="paper">
+        <SectionHead
+          script="After you join"
+          eyebrow="What happens next"
+          title="From account to first referral."
+          lede="No waiting list and no interview. The only thing between you and a tracking link is verification, which exists so a reward can be attributed to a real person."
+        />
+        <div className="mt-12">
+          <StepTimeline
+            steps={[
+              { title: "Create your account", body: "With Google, or by leaving your WhatsApp number." },
+              { title: "Tell us where to reach you", body: "A number that works on WhatsApp, and your university." },
+              { title: "Pick an opportunity", body: "One, two or all three. They run alongside each other." },
+              { title: "Get your link", body: "Yours alone, issued the moment you join one." },
+            ]}
+          />
+        </div>
+      </Section>
+
+      <Section tone="paper-2">
+        <CtaBand
+          eyebrow="Any questions first?"
+          title="We published the awkward answers too."
+          body="What counts as a successful referral, why one might be rejected, and what happens if a payment is reversed. All of it is written down before you start."
+          primary={{ href: "/faqs", label: "Read the FAQs" }}
+          secondary={{ href: "/how-it-works", label: "See how it works" }}
+        />
+      </Section>
+    </div>
   );
 }

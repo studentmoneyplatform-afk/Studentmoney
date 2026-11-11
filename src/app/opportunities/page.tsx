@@ -29,7 +29,7 @@ export default async function OpportunitiesPage() {
         eyebrow="Explore opportunities"
         lines={[
           "Three ways to earn.",
-          <span key="l2" className="italic text-forest">One Stormm.</span>,
+          <span key="l2" className="italic text-green-bright">One Stormm.</span>,
         ]}
         lede="Join one of them, or run all three at once. Each has its own target and its own reward, and each one tells you exactly what counts before you start."
         actions={

@@ -65,7 +65,7 @@ export default function HowItWorksPage() {
         eyebrow="How it works"
         lines={[
           "Seven steps, and",
-          <span key="l2" className="italic text-forest">
+          <span key="l2" className="italic text-green-bright">
             the rule behind each.
           </span>,
         ]}

@@ -96,15 +96,15 @@ export default function FaqsPage() {
         eyebrow="FAQs"
         lines={[
           "The questions worth",
-          <span key="l2" className="italic text-forest">asking first.</span>,
+          <span key="l2" className="italic text-green-bright">asking first.</span>,
         ]}
         lede="Especially the uncomfortable ones. If something here reads vaguely, tell us and we will make it plainer."
       />
 
-      <Section tone="paper-2" width="narrow">
+      <Section tone="paper-2" width="narrow" className="[&_>div>div]:space-y-14">
         {GROUPS.map((group, gi) => (
           <Reveal key={group.heading} delay={gi * 60}>
-            <div className="mb-14 last:mb-0">
+            <div>
               <Eyebrow>{group.heading}</Eyebrow>
               <div className="mt-5 divide-y divide-[color:var(--hair)] border-y border-[color:var(--hair)]">
                 {group.items.map(([q, a]) => (

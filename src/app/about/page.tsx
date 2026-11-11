@@ -37,7 +37,7 @@ export default function AboutPage() {
         lines={[
           "Students should not",
           "have to wait until",
-          <span key="l3" className="italic text-forest">graduation.</span>,
+          <span key="l3" className="italic text-green-bright">graduation.</span>,
         ]}
         lede="Stormm is a Nigerian platform where university students find legitimate earning opportunities, refer real customers to real businesses, and earn while they are still in school."
         actions={

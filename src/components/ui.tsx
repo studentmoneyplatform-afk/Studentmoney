@@ -1,13 +1,21 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+/**
+ * Shared primitives in the Stormm language: cream ground, deep green
+ * surfaces, one bright green accent, generous radii and soft shadows.
+ *
+ * Prop names are unchanged from the previous system so every page inherits
+ * the new look without being rewritten.
+ */
+
 type Surface = "paper" | "paper-2" | "cream" | "forest";
 
 const SURFACE: Record<Surface, string> = {
   paper: "bg-paper text-ink",
   "paper-2": "bg-paper-2 text-ink",
   cream: "bg-cream text-ink",
-  forest: "bg-forest text-[color:var(--on-dark-1)]",
+  forest: "bg-forest text-paper",
 };
 
 export function Section({
@@ -23,17 +31,11 @@ export function Section({
   id?: string;
   width?: "default" | "wide" | "narrow";
 }) {
-  const max = {
-    default: "max-w-6xl",
-    wide: "max-w-7xl",
-    narrow: "max-w-3xl",
-  }[width];
+  const max = { default: "max-w-[82rem]", wide: "max-w-[90rem]", narrow: "max-w-3xl" }[width];
 
   return (
     <section id={id} className={`${SURFACE[tone]} ${className}`}>
-      <div className={`mx-auto w-full ${max} px-5 py-20 sm:px-8 sm:py-28`}>
-        {children}
-      </div>
+      <div className={`mx-auto w-full ${max} px-5 py-16 sm:px-8 sm:py-24`}>{children}</div>
     </section>
   );
 }
@@ -44,37 +46,39 @@ export function Button({
   variant = "solid",
   size = "md",
   className = "",
+  arrow = true,
 }: {
   href: string;
   children: ReactNode;
   variant?: "solid" | "ghost" | "light";
   size?: "sm" | "md" | "lg";
   className?: string;
+  arrow?: boolean;
 }) {
   const sizing = {
     sm: "px-4 py-2 text-caption",
-    md: "px-5 py-2.5 text-body",
+    md: "px-5 py-2.5 text-[0.9375rem]",
     lg: "px-7 py-3.5 text-[1.0625rem]",
   }[size];
 
   const look = {
-    solid: "bg-forest text-[color:var(--on-dark-1)] hover:bg-forest-deep",
-    ghost:
-      "border border-[color:var(--hair-strong)] text-ink hover:border-[color:var(--ink-1)] hover:bg-[color:var(--hair)]",
-    light:
-      "bg-paper text-forest hover:bg-white",
+    solid: "bg-forest text-paper hover:bg-forest-deep",
+    ghost: "border border-forest/30 text-forest hover:border-forest hover:bg-green-wash/60",
+    light: "bg-paper text-forest hover:bg-white",
   }[variant];
 
   return (
     <Link
       href={href}
-      className={`inline-flex items-center justify-center gap-2 rounded-full font-bold transition-[background-color,border-color,transform] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] active:translate-y-px ${sizing} ${look} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-full font-extrabold transition-all duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-0.5 ${sizing} ${look} ${className}`}
     >
       {children}
+      {arrow && <span aria-hidden="true">→</span>}
     </Link>
   );
 }
 
+/** The small uppercase label above a heading. */
 export function Eyebrow({
   children,
   tone = "default",
@@ -84,10 +88,8 @@ export function Eyebrow({
 }) {
   return (
     <p
-      className={`eyebrow ${
-        tone === "reversed"
-          ? "text-[color:var(--on-dark-3)]"
-          : "text-[color:var(--ink-3)]"
+      className={`text-[0.75rem] font-extrabold uppercase tracking-[0.14em] ${
+        tone === "reversed" ? "text-green-bright" : "text-green"
       }`}
     >
       {children}
@@ -96,7 +98,11 @@ export function Eyebrow({
 }
 
 export function H2({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <h2 className={`font-display text-h2 ${className}`}>{children}</h2>;
+  return (
+    <h2 className={`font-display text-[clamp(1.875rem,3.1vw,2.75rem)] ${className}`}>
+      {children}
+    </h2>
+  );
 }
 
 export function Lede({
@@ -110,8 +116,8 @@ export function Lede({
 }) {
   return (
     <p
-      className={`max-w-2xl text-lead leading-relaxed ${
-        tone === "reversed" ? "text-[color:var(--on-dark-2)]" : "text-[color:var(--ink-2)]"
+      className={`max-w-2xl text-[1.0625rem] leading-relaxed sm:text-lead ${
+        tone === "reversed" ? "text-paper/80" : "text-ink/75"
       } ${className}`}
     >
       {children}
@@ -133,21 +139,23 @@ export function Card({
   id?: string;
 }) {
   const look =
-    tone === "outline"
-      ? "border border-[color:var(--hair)] bg-white/60"
-      : tone === "forest"
-        ? "bg-forest text-[color:var(--on-dark-1)]"
-        : tone === "cream"
-          ? "bg-cream"
+    tone === "forest"
+      ? "bg-forest text-paper"
+      : tone === "cream"
+        ? "bg-cream ring-1 ring-ink/5"
+        : tone === "outline"
+          ? "border border-ink/12 bg-paper/60"
           : tone === "paper-2"
-            ? "bg-paper-2"
-            : "bg-white border border-[color:var(--hair)]";
+            ? "bg-paper-2 ring-1 ring-ink/5"
+            : "bg-paper shadow-[0_18px_44px_-30px_rgba(18,32,26,0.6)] ring-1 ring-ink/5";
 
   return (
     <div
       id={id}
-      className={`rounded-[var(--radius-xl)] p-6 sm:p-7 ${look} ${
-        interactive ? "lift" : ""
+      className={`rounded-[1.75rem] p-6 sm:p-7 ${look} ${
+        interactive
+          ? "transition-transform duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-1"
+          : ""
       } ${className}`}
     >
       {children}
@@ -165,7 +173,7 @@ export function FinePrint({
   return (
     <p
       className={`text-caption leading-relaxed ${
-        tone === "reversed" ? "text-[color:var(--on-dark-3)]" : "text-[color:var(--ink-3)]"
+        tone === "reversed" ? "text-paper/60" : "text-ink/55"
       }`}
     >
       {children}
@@ -173,17 +181,44 @@ export function FinePrint({
   );
 }
 
-/** A small label chip. Used for categories, never for money. */
-export function Chip({ children, tone = "default" }: { children: ReactNode; tone?: "default" | "forest" }) {
+export function Chip({
+  children,
+  tone = "default",
+}: {
+  children: ReactNode;
+  tone?: "default" | "forest";
+}) {
   return (
     <span
-      className={`inline-flex items-center rounded-full px-3 py-1 text-micro font-bold uppercase tracking-wider ${
+      className={`inline-flex items-center rounded-full px-3.5 py-1.5 text-[0.75rem] font-extrabold ${
         tone === "forest"
-          ? "bg-forest text-[color:var(--on-dark-1)]"
-          : "border border-[color:var(--hair-strong)] text-[color:var(--ink-2)]"
+          ? "bg-green/25 text-green-bright"
+          : "bg-green-wash text-forest"
       }`}
     >
       {children}
+    </span>
+  );
+}
+
+/** An accent word with the hand-drawn underline from the hero. */
+export function Underlined({ children }: { children: ReactNode }) {
+  return (
+    <span className="relative inline-block text-green">
+      {children}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 190 20"
+        className="absolute -bottom-1.5 left-0 w-[112%]"
+        fill="none"
+      >
+        <path
+          d="M4 13C40 5 128 2 186 9"
+          stroke="var(--color-green)"
+          strokeWidth="7"
+          strokeLinecap="round"
+        />
+      </svg>
     </span>
   );
 }

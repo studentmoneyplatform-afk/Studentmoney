@@ -36,7 +36,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <Eyebrow tone="reversed">Staff console</Eyebrow>
-              <h1 className="font-display mt-2 text-[1.75rem]">StudentMoney admin</h1>
+              <h1 className="font-display mt-2 text-[1.75rem]">Stormm admin</h1>
             </div>
             <div className="flex items-center gap-3 pb-1">
               <Link href="/dashboard" className="text-caption font-bold text-[color:var(--on-dark-2)] hover:text-[color:var(--on-dark-1)]">

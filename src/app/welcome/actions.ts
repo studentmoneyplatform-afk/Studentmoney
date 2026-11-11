@@ -8,7 +8,7 @@ export type ProfileState = { status: "idle" | "error"; message: string };
 const NIGERIAN_PHONE = /^(\+?234|0)[789]\d{9}$/;
 
 /**
- * Finishes joining: turns a Google account into a StudentMoney profile.
+ * Finishes joining: turns a Google account into a Stormm profile.
  * Google gives us a name and an email but never a phone number, and
  * campaigns arrive on WhatsApp, so the number is collected here.
  */

@@ -1,7 +1,7 @@
 /**
  * Stand-in photography, curated from Unsplash.
  *
- * These fill the slots until StudentMoney has photographs of its own
+ * These fill the slots until Stormm has photographs of its own
  * students. A local file always wins: drop `hero-student-1.jpg` into
  * /public/photos and it replaces the stock shot, credit and all, with no
  * code change. That is the intended path — real students will do more for

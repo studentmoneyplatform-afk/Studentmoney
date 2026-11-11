@@ -7,7 +7,7 @@ import { Button, Card, Eyebrow, H2, Lede, Section } from "@/components/ui";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "StudentMoney exists so Nigerian students do not have to wait until graduation to earn, build commercial skills and take part in the economy.",
+    "Stormm exists so Nigerian students do not have to wait until graduation to earn, build commercial skills and take part in the economy.",
 };
 
 const PRINCIPLES = [
@@ -39,7 +39,7 @@ export default function AboutPage() {
           "have to wait until",
           <span key="l3" className="italic text-forest">graduation.</span>,
         ]}
-        lede="StudentMoney is a Nigerian platform where university students find legitimate earning opportunities, refer real customers to real businesses, and earn while they are still in school."
+        lede="Stormm is a Nigerian platform where university students find legitimate earning opportunities, refer real customers to real businesses, and earn while they are still in school."
         actions={
           <>
             <Button href="/opportunities" size="lg">Explore opportunities</Button>
@@ -67,7 +67,7 @@ export default function AboutPage() {
               <p>
                 Businesses need customers. Students have networks, creativity, campus
                 communities and access to people who genuinely need useful products and
-                services. StudentMoney connects those two sides and pays students for
+                services. Stormm connects those two sides and pays students for
                 the introductions that work out.
               </p>
               <p>

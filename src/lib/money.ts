@@ -1,5 +1,5 @@
 /**
- * Money formatting for StudentMoney.
+ * Money formatting for Stormm.
  *
  * Brand rule: naira beside every dollar. Never show a dollar figure alone.
  *

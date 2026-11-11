@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
-  StudentMoney — design system.
+  Stormm — design system.
 
   The brand pack's 70/20/10 is the law: the page is mostly light, forest is
   punctuation, money is money and nothing else. Earlier builds drowned the
@@ -10,29 +10,36 @@
 */
 
 @theme static {
-  /* Ground: airy cream, with the true brand cream as a section tone.
-     The approved codes are the source of truth; nothing here invents a hue. */
-  --color-paper: #faf6ee;
-  --color-paper-2: #f1e9da;
-  --color-cream: #f1e9da;
-  --color-cream-deep: #e6dcc6;
+  /* Stormm — cream ground, deep green surfaces, one bright green accent */
+  --color-paper: #faf6ec;
+  --color-paper-2: #f4efe2;
+  --color-cream: #f7f3e8;
+  --color-cream-deep: #ece5d3;
 
-  /* Brand Pack v1 "The Ledger" — approved codes */
-  --color-forest: #0e4b37;
-  --color-forest-deep: #0a3828;
-  --color-money: #b82a55;
-  --color-money-soft: #ff9db5;
-  --color-ink: #16130f;
-  --color-moss: #5a5f4d;
+  --color-forest: #123d28;
+  --color-forest-deep: #0d2e1e;
+  --color-forest-soft: #1c5438;
 
-  /* Functional. Error is brick so a problem never reads as earnings. */
+  /* The accent. Used for emphasis and action, not for whole surfaces. */
+  --color-green: #2bbd5e;
+  --color-green-bright: #3ddb74;
+  --color-green-wash: #dcf7e5;
+
+  /* Category tints for the opportunity cards */
+  --color-tint-code: #dff6e6;
+  --color-tint-globe: #e9e6fb;
+  --color-tint-music: #fce4ef;
+
+  --color-ink: #16201a;
+  --color-moss: #5d6b61;
+
   --color-success: #1f7a4d;
   --color-warning: #b7791f;
-  --color-error: #8f2d1b;
+  --color-error: #a3301b;
 
-  /* Type */
-  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-display: var(--font-jakarta), system-ui, sans-serif;
   --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-script: var(--font-caveat), "Segoe Script", cursive;
 
   /* Fluid display sizing: no mid-breakpoint jumps */
   --text-hero: clamp(2.5rem, 5.6vw, 5rem);
@@ -90,10 +97,17 @@ body {
 
 .font-display {
   font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.02;
-  letter-spacing: -0.03em;
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
   text-wrap: balance;
+}
+
+/* The handwritten accent, used once per section at most. */
+.font-script {
+  font-family: var(--font-script);
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
 /* Money: Fraunces 700, naira beside it in italic. */
@@ -105,9 +119,8 @@ body {
 }
 
 .money-ngn {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-weight: 600;
 }
 
 .eyebrow {

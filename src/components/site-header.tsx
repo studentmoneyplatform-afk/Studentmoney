@@ -6,26 +6,26 @@ import { useEffect, useState } from "react";
 import { Logo } from "@/components/logo";
 
 const NAV = [
-  { href: "/opportunities", label: "Explore opportunities" },
-  { href: "/how-it-works", label: "How it works" },
+  { href: "/", label: "Home" },
+  { href: "/opportunities", label: "Earn" },
+  { href: "/how-it-works", label: "Resources", children: [
+    { href: "/how-it-works", label: "How it works" },
+    { href: "/faqs", label: "FAQ" },
+  ] },
   { href: "/about", label: "About" },
-  { href: "/faqs", label: "FAQs" },
+  { href: "/faqs", label: "FAQ" },
 ];
 
 export function SiteHeader({ logo }: { logo?: { src?: string; reversedSrc?: string } }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    setOpen(false);
+    setResourcesOpen(false);
+  }, [pathname]);
 
-  // Close the sheet on navigation and lock the page behind it.
-  useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -34,63 +34,114 @@ export function SiteHeader({ logo }: { logo?: { src?: string; reversedSrc?: stri
   }, [open]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] ${
-        scrolled || open
-          ? "border-b border-[color:var(--hair)] bg-paper/85 backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex w-full max-w-7xl items-center gap-6 px-5 py-3.5 sm:px-8">
-        <Logo size={28} src={logo?.src} reversedSrc={logo?.reversedSrc} />
+    <header className="sticky top-0 z-50 bg-paper/90 backdrop-blur-xl">
+      <div className="mx-auto flex w-full max-w-[86rem] items-center gap-6 px-5 py-4 sm:px-8">
+        <Logo size={34} src={logo?.src} reversedSrc={logo?.reversedSrc} />
 
-        <nav className="hidden flex-1 items-center justify-center gap-1 lg:flex" aria-label="Main">
+        <nav className="hidden flex-1 items-center justify-center gap-7 lg:flex" aria-label="Main">
           {NAV.map((item) => {
-            const active = pathname.startsWith(item.href);
+            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+
+            if (item.children) {
+              return (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => setResourcesOpen(true)}
+                  onMouseLeave={() => setResourcesOpen(false)}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setResourcesOpen((v) => !v)}
+                    aria-expanded={resourcesOpen}
+                    className="flex items-center gap-1.5 py-2 text-[0.9375rem] font-bold text-ink/80 transition-colors hover:text-ink"
+                  >
+                    {item.label}
+                    <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+                      <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.6" fill="none" />
+                    </svg>
+                  </button>
+                  {resourcesOpen && (
+                    <div className="absolute left-1/2 top-full w-52 -translate-x-1/2 pt-2">
+                      <ul className="overflow-hidden rounded-2xl border border-ink/10 bg-paper p-1.5 shadow-[0_20px_50px_-24px_rgba(18,61,40,0.5)]">
+                        {item.children.map((child) => (
+                          <li key={child.label}>
+                            <Link
+                              href={child.href}
+                              className="block rounded-xl px-3.5 py-2.5 text-[0.9375rem] font-semibold text-ink/80 transition-colors hover:bg-green-wash hover:text-forest"
+                            >
+                              {child.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
             return (
               <Link
-                key={item.href}
+                key={item.label}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`rounded-full px-3.5 py-2 text-caption font-bold transition-colors duration-200 ${
-                  active
-                    ? "bg-[color:var(--hair)] text-ink"
-                    : "text-[color:var(--ink-2)] hover:text-ink"
+                className={`relative py-2 text-[0.9375rem] font-bold transition-colors ${
+                  active ? "text-forest" : "text-ink/80 hover:text-ink"
                 }`}
               >
                 {item.label}
+                {active && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute -bottom-0.5 left-0 right-0 h-0.5 rounded-full bg-forest"
+                  />
+                )}
               </Link>
             );
           })}
         </nav>
 
-        <div className="ml-auto flex items-center gap-2 lg:ml-0">
+        <div className="ml-auto flex items-center gap-3 lg:ml-0">
           <Link
-            href="/join"
-            className="hidden rounded-full px-3.5 py-2 text-caption font-bold text-[color:var(--ink-2)] transition-colors hover:text-ink sm:inline-flex"
+            href="/dashboard"
+            aria-label="Your dashboard"
+            className="hidden h-10 w-10 items-center justify-center rounded-full text-forest transition-colors hover:bg-green-wash sm:inline-flex"
           >
-            Sign in
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M2.5 8.5 12 4l9.5 4.5L12 13 2.5 8.5Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+              <path d="M6.5 10.8v4c0 1.8 2.5 3 5.5 3s5.5-1.2 5.5-3v-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+            </svg>
+          </Link>
+
+          <span aria-hidden="true" className="hidden h-6 w-px bg-ink/15 sm:block" />
+
+          <Link
+            href="/dashboard"
+            className="hidden rounded-full border border-forest/35 px-5 py-2.5 text-[0.9375rem] font-bold text-forest transition-colors hover:border-forest sm:inline-flex"
+          >
+            Log in
           </Link>
           <Link
             href="/join"
-            className="rounded-full bg-forest px-4 py-2 text-caption font-bold text-[color:var(--on-dark-1)] transition-colors duration-200 hover:bg-forest-deep"
+            className="inline-flex items-center gap-2 rounded-full bg-forest px-5 py-2.5 text-[0.9375rem] font-bold text-paper transition-colors hover:bg-forest-deep"
           >
-            Join now
+            Get Started
+            <span aria-hidden="true">→</span>
           </Link>
+
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
-            aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--hair-strong)] lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 lg:hidden"
           >
-            <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
             <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
               {open ? (
-                <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.6" />
+                <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.7" />
               ) : (
-                <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.6" />
+                <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.7" />
               )}
             </svg>
           </button>
@@ -98,14 +149,17 @@ export function SiteHeader({ logo }: { logo?: { src?: string; reversedSrc?: stri
       </div>
 
       {open && (
-        <nav
-          id="mobile-nav"
-          aria-label="Main"
-          className="border-t border-[color:var(--hair)] bg-paper lg:hidden"
-        >
-          <ul className="mx-auto w-full max-w-7xl px-5 py-3 sm:px-8">
-            {NAV.map((item) => (
-              <li key={item.href} className="border-b border-[color:var(--hair)] last:border-0">
+        <nav aria-label="Main" className="border-t border-ink/10 bg-paper lg:hidden">
+          <ul className="mx-auto w-full max-w-[86rem] px-5 py-3 sm:px-8">
+            {[
+              { href: "/", label: "Home" },
+              { href: "/opportunities", label: "Earn" },
+              { href: "/how-it-works", label: "How it works" },
+              { href: "/about", label: "About" },
+              { href: "/faqs", label: "FAQ" },
+              { href: "/dashboard", label: "Log in" },
+            ].map((item) => (
+              <li key={item.label} className="border-b border-ink/8 last:border-0">
                 <Link href={item.href} className="block py-3.5 text-lead font-bold">
                   {item.label}
                 </Link>
@@ -114,9 +168,9 @@ export function SiteHeader({ logo }: { logo?: { src?: string; reversedSrc?: stri
             <li className="pt-4">
               <Link
                 href="/join"
-                className="block rounded-full bg-forest px-5 py-3 text-center font-bold text-[color:var(--on-dark-1)]"
+                className="block rounded-full bg-forest px-5 py-3 text-center font-bold text-paper"
               >
-                Join now
+                Get Started
               </Link>
             </li>
           </ul>

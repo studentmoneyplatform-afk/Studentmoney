@@ -29,7 +29,7 @@ export default async function OpportunitiesPage() {
         eyebrow="Explore opportunities"
         lines={[
           "Three ways to earn.",
-          <span key="l2" className="italic text-forest">One StudentMoney.</span>,
+          <span key="l2" className="italic text-forest">One Stormm.</span>,
         ]}
         lede="Join one of them, or run all three at once. Each has its own target and its own reward, and each one tells you exactly what counts before you start."
         actions={
@@ -124,7 +124,7 @@ export default async function OpportunitiesPage() {
 
           <Reveal delay={100}>
             <Card tone="cream">
-              <Eyebrow>Welcome to a bigger StudentMoney</Eyebrow>
+              <Eyebrow>Welcome to a bigger Stormm</Eyebrow>
               <p className="mt-4 text-lead leading-relaxed">
                 We are creating opportunities for young people to earn, build business
                 and marketing skills, grow in confidence, and take part in the economy

@@ -1,11 +1,7 @@
-import { Figure } from "@/components/figure";
-import { HeroVideo } from "@/components/hero-video";
-import { CURATED, HERO_VIDEO, unsplashSrc } from "@/lib/photos";
-import { LineReveal, Parallax } from "@/components/motion";
-import { Money } from "@/components/money";
+import { Hero } from "@/components/hero";
 import { OpportunityCard } from "@/components/opportunity-card";
 import { Reveal } from "@/components/reveal";
-import { Button, Card, Chip, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
+import { Button, Card, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
 import { getLiveOpportunities } from "@/lib/opportunities-data";
 
 /**
@@ -55,105 +51,7 @@ export default async function HomePage() {
 
   return (
     <div data-page="home">
-      {/* ── Hero ───────────────────────────────────────────── */}
-      <section className="relative overflow-hidden pb-10 pt-12 sm:pt-16">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-56 left-1/2 h-[40rem] w-[72rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,var(--accent-wash),transparent)] opacity-80"
-        />
-
-        <div className="relative mx-auto grid w-full max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <div>
-            <Reveal>
-              <Chip tone="forest">Student update · November 2026</Chip>
-            </Reveal>
-
-            <h1 className="font-display mt-7 text-hero">
-              <LineReveal
-                lines={[
-                  "Three ways to earn.",
-                  <span key="l2" className="italic text-money">
-                    One StudentMoney.
-                  </span>,
-                ]}
-              />
-            </h1>
-
-            <Reveal delay={360}>
-              <Lede className="mt-7">
-                Introduce the right people to the right services and earn rewards for
-                the introductions that work out. Every opportunity tells you who pays,
-                what qualifies, and when the money reaches you.
-              </Lede>
-            </Reveal>
-
-            <Reveal delay={420}>
-              <div className="mt-9 flex flex-wrap items-center gap-3">
-                <Button href="/opportunities" size="lg">
-                  Explore opportunities
-                </Button>
-                <Button href="/join" variant="ghost" size="lg">
-                  Get started
-                </Button>
-              </div>
-            </Reveal>
-
-            <Reveal delay={480}>
-              <p className="mt-6 text-caption text-[color:var(--ink-3)]">
-                Free to join · Paid on verified referrals · Paid to your own bank
-                account
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="relative grid grid-cols-5 gap-3 sm:gap-4">
-            <Parallax strength={24} className="col-span-3">
-              <HeroVideo
-                src={HERO_VIDEO.src}
-                poster={unsplashSrc(
-                  CURATED["/photos/hero-student-1.jpg"].url,
-                  900,
-                  "4/5",
-                )}
-                label={HERO_VIDEO.label}
-                credit={HERO_VIDEO.credit}
-                ratio="4/5"
-              />
-            </Parallax>
-
-            <div className="col-span-2 flex flex-col gap-3 sm:gap-4">
-              <Parallax strength={-16}>
-                <Figure
-                  src="/photos/hero-student-2.jpg"
-                  alt="Two students working together on a laptop"
-                  brief="Two students, one laptop, laughing"
-                  ratio="1/1"
-                />
-              </Parallax>
-              <Parallax strength={-30}>
-                <Figure
-                  src="/photos/track-referral.jpg"
-                  alt="A student introducing a customer to a service"
-                  brief="Student talking to a shop owner"
-                  ratio="3/4"
-                />
-              </Parallax>
-            </div>
-
-            <div className="float-slow pointer-events-none absolute -bottom-5 -left-3 w-[15rem] max-w-[76%] rounded-[var(--radius-lg)] border border-[color:var(--hair)] bg-white/95 p-4 shadow-[0_24px_60px_-30px_rgba(22,19,15,0.55)] backdrop-blur sm:-left-7">
-              <p className="text-micro font-bold uppercase tracking-widest text-[color:var(--ink-3)]">
-                Referral approved
-              </p>
-              <div className="mt-1.5">
-                <Money usd={25} size="sm" tone="earned" showNgn={false} />
-              </div>
-              <p className="mt-1 text-caption text-[color:var(--ink-3)]">
-                Software Service Referrals
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Hero opportunities={opportunities} />
 
       {/* ── The three opportunities ────────────────────────── */}
       <Section tone="paper-2">
@@ -219,7 +117,7 @@ export default async function HomePage() {
                 value, earning income and building their future.
               </p>
               <p className="mt-6 font-display text-[1.5rem]">
-                Welcome to a bigger StudentMoney.
+                Welcome to a bigger Stormm.
               </p>
             </Card>
           </Reveal>
@@ -279,7 +177,7 @@ export default async function HomePage() {
         <Reveal>
           <div className="mt-10 max-w-3xl">
             <FinePrint>
-              StudentMoney does not guarantee income or employment. Rewards are paid on
+              Stormm does not guarantee income or employment. Rewards are paid on
               referrals that have been verified and approved, under the rules published
               on each opportunity.
             </FinePrint>

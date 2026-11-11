@@ -7,7 +7,7 @@ import { Card, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
 export const metadata: Metadata = {
   title: "Join",
   description:
-    "Create your StudentMoney account and start on any of the three opportunities.",
+    "Create your Stormm account and start on any of the three opportunities.",
 };
 
 const WHAT_HAPPENS = [
@@ -31,7 +31,7 @@ export default async function JoinPage({
       <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-start">
         <div>
           <Eyebrow tone="reversed">
-            {isBusiness ? "For businesses" : "Join StudentMoney"}
+            {isBusiness ? "For businesses" : "Join Stormm"}
           </Eyebrow>
           <h1 className="font-display mt-5 text-[2.5rem] leading-[1.05] sm:text-[3.25rem]">
             {isBusiness

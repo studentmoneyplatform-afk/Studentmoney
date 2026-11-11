@@ -96,7 +96,7 @@ export default async function OpportunityPage({
                   ["When you get paid", payTiming],
                   [
                     "Who pays",
-                    `${o.partner} funds this reward. StudentMoney verifies the referral and makes the payment to you.`,
+                    `${o.partner} funds this reward. Stormm verifies the referral and makes the payment to you.`,
                   ],
                   [
                     "Your tracking code",

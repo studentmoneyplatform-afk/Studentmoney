@@ -4,7 +4,7 @@ import { LegalPage } from "@/components/legal";
 export const metadata: Metadata = {
   title: "Terms",
   description:
-    "The rules that govern rewards, qualifying projects, refunds, disputes and payouts on StudentMoney.",
+    "The rules that govern rewards, qualifying projects, refunds, disputes and payouts on Stormm.",
 };
 
 export default function TermsPage() {
@@ -13,7 +13,7 @@ export default function TermsPage() {
       eyebrow="Terms"
       title="The rules, written down before you start."
       intro="These are the operating rules of the platform. Each opportunity adds its own published requirements, but none may contradict what is on this page."
-      reviewNote="This page states StudentMoney's operating rules in plain words. It is not yet the final contract: the binding terms, including dispute handling and the governing law, are being prepared with a qualified Nigerian legal adviser and will be published here before the first reward is paid."
+      reviewNote="This page states Stormm's operating rules in plain words. It is not yet the final contract: the binding terms, including dispute handling and the governing law, are being prepared with a qualified Nigerian legal adviser and will be published here before the first reward is paid."
       sections={[
         {
           heading: "Who can take part",
@@ -105,7 +105,7 @@ export default function TermsPage() {
           body: (
             <p>
               Earning targets and challenge goals are motivational, not promises.
-              StudentMoney does not guarantee income, does not offer passive income, and
+              Stormm does not guarantee income, does not offer passive income, and
               does not pay for recruiting other students on its own.
             </p>
           ),

@@ -6,7 +6,7 @@ import { Button, Eyebrow, FinePrint, H2, Section } from "@/components/ui";
 export const metadata: Metadata = {
   title: "FAQs",
   description:
-    "How referrals are counted, when rewards are paid, what a pending status means, and what StudentMoney will never do.",
+    "How referrals are counted, when rewards are paid, what a pending status means, and what Stormm will never do.",
 };
 
 const GROUPS = [

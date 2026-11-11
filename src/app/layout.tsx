@@ -1,37 +1,37 @@
 import type { Metadata } from "next";
-import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import { Caveat, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getBrandLogo } from "@/lib/brand";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
-  weight: ["500", "700"],
-  style: ["normal", "italic"],
+  weight: ["600", "700"],
   display: "swap",
 });
+
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   subsets: ["latin"],
-  weight: ["500", "700", "800"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://studentmoney.ng"),
+  metadataBase: new URL("https://stormm.ng"),
   title: {
-    default: "StudentMoney — Learn. Connect. Create. Earn.",
-    template: "%s · StudentMoney",
+    default: "Stormm — Earn. Refer. Grow.",
+    template: "%s · Stormm",
   },
   description:
-    "Nine ways for Nigerian students to earn before graduation — referrals, freelance gigs, content, tutoring and more. Every opportunity says who pays, how much, and when.",
+    "Stormm helps students turn their network into real money through simple referrals. Three opportunities, each with its own reward and its own rules.",
   openGraph: {
-    title: "StudentMoney — Learn. Connect. Create. Earn.",
+    title: "Stormm — Earn. Refer. Grow.",
     description:
-      "Nine ways for Nigerian students to earn before graduation.",
+      "Turn your network into real money through simple referrals.",
     type: "website",
   },
 };
@@ -44,7 +44,7 @@ export default function RootLayout({
   return (
     // The font variables live on <html> so that the --font-display and
     // --font-sans tokens, which Tailwind declares at :root, can resolve them.
-    <html lang="en" className={`${fraunces.variable} ${jakarta.variable}`}>
+    <html lang="en" className={`${caveat.variable} ${jakarta.variable}`}>
       <body>
         <a
           href="#main"

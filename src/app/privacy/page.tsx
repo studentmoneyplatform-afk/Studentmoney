@@ -4,7 +4,7 @@ import { LegalPage } from "@/components/legal";
 export const metadata: Metadata = {
   title: "Privacy",
   description:
-    "What StudentMoney collects, why, who sees it, and how you control messages and your data.",
+    "What Stormm collects, why, who sees it, and how you control messages and your data.",
 };
 
 export default function PrivacyPage() {
@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       eyebrow="Privacy"
       title="What we hold, and why we hold it."
       intro="We collect what is needed to attribute a referral to you, pay you, and keep the network free of fraud. Nothing beyond that."
-      reviewNote="This page describes StudentMoney's intended practice. The final notice, including our data controller details, retention periods and the lawful basis under the Nigeria Data Protection Act, is being prepared with a qualified adviser and will be published here before launch."
+      reviewNote="This page describes Stormm's intended practice. The final notice, including our data controller details, retention periods and the lawful basis under the Nigeria Data Protection Act, is being prepared with a qualified adviser and will be published here before launch."
       sections={[
         {
           heading: "What we collect",
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
           heading: "Who sees your data",
           body: (
             <p>
-              StudentMoney staff who operate the opportunities and payouts, the named
+              Stormm staff who operate the opportunities and payouts, the named
               provider for a lead you submitted, and the services we use to run the
               platform and send payments. We do not sell your data, and we do not share
               your contact list.

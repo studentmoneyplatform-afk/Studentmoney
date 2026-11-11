@@ -33,7 +33,7 @@ export const OPPORTUNITIES: Opportunity[] = [
     slug: "software-referrals",
     index: 1,
     name: "Software Service Referrals",
-    partner: "StudentMoney approved providers",
+    partner: "Stormm approved providers",
     summary:
       "Refer a customer who purchases any of our software services and earn $25 per successful referral.",
     whatYouDo:

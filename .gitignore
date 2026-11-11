@@ -46,3 +46,6 @@ next-env.d.ts
 # Static demo export for Netlify
 /out/
 *.zip
+
+# Production build output (kept apart from the dev server)
+/.next-build/

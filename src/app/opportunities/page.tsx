@@ -4,6 +4,7 @@ import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { Button, Card, Eyebrow, FinePrint, H2, Lede, Section } from "@/components/ui";
 import { getLiveOpportunities } from "@/lib/opportunities-data";
+import { SectionHead, StatBand } from "@/components/sections";
 
 export const metadata: Metadata = {
   title: "Explore opportunities",
@@ -64,6 +65,79 @@ export default async function OpportunitiesPage() {
               referral is not a reward — each one has to be verified and approved first,
               and the stages below are shown to you at every step.
             </FinePrint>
+          </div>
+        </Reveal>
+      </Section>
+
+      <Section tone="paper">
+        <SectionHead
+          script="At a glance"
+          eyebrow="Compare them"
+          title="Three rewards, three different shapes."
+          lede="They do not pay the same way, and the difference matters. One pays per referral, one releases a pot as you progress, one waits for a target and then pays it all at once."
+        />
+
+        <div className="mt-12">
+          <StatBand
+            items={[
+              { value: "$25", label: "per approved referral on Software Service Referrals" },
+              { value: "$50", label: "across 100 referrals on DARE, released as you progress" },
+              { value: "$35", label: "once 5 students enrol at Tobi Music Academy" },
+              { value: "3", label: "opportunities you can run at the same time" },
+            ]}
+          />
+        </div>
+
+        <Reveal>
+          <div className="mt-12 overflow-hidden rounded-[1.75rem] ring-1 ring-ink/10">
+            <table className="w-full border-collapse text-left">
+              <caption className="sr-only">How each opportunity pays</caption>
+              <thead>
+                <tr className="bg-forest text-paper">
+                  <th
+                    scope="col"
+                    className="px-5 py-4 text-[0.75rem] font-extrabold uppercase tracking-wider"
+                  >
+                    Opportunity
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-5 py-4 text-[0.75rem] font-extrabold uppercase tracking-wider"
+                  >
+                    Reward shape
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-5 py-4 text-[0.75rem] font-extrabold uppercase tracking-wider"
+                  >
+                    When it is released
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {opportunities.map((o) => (
+                  <tr key={o.slug} className="border-t border-ink/10 bg-paper">
+                    <th scope="row" className="px-5 py-5 font-bold">
+                      {o.name}
+                    </th>
+                    <td className="px-5 py-5 text-[0.9375rem] text-ink/75">
+                      {o.reward.kind === "per_referral"
+                        ? "A flat amount for each approved referral"
+                        : o.reward.kind === "proportional"
+                          ? `One pot of $${o.reward.potUsd}, shared across ${o.reward.target} ${o.reward.unit}`
+                          : `All or nothing at ${o.reward.target} ${o.reward.unit}`}
+                    </td>
+                    <td className="px-5 py-5 text-[0.9375rem] text-ink/75">
+                      {o.reward.kind === "per_referral"
+                        ? "As each referral is approved"
+                        : o.reward.kind === "proportional"
+                          ? "In proportion to your progress"
+                          : "In full, once the target is met"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </Reveal>
       </Section>

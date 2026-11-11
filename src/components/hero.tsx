@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Figure } from "@/components/figure";
 import { Reveal } from "@/components/reveal";
 import type { Opportunity } from "@/lib/opportunities";
 
@@ -108,22 +107,96 @@ function shortLine(slug: string): string {
   }
 }
 
-export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
+/** One floating opportunity card. */
+function OpportunityPill({
+  opportunity,
+  index,
+  flat = false,
+}: {
+  opportunity: Opportunity;
+  index: number;
+  flat?: boolean;
+}) {
+  const tint = TINTS[opportunity.slug] ?? TINTS["software-referrals"];
   return (
-    <section className="relative overflow-hidden pb-6">
-      {/* Soft organic wash behind the photograph */}
-      <div
+    <Link
+      href={`/opportunities/${opportunity.slug}`}
+      className="pointer-events-auto flex items-center gap-3.5 rounded-2xl bg-paper p-3.5 shadow-[0_18px_44px_-26px_rgba(18,32,26,0.65)] ring-1 ring-ink/5 transition-transform duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-1"
+      style={flat ? undefined : { transform: `rotate(${index % 2 === 0 ? -1.4 : 1.2}deg)` }}
+    >
+      <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${tint.bg}`}>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          {tint.icon}
+        </svg>
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-[0.9375rem] font-extrabold leading-tight text-ink">
+          {opportunity.name}
+        </span>
+        <span className="mt-0.5 block text-[0.75rem] leading-snug text-moss">
+          {shortLine(opportunity.slug)}
+        </span>
+      </span>
+      <span
         aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-0 hidden h-[36rem] w-[52%] lg:block"
+        className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-forest text-[0.75rem] text-paper"
       >
-        <div className="absolute right-[-8%] top-[-12%] h-[34rem] w-[34rem] rounded-full bg-green-wash/70" />
-        <div className="absolute right-[14%] top-[18%] h-[22rem] w-[26rem] rounded-[46%_54%_44%_56%] bg-green/20" />
-      </div>
+        →
+      </span>
+    </Link>
+  );
+}
 
-      <div className="relative mx-auto w-full max-w-[86rem] px-5 pt-4 sm:px-8">
-        <div className="grid items-stretch gap-8 lg:grid-cols-[1.02fr_0.98fr]">
+/** Hand-drawn marks, as in the reference. Decorative only. */
+function Doodles() {
+  return (
+    <>
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 70 60"
+        className="pointer-events-none absolute left-[52%] top-[2%] z-30 hidden w-12 text-green lg:block"
+        fill="none"
+      >
+        <path d="M6 44C14 30 10 16 22 6" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+        <path d="M34 38C44 28 44 16 56 10" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      </svg>
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 60 60"
+        className="pointer-events-none absolute bottom-[16%] right-[25%] z-30 hidden w-10 text-green lg:block"
+        fill="none"
+      >
+        <path d="M8 30h16M44 12l10-6M40 44l12 6" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" />
+      </svg>
+    </>
+  );
+}
+
+export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
+  const cards = opportunities.slice(0, 3);
+
+  return (
+    <section className="relative overflow-hidden">
+      <div className="relative mx-auto w-full max-w-[86rem] px-5 pb-8 sm:px-8">
+        {/* Organic washes behind the figure */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden lg:block">
+          <div className="absolute right-[2%] top-[-6%] h-[26rem] w-[30rem] rounded-[48%_52%_42%_58%] bg-green-wash" />
+          <div className="absolute right-[7%] top-[24%] h-[23rem] w-[25rem] rounded-[44%_56%_52%_48%] bg-green/25" />
+        </div>
+
+        {/* The student spans the whole hero and overlaps the card */}
+        <div className="pointer-events-none absolute bottom-0 right-4 z-20 hidden lg:block">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/photos/hero-cutout.webp"
+            alt="A Stormm student pointing, holding a phone"
+            className="h-[39rem] w-auto object-contain object-bottom xl:h-[41rem]"
+          />
+        </div>
+
+        <div className="relative lg:min-h-[41rem]">
           <Reveal>
-            <div className="relative h-full overflow-hidden rounded-[2.25rem] bg-forest px-7 py-10 text-paper sm:px-12 sm:py-14">
+            <div className="relative z-10 overflow-hidden rounded-[2.5rem] bg-forest px-7 py-10 text-paper sm:px-12 sm:py-14 lg:min-h-[32rem] lg:w-[57%]">
               <span className="inline-flex items-center gap-2 rounded-full bg-green/25 px-4 py-2 text-[0.8125rem] font-bold text-green-bright">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z" fill="currentColor" />
@@ -131,20 +204,20 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
                 Earn • Refer • Grow
               </span>
 
-              <h1 className="font-display mt-7 text-[clamp(2.25rem,4.4vw,3.6rem)] leading-[1.06]">
+              <h1 className="font-display mt-7 max-w-[13ch] text-[clamp(2.25rem,4vw,3.4rem)] leading-[1.08]">
                 Are you a student looking to{" "}
                 <span className="relative inline-block text-green-bright">
                   earn
                   <svg
                     aria-hidden="true"
                     viewBox="0 0 160 18"
-                    className="absolute -bottom-2 left-0 w-full"
+                    className="absolute -bottom-1.5 left-0 w-full"
                     fill="none"
                   >
                     <path
-                      d="M3 12c26-7 94-11 154-5"
+                      d="M4 11c26-6 92-10 152-4"
                       stroke="var(--color-green-bright)"
-                      strokeWidth="5"
+                      strokeWidth="6"
                       strokeLinecap="round"
                     />
                   </svg>
@@ -152,7 +225,7 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
                 on the side?
               </h1>
 
-              <p className="mt-9 max-w-md text-[1.0625rem] leading-relaxed text-paper/80 sm:text-lead">
+              <p className="mt-9 max-w-sm text-[1.0625rem] leading-relaxed text-paper/80">
                 Stormm helps you turn your network into{" "}
                 <span className="font-bold text-green-bright">real money</span> — through
                 simple referrals.
@@ -179,89 +252,73 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
             </div>
           </Reveal>
 
-          <div className="relative">
-            <Reveal delay={120}>
-              <div className="relative mx-auto h-full max-w-md lg:max-w-none">
-                <Figure
-                  src="/photos/hero-student-1.jpg"
-                  alt="A student holding a phone"
-                  brief="Cut-out student, hoodie, pointing, holding a phone"
-                  ratio="4/5"
-                  rounded="xl"
-                  priority
-                  className="lg:h-full"
-                />
-              </div>
+          <Doodles />
+
+          <div className="absolute -right-2 top-[5.5rem] z-30 hidden w-[19rem] flex-col gap-3 lg:flex">
+            <Reveal delay={200}>
+              <p className="font-script -mb-0.5 rotate-[-5deg] pr-2 text-right text-[1.875rem] leading-tight text-forest">
+                Three Ways
+                <br />
+                to Earn!
+                <svg
+                  viewBox="0 0 150 10"
+                  className="ml-auto mt-1 block w-32"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2 7c26-5 96-7 146-2"
+                    stroke="var(--color-green)"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </p>
             </Reveal>
 
-            <div className="pointer-events-none absolute -right-1 top-6 hidden w-[19rem] flex-col gap-3 lg:flex">
-              <Reveal delay={200}>
-                <p className="font-script -mb-1 rotate-[-4deg] text-right text-[1.75rem] text-forest">
-                  Three Ways to Earn!
-                  <svg
-                    viewBox="0 0 140 10"
-                    className="ml-auto mt-0.5 block w-36"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M2 7c24-5 90-7 136-2"
-                      stroke="var(--color-green)"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </p>
+            {cards.map((o, i) => (
+              <Reveal key={o.slug} delay={260 + i * 90}>
+                <OpportunityPill opportunity={o} index={i} />
               </Reveal>
+            ))}
+          </div>
+        </div>
 
-              {opportunities.slice(0, 3).map((o, i) => {
-                const tint = TINTS[o.slug] ?? TINTS["software-referrals"];
-                return (
-                  <Reveal key={o.slug} delay={260 + i * 90}>
-                    <Link
-                      href={`/opportunities/${o.slug}`}
-                      className="pointer-events-auto flex items-center gap-3.5 rounded-2xl bg-paper p-3.5 shadow-[0_18px_44px_-26px_rgba(18,32,26,0.65)] ring-1 ring-ink/5 transition-transform duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-1"
-                      style={{ transform: `rotate(${i % 2 === 0 ? -1.4 : 1.2}deg)` }}
-                    >
-                      <span
-                        className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${tint.bg}`}
-                      >
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                          {tint.icon}
-                        </svg>
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block text-[0.9375rem] font-extrabold leading-tight text-ink">
-                          {o.name}
-                        </span>
-                        <span className="mt-0.5 block text-[0.75rem] leading-snug text-moss">
-                          {shortLine(o.slug)}
-                        </span>
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-forest text-[0.75rem] text-paper"
-                      >
-                        →
-                      </span>
-                    </Link>
-                  </Reveal>
-                );
-              })}
-            </div>
+        {/* Mobile: figure then cards, in flow */}
+        <div className="lg:hidden">
+          <div className="relative mt-8 flex justify-center">
+            <div
+              aria-hidden="true"
+              className="absolute bottom-0 h-[82%] w-[88%] rounded-[46%_54%_44%_56%] bg-green-wash"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/photos/hero-cutout.webp"
+              alt="A Stormm student pointing, holding a phone"
+              className="relative h-[22rem] w-auto object-contain"
+            />
+          </div>
+
+          <p className="font-script mt-6 rotate-[-3deg] text-center text-[1.75rem] text-forest">
+            Three Ways to Earn!
+          </p>
+          <div className="mt-4 grid gap-3">
+            {cards.map((o, i) => (
+              <OpportunityPill key={o.slug} opportunity={o} index={i} flat />
+            ))}
           </div>
         </div>
 
         <Reveal delay={320}>
-          <ul className="mt-8 grid gap-px overflow-hidden rounded-[1.75rem] bg-ink/10 sm:grid-cols-3">
+          <ul className="relative z-30 mt-6 grid gap-px overflow-hidden rounded-[1.75rem] bg-ink/10 shadow-[0_18px_50px_-34px_rgba(18,32,26,0.6)] sm:grid-cols-3 lg:mt-[-1.75rem] lg:w-[57%]">
             {TRUST.map((item) => (
-              <li key={item.label} className="flex items-center gap-3.5 bg-cream px-6 py-5 sm:px-8">
+              <li key={item.label} className="flex items-center gap-3.5 bg-cream px-6 py-5">
                 <span className="shrink-0 text-forest">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     {item.icon}
                   </svg>
                 </span>
-                <span className="whitespace-pre-line text-[0.9375rem] font-bold leading-snug text-ink">
+                <span className="whitespace-pre-line text-[0.875rem] font-bold leading-snug text-ink">
                   {item.label}
                 </span>
               </li>

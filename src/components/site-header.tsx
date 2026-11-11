@@ -124,10 +124,12 @@ export function SiteHeader({ logo }: { logo?: { src?: string; reversedSrc?: stri
           </Link>
           <Link
             href="/join"
-            className="inline-flex items-center gap-2 rounded-full bg-forest px-5 py-2.5 text-[0.9375rem] font-bold text-paper transition-colors hover:bg-forest-deep"
+            className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-forest px-4 py-2.5 text-[0.875rem] font-bold text-paper transition-colors hover:bg-forest-deep sm:px-5 sm:text-[0.9375rem]"
           >
             Get Started
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true" className="hidden sm:inline">
+              →
+            </span>
           </Link>
 
           <button

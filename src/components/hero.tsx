@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Reveal } from "@/components/reveal";
 import type { Opportunity } from "@/lib/opportunities";
 
 /** Icon tint per opportunity, matching the floating cards in the design. */
@@ -172,149 +171,213 @@ function Doodles() {
   );
 }
 
+/**
+ * The hero is a fixed stage on large screens with each element placed at a
+ * percentage of it, because the composition is an overlap: the figure
+ * crosses the card, a cream curve scoops the card's top-right around his
+ * head, and the trust bar sits over the card's lower edge. Flow layout
+ * cannot express that. Below lg it unstacks into ordinary blocks.
+ */
 export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
   const cards = opportunities.slice(0, 3);
 
   return (
     <section className="relative overflow-hidden">
-      <div className="relative mx-auto w-full max-w-[86rem] px-5 pb-8 sm:px-8">
-        {/* Organic washes behind the figure */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden lg:block">
-          <div className="absolute right-[2%] top-[-6%] h-[26rem] w-[30rem] rounded-[48%_52%_42%_58%] bg-green-wash" />
-          <div className="absolute right-[7%] top-[24%] h-[23rem] w-[25rem] rounded-[44%_56%_52%_48%] bg-green/25" />
-        </div>
+      <div className="mx-auto w-full max-w-[82rem] px-5 sm:px-8">
+        {/* ── Large screens: the placed composition ─────────── */}
+        <div className="relative hidden h-[34rem] lg:block xl:h-[38rem]">
+          {/* Layered green shapes behind the figure */}
+          <div aria-hidden="true" className="absolute inset-0">
+            <div className="absolute right-[2%] top-[-4%] h-[72%] w-[42%] rounded-[46%_54%_40%_60%] bg-green-wash" />
+            <div className="absolute right-[6%] top-[18%] h-[70%] w-[30%] rounded-[52%_48%_44%_56%] bg-green/30" />
+            <div className="absolute right-[20%] bottom-[-6%] h-[52%] w-[26%] rounded-[48%_52%_56%_44%] bg-green/20" />
+          </div>
 
-        {/* The student spans the whole hero and overlaps the card */}
-        <div className="pointer-events-none absolute bottom-0 right-4 z-20 hidden lg:block">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/photos/hero-cutout.webp"
-            alt="A Stormm student pointing, holding a phone"
-            className="h-[39rem] w-auto object-contain object-bottom xl:h-[41rem]"
-          />
-        </div>
+          {/* The green card */}
+          <div className="absolute left-0 top-0 z-10 h-[84%] w-[52.5%] overflow-hidden rounded-[2.75rem] bg-forest px-10 py-9 text-paper xl:px-12 xl:py-11">
+            <span className="inline-flex items-center gap-2 rounded-full bg-green/25 px-4 py-2 text-[0.8125rem] font-bold text-green-bright">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z" fill="currentColor" />
+              </svg>
+              Earn • Refer • Grow
+            </span>
 
-        <div className="relative lg:min-h-[41rem]">
-          <Reveal>
-            <div className="relative z-10 overflow-hidden rounded-[2.5rem] bg-forest px-7 py-10 text-paper sm:px-12 sm:py-14 lg:min-h-[32rem] lg:w-[57%]">
-              <span className="inline-flex items-center gap-2 rounded-full bg-green/25 px-4 py-2 text-[0.8125rem] font-bold text-green-bright">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z" fill="currentColor" />
-                </svg>
-                Earn • Refer • Grow
-              </span>
-
-              <h1 className="font-display mt-7 max-w-[13ch] text-[clamp(2.25rem,4vw,3.4rem)] leading-[1.08]">
-                Are you a student looking to{" "}
-                <span className="relative inline-block text-green-bright">
-                  earn
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 160 18"
-                    className="absolute -bottom-1.5 left-0 w-full"
-                    fill="none"
-                  >
-                    <path
-                      d="M4 11c26-6 92-10 152-4"
-                      stroke="var(--color-green-bright)"
-                      strokeWidth="6"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </span>{" "}
-                on the side?
-              </h1>
-
-              <p className="mt-9 max-w-sm text-[1.0625rem] leading-relaxed text-paper/80">
-                Stormm helps you turn your network into{" "}
-                <span className="font-bold text-green-bright">real money</span> — through
-                simple referrals.
-              </p>
-
-              <div className="mt-10 flex flex-wrap items-center gap-5">
-                <Link
-                  href="/join"
-                  className="inline-flex items-center gap-2.5 rounded-full bg-paper px-7 py-4 text-[1.0625rem] font-extrabold text-forest transition-transform duration-200 hover:-translate-y-0.5"
-                >
-                  Start Earning Now
-                  <span aria-hidden="true">→</span>
-                </Link>
-
-                <Link href="/how-it-works" className="group inline-flex items-center gap-3">
-                  <span className="grid h-12 w-12 place-items-center rounded-full border-2 border-paper/35 transition-colors group-hover:border-paper">
-                    <svg width="13" height="15" viewBox="0 0 13 15" fill="none" aria-hidden="true">
-                      <path d="M12 7.5 0.5 14.4V0.6L12 7.5Z" fill="currentColor" />
-                    </svg>
-                  </span>
-                  <span className="font-bold">Watch How It Works</span>
-                </Link>
-              </div>
-            </div>
-          </Reveal>
-
-          <Doodles />
-
-          <div className="absolute -right-2 top-[5.5rem] z-30 hidden w-[19rem] flex-col gap-3 lg:flex">
-            <Reveal delay={200}>
-              <p className="font-script -mb-0.5 rotate-[-5deg] pr-2 text-right text-[1.875rem] leading-tight text-forest">
-                Three Ways
-                <br />
-                to Earn!
+            <h1 className="font-display mt-6 max-w-[13ch] text-[clamp(2.4rem,3.9vw,3.4rem)] leading-[1.1]">
+              Are you a student looking to{" "}
+              <span className="relative inline-block text-green-bright">
+                earn
                 <svg
-                  viewBox="0 0 150 10"
-                  className="ml-auto mt-1 block w-32"
-                  fill="none"
                   aria-hidden="true"
+                  viewBox="0 0 190 20"
+                  className="absolute -bottom-2 left-0 w-[128%]"
+                  fill="none"
                 >
                   <path
-                    d="M2 7c26-5 96-7 146-2"
-                    stroke="var(--color-green)"
-                    strokeWidth="3.5"
+                    d="M4 13C40 5 128 2 186 9"
+                    stroke="var(--color-green-bright)"
+                    strokeWidth="7"
                     strokeLinecap="round"
                   />
                 </svg>
-              </p>
-            </Reveal>
+              </span>{" "}
+              on the side?
+            </h1>
 
-            {cards.map((o, i) => (
-              <Reveal key={o.slug} delay={260 + i * 90}>
-                <OpportunityPill opportunity={o} index={i} />
-              </Reveal>
-            ))}
+            <p className="mt-7 max-w-[26rem] text-[1.0625rem] leading-relaxed text-paper/85">
+              Stormm helps you turn your network into{" "}
+              <span className="font-bold text-green-bright">real money</span> — through
+              simple referrals.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-5">
+              <Link
+                href="/join"
+                className="inline-flex items-center gap-2.5 rounded-full bg-paper px-7 py-3.5 text-[1.0625rem] font-extrabold text-forest transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                Start Earning Now
+                <span aria-hidden="true">→</span>
+              </Link>
+
+              <Link href="/how-it-works" className="group inline-flex items-center gap-3">
+                <span className="grid h-11 w-11 place-items-center rounded-full border-2 border-paper/40 transition-colors group-hover:border-paper">
+                  <svg width="12" height="14" viewBox="0 0 13 15" fill="none" aria-hidden="true">
+                    <path d="M12 7.5 0.5 14.4V0.6L12 7.5Z" fill="currentColor" />
+                  </svg>
+                </span>
+                <span className="font-bold">Watch How It Works</span>
+              </Link>
+            </div>
           </div>
+
+          {/* Cream curve scooping the card's top-right, around his head */}
+          <div
+            aria-hidden="true"
+            className="absolute left-[43%] top-[-14%] z-20 h-[62%] w-[26%] rounded-[50%] bg-paper"
+          />
+
+          {/* The figure, crossing the card */}
+          <div className="pointer-events-none absolute bottom-0 left-[40%] z-30 h-full">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/photos/hero-cutout.webp"
+              alt="A Stormm student pointing, holding a phone"
+              className="h-[108%] w-auto max-w-none object-contain object-bottom"
+            />
+          </div>
+
+          <Doodles />
+
+          {/* Script label and the three cards */}
+          <div className="absolute -right-6 top-[1%] z-40 w-[17.5rem] xl:-right-10">
+            <p className="font-script rotate-[-4deg] pl-6 text-[2rem] leading-[1.05] text-forest">
+              Three Ways
+              <br />
+              to Earn!
+              <svg viewBox="0 0 160 10" className="mt-1 block w-40" fill="none" aria-hidden="true">
+                <path
+                  d="M2 7c28-5 104-7 156-2"
+                  stroke="var(--color-green)"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </p>
+
+            <div className="mt-4 flex flex-col gap-3.5">
+              {cards.map((o, i) => (
+                <OpportunityPill key={o.slug} opportunity={o} index={i} />
+              ))}
+            </div>
+          </div>
+
+          {/* Trust bar, overlapping the card's lower edge */}
+          <ul className="absolute bottom-0 left-0 z-40 grid w-[54%] grid-cols-3 gap-px overflow-hidden rounded-[1.5rem] bg-ink/10 shadow-[0_20px_50px_-32px_rgba(18,32,26,0.65)]">
+            {TRUST.map((item) => (
+              <li key={item.label} className="flex items-center gap-3 bg-cream px-5 py-4">
+                <span className="shrink-0 text-forest">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    {item.icon}
+                  </svg>
+                </span>
+                <span className="whitespace-pre-line text-[0.8125rem] font-bold leading-snug text-ink">
+                  {item.label}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Mobile: figure then cards, in flow */}
+        {/* ── Small screens: the same parts, unstacked ──────── */}
         <div className="lg:hidden">
-          <div className="relative mt-8 flex justify-center">
+          <div className="overflow-hidden rounded-[2rem] bg-forest px-7 py-9 text-paper">
+            <span className="inline-flex items-center gap-2 rounded-full bg-green/25 px-4 py-2 text-[0.8125rem] font-bold text-green-bright">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z" fill="currentColor" />
+              </svg>
+              Earn • Refer • Grow
+            </span>
+
+            <h1 className="font-display mt-6 text-[clamp(2rem,7.5vw,2.75rem)] leading-[1.1]">
+              Are you a student looking to{" "}
+              <span className="text-green-bright underline decoration-[6px] underline-offset-[6px]">
+                earn
+              </span>{" "}
+              on the side?
+            </h1>
+
+            <p className="mt-6 text-[1.0625rem] leading-relaxed text-paper/85">
+              Stormm helps you turn your network into{" "}
+              <span className="font-bold text-green-bright">real money</span> — through
+              simple referrals.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-4">
+              <Link
+                href="/join"
+                className="inline-flex items-center justify-center gap-2.5 rounded-full bg-paper px-7 py-3.5 font-extrabold text-forest"
+              >
+                Start Earning Now
+                <span aria-hidden="true">→</span>
+              </Link>
+              <Link href="/how-it-works" className="inline-flex items-center gap-3">
+                <span className="grid h-11 w-11 place-items-center rounded-full border-2 border-paper/40">
+                  <svg width="12" height="14" viewBox="0 0 13 15" fill="none" aria-hidden="true">
+                    <path d="M12 7.5 0.5 14.4V0.6L12 7.5Z" fill="currentColor" />
+                  </svg>
+                </span>
+                <span className="font-bold">Watch How It Works</span>
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative mt-6 flex justify-center">
             <div
               aria-hidden="true"
-              className="absolute bottom-0 h-[82%] w-[88%] rounded-[46%_54%_44%_56%] bg-green-wash"
+              className="absolute bottom-0 h-[86%] w-[92%] rounded-[46%_54%_44%_56%] bg-green-wash"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/photos/hero-cutout.webp"
               alt="A Stormm student pointing, holding a phone"
-              className="relative h-[22rem] w-auto object-contain"
+              className="relative h-[20rem] w-auto object-contain"
             />
           </div>
 
-          <p className="font-script mt-6 rotate-[-3deg] text-center text-[1.75rem] text-forest">
+          <p className="font-script mt-5 rotate-[-3deg] text-center text-[1.875rem] text-forest">
             Three Ways to Earn!
           </p>
-          <div className="mt-4 grid gap-3">
+
+          <div className="mt-5 grid gap-3">
             {cards.map((o, i) => (
               <OpportunityPill key={o.slug} opportunity={o} index={i} flat />
             ))}
           </div>
-        </div>
 
-        <Reveal delay={320}>
-          <ul className="relative z-30 mt-6 grid gap-px overflow-hidden rounded-[1.75rem] bg-ink/10 shadow-[0_18px_50px_-34px_rgba(18,32,26,0.6)] sm:grid-cols-3 lg:mt-[-1.75rem] lg:w-[57%]">
+          <ul className="mt-7 grid gap-px overflow-hidden rounded-[1.5rem] bg-ink/10 sm:grid-cols-3">
             {TRUST.map((item) => (
-              <li key={item.label} className="flex items-center gap-3.5 bg-cream px-6 py-5">
+              <li key={item.label} className="flex items-center gap-3 bg-cream px-5 py-4">
                 <span className="shrink-0 text-forest">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     {item.icon}
                   </svg>
                 </span>
@@ -324,7 +387,7 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
               </li>
             ))}
           </ul>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

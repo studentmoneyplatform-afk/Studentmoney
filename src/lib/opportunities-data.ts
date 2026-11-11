@@ -10,6 +10,11 @@ import { OPPORTUNITIES, type Opportunity, type RewardModel } from "@/lib/opportu
  * marketing pages never render empty.
  */
 export async function getLiveOpportunities(): Promise<Opportunity[]> {
+  // The static demo has no request to read cookies from, and the Supabase
+  // server client reaches for them. Serve the seeded definitions instead:
+  // the export is a snapshot of the marketing site, not a live view.
+  if (process.env.STATIC_EXPORT === "1") return OPPORTUNITIES;
+
   const supabase = await getSupabaseServerClient();
   if (!supabase) return OPPORTUNITIES;
 

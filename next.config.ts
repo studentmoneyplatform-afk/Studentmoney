@@ -17,7 +17,10 @@ const isStaticExport = process.env.STATIC_EXPORT === "1";
 const isProductionBuild = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
-  distDir: isProductionBuild ? ".next-build" : ".next",
+  // Not during a static export: `output: "export"` writes the finished site
+  // into distDir, so a custom one lands the HTML somewhere the export script
+  // does not expect. Exports keep the default and produce /out.
+  distDir: isProductionBuild && !isStaticExport ? ".next-build" : ".next",
   ...(isStaticExport
     ? {
         output: "export",

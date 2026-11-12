@@ -25,6 +25,16 @@ export async function reviewReferral(
   const decision = String(formData.get("decision") ?? "");
   const reason = String(formData.get("reason") ?? "").trim();
 
+  // The database would reject anything else anyway, but as an enum error the
+  // reviewer cannot act on. A decision that never arrived is a fault in this
+  // form, not something they typed.
+  if (decision !== "approved" && decision !== "rejected") {
+    return {
+      status: "error",
+      message: "No decision was submitted. Press Approve or Reject again.",
+    };
+  }
+
   if (decision === "rejected" && reason.length < 3) {
     return {
       status: "error",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import {
   recordPayment,
@@ -47,13 +47,29 @@ function Message({ state }: { state: AdminState }) {
   );
 }
 
-/** Approve, or reject with a reason the student will read. */
+/**
+ * Approve, or reject with a reason the student will read.
+ *
+ * Which button was pressed is carried by a hidden field this sets directly on
+ * the DOM node, not by the buttons' own name and value. A React form action
+ * builds its FormData from the form rather than from the submitting button,
+ * so the button's value never arrived and the decision reached Postgres as an
+ * empty string -- "invalid input value for enum referral_stage". Writing the
+ * field in the click handler puts it in the form before the submit event,
+ * whatever React does with the submitter.
+ */
 export function ReviewControls({ id }: { id: string }) {
   const [state, action] = useActionState(reviewReferral, INITIAL);
+  const decision = useRef<HTMLInputElement>(null);
+
+  function choose(value: "approved" | "rejected") {
+    if (decision.current) decision.current.value = value;
+  }
 
   return (
     <form action={action} className="flex flex-wrap items-center gap-2">
       <input type="hidden" name="id" value={id} />
+      <input ref={decision} type="hidden" name="decision" defaultValue="" />
       <input
         name="reason"
         placeholder="Reason, if rejecting"
@@ -61,16 +77,14 @@ export function ReviewControls({ id }: { id: string }) {
       />
       <button
         type="submit"
-        name="decision"
-        value="approved"
+        onClick={() => choose("approved")}
         className="rounded-full bg-forest px-4 py-2 text-caption font-bold text-[color:var(--on-dark-1)] transition-colors hover:bg-forest-deep"
       >
         Approve
       </button>
       <button
         type="submit"
-        name="decision"
-        value="rejected"
+        onClick={() => choose("rejected")}
         className="rounded-full border border-[color:var(--color-error)] px-4 py-2 text-caption font-bold text-[color:var(--color-error)] transition-colors hover:bg-error/5"
       >
         Reject

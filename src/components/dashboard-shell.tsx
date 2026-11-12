@@ -17,7 +17,7 @@ import { Mark } from "@/components/logo";
 
 type NavItem = { href: string; label: string; icon: ReactNode; exact?: boolean };
 
-const ICON = "h-[1.3rem] w-[1.3rem] shrink-0";
+const ICON = "h-[1.1rem] w-[1.1rem] shrink-0";
 
 const NAV: NavItem[] = [
   {
@@ -99,6 +99,8 @@ const NAV: NavItem[] = [
   },
 ];
 
+const RAIL_KEY = "stormm.sidebar.collapsed";
+
 function isActive(pathname: string, item: NavItem): boolean {
   return item.exact ? pathname === item.href : pathname.startsWith(item.href);
 }
@@ -122,6 +124,29 @@ export function DashboardShell({
 }) {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+
+  // Remembered per browser. Wrapped because storage can be unavailable or
+  // throw outright in a private window, and a sidebar is not worth an error.
+  useEffect(() => {
+    try {
+      setCollapsed(window.localStorage.getItem(RAIL_KEY) === "1");
+    } catch {
+      /* leave it open */
+    }
+  }, []);
+
+  function toggleCollapsed() {
+    setCollapsed((was) => {
+      const next = !was;
+      try {
+        window.localStorage.setItem(RAIL_KEY, next ? "1" : "0");
+      } catch {
+        /* the sidebar still works, it just will not be remembered */
+      }
+      return next;
+    });
+  }
 
   // Close the drawer on navigation, so tapping a link does not leave it
   // sitting over the page it just opened.
@@ -149,17 +174,49 @@ export function DashboardShell({
       />
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-[16rem] flex-col overflow-y-auto bg-forest text-[color:var(--on-dark-1)] transition-transform duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] lg:translate-x-0 ${
-          drawerOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed inset-y-0 left-0 z-50 flex w-[15rem] flex-col bg-forest text-[color:var(--on-dark-1)] transition-[transform,width] duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] lg:translate-x-0 ${
+          collapsed ? "lg:w-[5rem]" : ""
+        } ${drawerOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <Link href="/dashboard" className="flex items-center gap-2.5 px-6 pb-8 pt-7">
-          <Mark size={38} tone="reversed" />
-          <span className="font-display text-[1.6rem] leading-none">Stormm</span>
-        </Link>
+        {/* Fixed. The mark stays put while everything under it scrolls. */}
+        <div className="flex shrink-0 items-center gap-2.5 border-b border-[color:var(--hair-reversed)] px-4 py-3.5">
+          <Link href="/dashboard" className="flex min-w-0 items-center gap-2.5">
+            <Mark size={26} tone="reversed" />
+            <span
+              className={`font-display truncate text-[1.15rem] leading-none ${
+                collapsed ? "lg:hidden" : ""
+              }`}
+            >
+              Stormm
+            </span>
+          </Link>
 
-        <nav aria-label="Dashboard" className="px-4">
-          <ul className="space-y-1">
+          <button
+            type="button"
+            onClick={toggleCollapsed}
+            aria-expanded={!collapsed}
+            aria-label={collapsed ? "Expand the sidebar" : "Collapse the sidebar"}
+            title={collapsed ? "Expand the sidebar" : "Collapse the sidebar"}
+            className="ml-auto hidden shrink-0 rounded-lg p-1.5 text-[color:var(--on-dark-2)] transition-colors hover:bg-[color:var(--hair-reversed)] hover:text-[color:var(--on-dark-1)] lg:block"
+          >
+            <svg
+              className={`h-[1.05rem] w-[1.05rem] transition-transform duration-300 ${
+                collapsed ? "rotate-180" : ""
+              }`}
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path d="M14 7 9 12l5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M19 5v14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+
+        {/* The only part that scrolls. */}
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden">
+        <nav aria-label="Dashboard" className="px-3 pt-3">
+          <ul className="space-y-0.5">
             {NAV.map((item) => {
               const active = isActive(pathname, item);
               return (
@@ -167,14 +224,17 @@ export function DashboardShell({
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className={`flex items-center gap-3 rounded-[1rem] px-4 py-3 text-[0.95rem] font-bold transition-colors ${
+                    title={collapsed ? item.label : undefined}
+                    className={`flex items-center gap-3 rounded-[0.8rem] px-3 py-2.5 text-[0.8125rem] font-bold transition-colors ${
+                      collapsed ? "lg:justify-center lg:px-0" : ""
+                    } ${
                       active
                         ? "bg-green text-forest-deep"
                         : "text-[color:var(--on-dark-2)] hover:bg-[color:var(--hair-reversed)] hover:text-[color:var(--on-dark-1)]"
                     }`}
                   >
                     {item.icon}
-                    {item.label}
+                    <span className={`truncate ${collapsed ? "lg:hidden" : ""}`}>{item.label}</span>
                   </Link>
                 </li>
               );
@@ -182,42 +242,50 @@ export function DashboardShell({
           </ul>
         </nav>
 
-        <div className="mt-auto px-4 pb-5 pt-8">
-          <div className="rounded-[1.4rem] border border-[color:var(--hair-reversed)] bg-forest-deep p-5 text-center">
+        <div className="mt-auto px-3 pb-4 pt-6">
+          <div
+            className={`rounded-[1.1rem] border border-[color:var(--hair-reversed)] bg-forest-deep p-4 text-center ${
+              collapsed ? "lg:hidden" : ""
+            }`}
+          >
             <GiftMark />
-            <p className="font-display mt-3 text-[1.15rem] leading-tight">
+            <p className="font-display mt-2.5 text-[0.95rem] leading-tight">
               Refer more.
               <br />
               Earn more.
             </p>
-            <p className="mt-2 text-caption leading-snug text-[color:var(--on-dark-2)]">
+            <p className="mt-1.5 text-micro leading-snug text-[color:var(--on-dark-2)]">
               Invite your friends and unlock bigger rewards.
             </p>
             <Link
               href="/dashboard/opportunities"
-              className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-green px-4 py-2 text-caption font-bold text-forest-deep transition-transform hover:scale-[1.03]"
+              className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-green px-3.5 py-1.5 text-micro font-bold text-forest-deep transition-transform hover:scale-[1.03]"
             >
               Share link
               <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
 
-          <form action="/auth/signout" method="post" className="mt-4">
+          <form action="/auth/signout" method="post" className="mt-3">
             <button
               type="submit"
-              className="flex w-full items-center gap-3 rounded-[1rem] px-4 py-3 text-[0.95rem] font-bold text-[color:var(--on-dark-2)] transition-colors hover:bg-[color:var(--hair-reversed)] hover:text-[color:var(--on-dark-1)]"
+              title={collapsed ? "Log out" : undefined}
+              className={`flex w-full items-center gap-3 rounded-[0.8rem] px-3 py-2.5 text-[0.8125rem] font-bold text-[color:var(--on-dark-2)] transition-colors hover:bg-[color:var(--hair-reversed)] hover:text-[color:var(--on-dark-1)] ${
+                collapsed ? "lg:justify-center lg:px-0" : ""
+              }`}
             >
               <svg className={ICON} viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M14 4.5h3.5a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 <path d="M10 8.5 6.5 12l3.5 3.5M6.5 12H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              Log out
+              <span className={collapsed ? "lg:hidden" : ""}>Log out</span>
             </button>
           </form>
         </div>
+        </div>
       </aside>
 
-      <div className="lg:pl-[16rem]">
+      <div className={collapsed ? "lg:pl-[5rem]" : "lg:pl-[15rem]"}>
         <header className="sticky top-0 z-30 border-b border-[color:var(--hair)] bg-paper/90 backdrop-blur">
           <div className="flex items-center gap-4 px-5 py-3.5 sm:px-7">
             <button
@@ -359,7 +427,7 @@ function UserMenu({ fullName, standing }: { fullName: string; standing: string }
 
 function GiftMark() {
   return (
-    <svg className="mx-auto h-10 w-10 text-green" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg className="mx-auto h-8 w-8 text-green" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <rect x="3.5" y="9.5" width="17" height="10.5" rx="1.6" stroke="currentColor" strokeWidth="2" />
       <path d="M2.5 9.5h19M12 9.5V20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       <path d="M12 9.5S10.8 5 8.6 5a2.1 2.1 0 0 0 0 4.5M12 9.5S13.2 5 15.4 5a2.1 2.1 0 0 1 0 4.5" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />

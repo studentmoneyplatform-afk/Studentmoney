@@ -55,7 +55,7 @@ export default async function HomePage() {
 
       {/* ── The three opportunities ────────────────────────── */}
       <Section tone="paper-2">
-        <Reveal>
+        <Reveal from="rise">
           <Eyebrow>The opportunities</Eyebrow>
           <H2 className="mt-4 max-w-3xl">
             Following our discussions with the team, we are expanding the earning
@@ -69,7 +69,7 @@ export default async function HomePage() {
 
         <div className="mt-14 grid gap-5 lg:grid-cols-3">
           {opportunities.map((o, i) => (
-            <Reveal key={o.slug} delay={i * 70}>
+            <Reveal key={o.slug} from="rise" delay={i * 140}>
               <OpportunityCard opportunity={o} />
             </Reveal>
           ))}
@@ -87,7 +87,7 @@ export default async function HomePage() {
       {/* ── The exciting part ──────────────────────────────── */}
       <Section tone="forest">
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
-          <Reveal>
+          <Reveal from="left">
             <div>
               <Eyebrow tone="reversed">The exciting part</Eyebrow>
               <H2 className="mt-4">Join one, or pursue all three at once.</H2>
@@ -104,7 +104,7 @@ export default async function HomePage() {
             </div>
           </Reveal>
 
-          <Reveal delay={120}>
+          <Reveal from="right" delay={160}>
             <Card tone="forest" className="border border-[color:var(--hair-reversed)]">
               <Eyebrow tone="reversed">What we are building</Eyebrow>
               <p className="mt-4 text-lead leading-relaxed">
@@ -126,14 +126,14 @@ export default async function HomePage() {
 
       {/* ── How it works ───────────────────────────────────── */}
       <Section>
-        <Reveal>
+        <Reveal from="rise">
           <Eyebrow>How it works</Eyebrow>
           <H2 className="mt-4 max-w-2xl">Seven steps, start to paid.</H2>
         </Reveal>
 
         <ol className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map(([title, body], i) => (
-            <Reveal key={title} delay={(i % 4) * 60}>
+            <Reveal key={title} from="left" delay={(i % 4) * 130}>
               <li className="border-t-2 border-forest pt-5">
                 <span className="money text-[1.5rem] text-[color:var(--ink-4)]">
                   {String(i + 1).padStart(2, "0")}
@@ -158,14 +158,14 @@ export default async function HomePage() {
 
       {/* ── Why join ───────────────────────────────────────── */}
       <Section tone="paper-2">
-        <Reveal>
+        <Reveal from="rise">
           <Eyebrow>Why join</Eyebrow>
           <H2 className="mt-4 max-w-2xl">What the platform actually gives you.</H2>
         </Reveal>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {WHY.map(([title, body], i) => (
-            <Reveal key={title} delay={(i % 3) * 60}>
+            <Reveal key={title} from="rise" delay={(i % 3) * 120}>
               <Card className="h-full">
                 <h3 className="font-display text-[1.25rem]">{title}</h3>
                 <p className="mt-2.5 text-[color:var(--ink-2)]">{body}</p>
@@ -187,7 +187,7 @@ export default async function HomePage() {
 
       {/* ── Close ──────────────────────────────────────────── */}
       <Section width="narrow" className="text-center">
-        <Reveal>
+        <Reveal from="scale">
           <H2>Your next move starts here.</H2>
           <p className="mx-auto mt-6 max-w-xl text-lead text-[color:var(--ink-2)]">
             Explore the three opportunities, pick the one that fits the people you

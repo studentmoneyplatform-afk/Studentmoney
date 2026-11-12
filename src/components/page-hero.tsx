@@ -47,7 +47,7 @@ export function PageHero({
             }`}
           >
             <div className={centred ? "mx-auto max-w-2xl text-center" : ""}>
-              <Reveal>
+              <Reveal from="rise">
                 <Eyebrow tone="reversed">{eyebrow}</Eyebrow>
               </Reveal>
 
@@ -55,14 +55,14 @@ export function PageHero({
                 <LineReveal lines={lines} />
               </h1>
 
-              <Reveal delay={320}>
+              <Reveal from="rise" delay={320}>
                 <Lede tone="reversed" className={`mt-6 ${centred ? "mx-auto" : ""}`}>
                   {lede}
                 </Lede>
               </Reveal>
 
               {actions && (
-                <Reveal delay={380}>
+                <Reveal from="left" delay={380}>
                   <div
                     className={`mt-9 flex flex-wrap gap-3 ${centred ? "justify-center" : ""}`}
                   >
@@ -73,12 +73,12 @@ export function PageHero({
             </div>
 
             {photo && !centred && (
-              <Reveal delay={420}>
+              <Reveal from="left" delay={420}>
                 <Figure {...photo} ratio={photo.ratio ?? "4/5"} priority />
               </Reveal>
             )}
 
-            {!photo && aside && !centred && <Reveal delay={420}>{aside}</Reveal>}
+            {!photo && aside && !centred && <Reveal from="right" delay={420}>{aside}</Reveal>}
           </div>
         </div>
       </div>

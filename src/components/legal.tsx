@@ -97,7 +97,7 @@ export function LegalPage({
                   id={anchor(section.heading)}
                   className="scroll-mt-28"
                 >
-                  <Reveal>
+                  <Reveal from="rise">
                     <span
                       aria-hidden="true"
                       className="rule-draw block h-px w-full bg-[color:var(--hair)]"
@@ -117,7 +117,7 @@ export function LegalPage({
                 </section>
               ))}
 
-              <Reveal>
+              <Reveal from="scale">
                 <Card tone="cream" className="mt-4 border-2 border-warning/40">
                   <Eyebrow>Before launch</Eyebrow>
                   <div className="mt-3">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { OPPORTUNITY_ICONS } from "@/components/opportunity-icons";
+import { Parallax } from "@/components/motion";
 import type { Opportunity } from "@/lib/opportunities";
 
 const TRUST = [
@@ -222,19 +223,26 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
           />
 
           {/* The figure, crossing the card */}
-          <div className="pointer-events-none absolute bottom-0 left-[43%] z-30 h-full">
+          <Parallax
+            strength={34}
+            innerClassName="h-full"
+            className="pointer-events-none absolute bottom-0 left-[43%] z-30 h-full"
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/photos/hero-cutout.webp"
               alt="A Stormm student pointing, holding a phone"
               className="h-[106%] w-auto max-w-none object-contain object-bottom"
             />
-          </div>
+          </Parallax>
 
           <Doodles />
 
           {/* Script label and the three cards */}
-          <div className="absolute right-0 top-[1%] z-40 w-[17.5rem]">
+          <Parallax
+            strength={-30}
+            className="absolute right-0 top-[1%] z-40 w-[17.5rem]"
+          >
             <p className="font-script rotate-[-4deg] pl-6 text-[2rem] leading-[1.05] text-forest">
               Three Ways
               <br />
@@ -254,7 +262,7 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
                 <OpportunityPill key={o.slug} opportunity={o} index={i} />
               ))}
             </div>
-          </div>
+          </Parallax>
 
           {/* Trust bar, overlapping the card's lower edge */}
           <ul className="absolute bottom-0 left-0 z-40 grid w-[54%] grid-cols-3 gap-px overflow-hidden rounded-[1.5rem] bg-ink/10 shadow-[0_20px_50px_-32px_rgba(18,32,26,0.65)]">

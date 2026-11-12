@@ -13,11 +13,14 @@ export function Reveal({
   children,
   as: Tag = "div",
   delay = 0,
+  from,
   className = "",
 }: {
   children: ReactNode;
   as?: ElementType;
   delay?: number;
+  /** Direction the block travels in from. Defaults to a straight rise. */
+  from?: "up" | "rise" | "left" | "right" | "scale";
   className?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
@@ -75,7 +78,11 @@ export function Reveal({
   }, [delay]);
 
   return (
-    <Tag ref={ref} className={className}>
+    <Tag
+      ref={ref}
+      className={className}
+      data-from={from && from !== "up" ? from : undefined}
+    >
       {children}
     </Tag>
   );

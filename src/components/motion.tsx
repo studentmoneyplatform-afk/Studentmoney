@@ -207,10 +207,19 @@ export function Parallax({
   children,
   strength = 40,
   className = "",
+  innerClassName = "",
 }: {
   children: ReactNode;
+  /** Pixels of travel. Negative moves the child with the scroll instead. */
   strength?: number;
   className?: string;
+  /**
+   * Classes for the moving div. It carries a transform, which makes it the
+   * containing block for any absolutely positioned child and gives it an
+   * auto height — so anything sized in percentages inside needs its height
+   * restored here.
+   */
+  innerClassName?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
@@ -246,7 +255,7 @@ export function Parallax({
   return (
     <div ref={ref} className={className}>
       <div
-        className="will-change-transform"
+        className={`will-change-transform ${innerClassName}`}
         style={{ transform: `translate3d(0, ${offset}px, 0)` }}
       >
         {children}

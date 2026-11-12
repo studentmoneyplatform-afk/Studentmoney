@@ -10,7 +10,7 @@ import { Button, Card, Eyebrow, FinePrint, H2, Lede } from "@/components/ui";
 /** A band of facts, divided like the hero's trust bar. */
 export function StatBand({ items }: { items: { value: string; label: string }[] }) {
   return (
-    <Reveal>
+    <Reveal from="scale">
       <ul className="grid gap-px overflow-hidden rounded-[1.75rem] bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((item) => (
           <li key={item.label} className="bg-cream px-6 py-7">
@@ -40,7 +40,7 @@ export function FeatureGrid({
       }`}
     >
       {items.map((item, i) => (
-        <Reveal key={item.title} delay={(i % 3) * 60}>
+        <Reveal key={item.title} from="rise" delay={(i % 3) * 120}>
           <Card className="h-full">
             {item.icon && (
               <span
@@ -67,7 +67,7 @@ export function StepTimeline({ steps }: { steps: { title: string; body: string }
   return (
     <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
       {steps.map((step, i) => (
-        <Reveal key={step.title} delay={(i % 4) * 70}>
+        <Reveal key={step.title} from="left" delay={(i % 4) * 130}>
           <li className="border-t-[3px] border-forest pt-5">
             <span className="font-display text-[1.75rem] leading-none text-green">
               {String(i + 1).padStart(2, "0")}
@@ -98,7 +98,7 @@ export function CtaBand({
   note?: string;
 }) {
   return (
-    <Reveal>
+    <Reveal from="scale">
       <div className="relative overflow-hidden rounded-[2.5rem] bg-forest px-7 py-14 text-center text-paper sm:px-12">
         <div
           aria-hidden="true"
@@ -152,7 +152,7 @@ export function SectionHead({
 }) {
   const centred = align === "centre";
   return (
-    <Reveal>
+    <Reveal from="rise">
       <div className={centred ? "mx-auto max-w-2xl text-center" : "max-w-3xl"}>
         {script && (
           <p className={`font-script text-[1.75rem] text-green ${centred ? "" : "-rotate-2"}`}>

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s · Stormm",
   },
   description:
-    "Stormm helps students turn their network into real money through simple referrals. Three opportunities, each with its own reward and its own rules.",
+    "Stormm helps students, graduates and freelancers turn their network into real money through simple referrals. Three opportunities, each with its own reward and its own rules.",
   openGraph: {
     title: "Stormm — Earn. Refer. Grow.",
     description:
@@ -44,7 +44,13 @@ export default function RootLayout({
   return (
     // The font variables live on <html> so that the --font-display and
     // --font-sans tokens, which Tailwind declares at :root, can resolve them.
-    <html lang="en" className={`${caveat.variable} ${jakarta.variable}`}>
+    // data-scroll-behavior keeps Next honouring the smooth scrolling set in
+    // globals.css, which the legal pages' section index relies on.
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${caveat.variable} ${jakarta.variable}`}
+    >
       <body>
         <a
           href="#main"

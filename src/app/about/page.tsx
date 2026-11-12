@@ -8,7 +8,7 @@ import { CtaBand, SectionHead, StatBand } from "@/components/sections";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Stormm exists so Nigerian students do not have to wait until graduation to earn, build commercial skills and take part in the economy.",
+    "Stormm exists so Nigerian students, graduates and freelancers do not have to wait for a job offer to earn, build commercial skills and take part in the economy.",
 };
 
 const PRINCIPLES = [
@@ -18,7 +18,7 @@ const PRINCIPLES = [
   },
   {
     title: "A click is not a reward",
-    body: "Referrals move through verification before anything is owed. We would rather show a student an honest pending status than an encouraging number that later disappears.",
+    body: "Referrals move through verification before anything is owed. We would rather show you an honest pending status than an encouraging number that later disappears.",
   },
   {
     title: "No guaranteed income",
@@ -26,7 +26,7 @@ const PRINCIPLES = [
   },
   {
     title: "Skills outlast rewards",
-    body: "Selling, writing, handling a client, following up without being a nuisance — the money is the reason to start, but the skill is what a student keeps.",
+    body: "Selling, writing, handling a client, following up without being a nuisance — the money is the reason to start, but the skill is what you keep.",
   },
 ];
 
@@ -36,11 +36,11 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About"
         lines={[
-          "Students should not",
-          "have to wait until",
-          <span key="l3" className="italic text-green-bright">graduation.</span>,
+          "Earning should not",
+          "have to wait for",
+          <span key="l3" className="italic text-green-bright">a job offer.</span>,
         ]}
-        lede="Stormm is a Nigerian platform where university students find legitimate earning opportunities, refer real customers to real businesses, and earn while they are still in school."
+        lede="Stormm is a Nigerian platform where students, graduates and freelancers find legitimate earning opportunities, refer real customers to real businesses, and earn from the network they already have."
         actions={
           <>
             <Button href="/opportunities" size="lg">Explore opportunities</Button>
@@ -66,19 +66,19 @@ export default function AboutPage() {
           <Reveal delay={100}>
             <div className="space-y-5 text-lead leading-relaxed text-[color:var(--ink-2)]">
               <p>
-                Businesses need customers. Students have networks, creativity, campus
-                communities and access to people who genuinely need useful products and
-                services. Stormm connects those two sides and pays students for
-                the introductions that work out.
+                Businesses need customers. Students, graduates and freelancers have
+                networks, creativity, communities and access to people who genuinely need
+                useful products and services. Stormm connects those two sides and pays
+                you for the introductions that work out.
               </p>
               <p>
                 We are creating opportunities for young people to earn, build business
-                and marketing skills, grow in confidence, and take part in the economy
-                while still in school.
+                and marketing skills, grow in confidence, and take part in the economy,
+                whether they are still studying, newly graduated or working for themselves.
               </p>
               <p className="font-bold text-ink">
-                Students should not have to wait until graduation to start creating
-                value, earning income and building their future.
+                Nobody should have to wait for a job offer to start creating value,
+                earning income and building their future.
               </p>
             </div>
           </Reveal>

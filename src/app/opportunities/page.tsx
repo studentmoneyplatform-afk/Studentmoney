@@ -201,12 +201,12 @@ export default async function OpportunitiesPage() {
               <Eyebrow>Welcome to a bigger Stormm</Eyebrow>
               <p className="mt-4 text-lead leading-relaxed">
                 We are creating opportunities for young people to earn, build business
-                and marketing skills, grow in confidence, and take part in the economy
-                while still in school.
+                and marketing skills, grow in confidence, and take part in the economy,
+                whether they are still studying, newly graduated or working for themselves.
               </p>
               <p className="mt-4 text-[color:var(--ink-2)]">
-                Students should not have to wait until graduation to start creating
-                value, earning income and building their future.
+                Nobody should have to wait for a job offer to start creating value,
+                earning income and building their future.
               </p>
             </Card>
           </Reveal>

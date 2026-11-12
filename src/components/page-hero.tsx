@@ -43,7 +43,7 @@ export function PageHero({
 
           <div
             className={`relative grid gap-10 px-7 py-12 sm:px-12 sm:py-16 ${
-              photo && !centred ? "lg:grid-cols-[1.05fr_0.95fr] lg:items-center" : ""
+              (photo || aside) && !centred ? "lg:grid-cols-[1.05fr_0.95fr] lg:items-center" : ""
             }`}
           >
             <div className={centred ? "mx-auto max-w-2xl text-center" : ""}>

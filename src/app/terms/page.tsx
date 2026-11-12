@@ -11,7 +11,13 @@ export default function TermsPage() {
   return (
     <LegalPage
       eyebrow="Terms"
-      title="The rules, written down before you start."
+      lines={[
+        "The rules, written down",
+        <span key="l2" className="italic text-green-bright">
+          before you start.
+        </span>,
+      ]}
+      updated="12 November 2026"
       intro="These are the operating rules of the platform. Each opportunity adds its own published requirements, but none may contradict what is on this page."
       reviewNote="This page states Stormm's operating rules in plain words. It is not yet the final contract: the binding terms, including dispute handling and the governing law, are being prepared with a qualified Nigerian legal adviser and will be published here before the first reward is paid."
       sections={[
@@ -20,7 +26,7 @@ export default function TermsPage() {
           body: (
             <>
               <p>
-                You must be a registered university student, over 18, and able to verify
+                You must be a student, a graduate or a freelancer, over 18, and able to verify
                 your identity. One account per person. Attribution belongs to a verified
                 person, not to a phone number or a link.
               </p>

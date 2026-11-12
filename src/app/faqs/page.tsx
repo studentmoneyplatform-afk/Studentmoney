@@ -20,7 +20,7 @@ const GROUPS = [
       ],
       [
         "Who can join?",
-        "Nigerian university students aged 18 and over who can verify their identity. One account per person — attribution has to belong to a real, verified individual.",
+        "Nigerian students, graduates and freelancers aged 18 and over who can verify their identity. One account per person — attribution has to belong to a real, verified individual.",
       ],
       [
         "Do I have to pick one opportunity?",

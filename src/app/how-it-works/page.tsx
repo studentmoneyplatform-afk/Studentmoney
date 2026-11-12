@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const STEPS = [
   [
     "Create your account",
-    "Register with your name, a phone number that works on WhatsApp, and your university. We verify who you are before a reward can be attributed to you, because attribution has to belong to a real person.",
+    "Register with your name, a phone number that works on WhatsApp, and where you study or work. We verify who you are before a reward can be attributed to you, because attribution has to belong to a real person.",
   ],
   [
     "Explore the available opportunities",

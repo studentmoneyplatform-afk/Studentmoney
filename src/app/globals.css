@@ -195,6 +195,7 @@ body {
 [data-page="students"] { --accent-wash: #f0e7d8; }
 [data-page="business"] { --accent-wash: #e6ebe3; }
 [data-page="rewards"] { --accent-wash: #e9efe9; }
+[data-page="legal"] { --accent-wash: #e8e9e3; }
 
 .accent-text { color: var(--accent); }
 .accent-bg { background-color: var(--accent); }
@@ -222,4 +223,26 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .float-slow { animation: none; }
+}
+
+/* ── A hairline that draws itself in ─────────────────────────────────
+   Used above each clause on the legal pages. The selector needs a
+   [data-reveal] ancestor, which only JavaScript sets, so with JS off —
+   or with motion reduced, where Reveal never arms — the rule simply
+   renders at full width. Nothing is hidden behind the animation. */
+
+[data-reveal] .rule-draw {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+[data-reveal="in"] .rule-draw {
+  transform: scaleX(1);
+  transition: transform 0.9s var(--ease-out) 0.08s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] .rule-draw {
+    transform: none;
+  }
 }

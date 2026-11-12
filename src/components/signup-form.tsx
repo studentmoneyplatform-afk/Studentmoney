@@ -44,7 +44,7 @@ export function SignupForm({
       />
       <Field
         name="university"
-        label={audience === "business" ? "Business name" : "University"}
+        label={audience === "business" ? "Business name" : "University or organisation"}
         autoComplete="organization"
       />
       <Field name="email" label="Email (optional)" type="email" autoComplete="email" />

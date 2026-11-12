@@ -126,7 +126,7 @@ export default async function JoinPage({
           <StepTimeline
             steps={[
               { title: "Create your account", body: "With Google, or by leaving your WhatsApp number." },
-              { title: "Tell us where to reach you", body: "A number that works on WhatsApp, and your university." },
+              { title: "Tell us where to reach you", body: "A number that works on WhatsApp, and where you study or work." },
               { title: "Pick an opportunity", body: "One, two or all three. They run alongside each other." },
               { title: "Get your link", body: "Yours alone, issued the moment you join one." },
             ]}

@@ -168,8 +168,8 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
               Earn • Refer • Grow
             </span>
 
-            <h1 className="font-display mt-6 max-w-[13ch] text-[clamp(2.4rem,3.9vw,3.4rem)] leading-[1.1]">
-              Are you a student looking to{" "}
+            <h1 className="font-display mt-6 max-w-[17ch] text-[clamp(2.4rem,3.9vw,3.4rem)] leading-[1.1]">
+              Student, graduate or freelancer looking to{" "}
               <span className="relative inline-block text-green-bright">
                 earn
                 <svg
@@ -284,7 +284,7 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
             </span>
 
             <h1 className="font-display mt-6 text-[clamp(2rem,7.5vw,2.75rem)] leading-[1.1]">
-              Are you a student looking to{" "}
+              Student, graduate or freelancer looking to{" "}
               <span className="text-green-bright underline decoration-[6px] underline-offset-[6px]">
                 earn
               </span>{" "}

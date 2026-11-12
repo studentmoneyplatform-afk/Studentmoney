@@ -41,7 +41,7 @@ export function ProfileForm({
       />
       <Field
         name="university"
-        label="University"
+        label="University or organisation"
         defaultValue={defaultUniversity}
         autoComplete="organization"
       />

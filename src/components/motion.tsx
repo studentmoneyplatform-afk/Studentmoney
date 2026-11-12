@@ -270,3 +270,159 @@ export function Tilt({ children, className = "" }: { children: ReactNode; classN
     </div>
   );
 }
+
+/**
+ * A scroll-linked progress bar for a long document.
+ *
+ * Tracks how far through `targetId` the reader has scrolled. Deliberately
+ * has no transition: it should follow the scroll exactly rather than easing
+ * behind it, which reads as lag. Decorative, so it is hidden from screen
+ * readers — a screen reader already knows its position in the document.
+ */
+export function ReadingProgress({
+  targetId,
+  className = "",
+}: {
+  targetId: string;
+  className?: string;
+}) {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const el = document.getElementById(targetId);
+    if (!el) return;
+
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const rect = el.getBoundingClientRect();
+      const travel = rect.height - window.innerHeight;
+      // A document shorter than the viewport has nothing to track: it is
+      // either entirely ahead of you or entirely read.
+      if (travel <= 0) {
+        setProgress(rect.bottom <= window.innerHeight ? 1 : 0);
+        return;
+      }
+      setProgress(Math.min(Math.max(-rect.top / travel, 0), 1));
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [targetId]);
+
+  return (
+    <div
+      aria-hidden="true"
+      className={`h-[3px] w-full overflow-hidden rounded-full bg-[color:var(--hair)] ${className}`}
+    >
+      <div
+        className="h-full origin-left rounded-full bg-green will-change-transform"
+        style={{ transform: `scaleX(${progress})` }}
+      />
+    </div>
+  );
+}
+
+/**
+ * A document index that follows the reader.
+ *
+ * The active entry is whichever section heading has last passed the top of
+ * the viewport, and a rail slides to it rather than snapping, so the eye can
+ * follow the move. Anchors are plain links: with JavaScript off the index
+ * still navigates, it just stops highlighting.
+ */
+export function SectionIndex({
+  items,
+  className = "",
+}: {
+  items: { id: string; label: string }[];
+  className?: string;
+}) {
+  const [active, setActive] = useState(0);
+  const [marker, setMarker] = useState({ top: 0, height: 0 });
+  const listRef = useRef<HTMLOListElement>(null);
+
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      let current = 0;
+      items.forEach((item, i) => {
+        const el = document.getElementById(item.id);
+        // 160px clears the sticky header, so a heading counts as "being
+        // read" once it reaches the top of the readable area.
+        if (el && el.getBoundingClientRect().top <= 160) current = i;
+      });
+      setActive(current);
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [items]);
+
+  useEffect(() => {
+    const el = listRef.current?.children[active] as HTMLElement | undefined;
+    if (el) setMarker({ top: el.offsetTop, height: el.offsetHeight });
+  }, [active, items]);
+
+  return (
+    <nav aria-label="On this page" className={className}>
+      <p className="text-[0.75rem] font-extrabold uppercase tracking-[0.14em] text-green">
+        On this page
+      </p>
+
+      <div className="relative mt-5">
+        <span
+          aria-hidden="true"
+          className="absolute left-0 top-0 h-full w-[2px] rounded-full bg-[color:var(--hair)]"
+        />
+        <span
+          aria-hidden="true"
+          className="absolute left-0 top-0 w-[2px] rounded-full bg-green transition-[transform,height] duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none"
+          style={{ transform: `translateY(${marker.top}px)`, height: `${marker.height}px` }}
+        />
+
+        <ol ref={listRef}>
+          {items.map((item, i) => (
+            <li key={item.id}>
+              <a
+                href={`#${item.id}`}
+                aria-current={i === active ? "true" : undefined}
+                className={`flex gap-3 py-2 pl-5 pr-2 text-[0.9375rem] transition-colors duration-300 ${
+                  i === active
+                    ? "font-bold text-forest"
+                    : "text-[color:var(--ink-3)] hover:text-forest"
+                }`}
+              >
+                <span className="money text-[0.8125rem] tabular-nums opacity-70">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span>{item.label}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </nav>
+  );
+}

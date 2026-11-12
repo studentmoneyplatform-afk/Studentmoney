@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { submitSignup, type SignupState } from "@/app/join/actions";
+import { submitSignup, type SignupState } from "@/app/(site)/join/actions";
 import { FinePrint } from "@/components/ui";
 
 const INITIAL: SignupState = { status: "idle", message: "" };

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Caveat, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-import { getBrandLogo } from "@/lib/brand";
 
 const caveat = Caveat({
   variable: "--font-caveat",
@@ -39,8 +36,6 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const logo = getBrandLogo();
-
   return (
     // The font variables live on <html> so that the --font-display and
     // --font-sans tokens, which Tailwind declares at :root, can resolve them.
@@ -51,17 +46,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${caveat.variable} ${jakarta.variable}`}
     >
-      <body>
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-forest focus:px-5 focus:py-2 focus:text-[color:var(--on-dark-1)]"
-        >
-          Skip to content
-        </a>
-        <SiteHeader logo={logo} />
-        <main id="main">{children}</main>
-        <SiteFooter logo={logo} />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

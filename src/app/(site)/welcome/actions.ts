@@ -1,7 +1,9 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { REFERRAL_COOKIE } from "@/lib/referral";
 
 export type ProfileState = { status: "idle" | "error"; message: string };
 
@@ -60,6 +62,26 @@ export async function completeProfile(
       };
     }
     return { status: "error", message: "We could not save that. Try again." };
+  }
+
+  // The referral, if they arrived through somebody's link. This is the moment
+  // a click becomes a referral: there is now a real person behind it.
+  //
+  // Deliberately after the profile is saved, and deliberately unable to fail
+  // loudly -- capture_referral returns null rather than raising, because a
+  // stale code is somebody else's problem and must never cost this person
+  // their own account. The cookie is cleared either way so one link cannot
+  // keep claiming later sign-ups from the same browser.
+  const jar = await cookies();
+  const referralCode = jar.get(REFERRAL_COOKIE)?.value;
+  if (referralCode) {
+    await supabase.rpc("capture_referral", {
+      p_code: referralCode,
+      p_label: fullName,
+      p_email: user.email ?? null,
+      p_phone: phone,
+    });
+    jar.delete(REFERRAL_COOKIE);
   }
 
   redirect("/dashboard");

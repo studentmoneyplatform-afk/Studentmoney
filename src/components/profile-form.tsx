@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { completeProfile, type ProfileState } from "@/app/welcome/actions";
+import { completeProfile, type ProfileState } from "@/app/(site)/welcome/actions";
 import { FinePrint } from "@/components/ui";
 
 const INITIAL: ProfileState = { status: "idle", message: "" };

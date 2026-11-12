@@ -31,14 +31,18 @@ export function Reveal({
 
     el.dataset.reveal = "armed";
 
-    const observer = new IntersectionObserver(
+    let observer: IntersectionObserver | null = null;
+
+    const show = () => {
+      el.style.transitionDelay = `${delay}ms`;
+      el.dataset.reveal = "in";
+      observer?.disconnect();
+    };
+
+    observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          const target = entry.target as HTMLElement;
-          target.style.transitionDelay = `${delay}ms`;
-          target.dataset.reveal = "in";
-          observer.unobserve(target);
+          if (entry.isIntersecting) show();
         }
       },
       { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
@@ -46,16 +50,27 @@ export function Reveal({
 
     observer.observe(el);
 
-    // Failsafe. A backgrounded tab can suspend observer callbacks, and an
-    // element armed but never revealed stays at opacity 0 — content lost to
-    // a decoration. If nothing has fired by now, just show it.
-    const failsafe = window.setTimeout(() => {
-      if (el.dataset.reveal !== "in") el.dataset.reveal = "in";
-    }, 2500);
+    // Failsafe, for a tab that was in the background when it loaded: observer
+    // callbacks can be suspended there, and an element armed but never
+    // revealed sits at opacity 0 — content lost to a decoration.
+    //
+    // It rescues only what is actually on screen. An unconditional timeout
+    // reveals the whole page a couple of seconds after load, so every reveal
+    // below the fold has already played by the time the reader scrolls to it
+    // and the page looks like it has no motion at all.
+    const rescue = () => {
+      if (el.dataset.reveal === "in") return;
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) show();
+    };
+
+    const failsafe = window.setTimeout(rescue, 2500);
+    document.addEventListener("visibilitychange", rescue);
 
     return () => {
-      observer.disconnect();
+      observer?.disconnect();
       window.clearTimeout(failsafe);
+      document.removeEventListener("visibilitychange", rescue);
     };
   }, [delay]);
 

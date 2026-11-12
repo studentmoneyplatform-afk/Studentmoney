@@ -26,24 +26,38 @@ function useInView<T extends HTMLElement>(threshold = 0.25) {
       setInView(true);
       return;
     }
-    const observer = new IntersectionObserver(
+
+    let observer: IntersectionObserver | null = null;
+
+    const show = () => {
+      setInView(true);
+      observer?.disconnect();
+    };
+
+    observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
+        if (entry.isIntersecting) show();
       },
       { threshold },
     );
     observer.observe(el);
 
-    // Same failsafe as Reveal: never let a number sit at zero because the
-    // observer was suspended in a background tab.
-    const failsafe = window.setTimeout(() => setInView(true), 2500);
+    // Same rescue as Reveal, and for the same reason: a number must never sit
+    // at zero because the observer was suspended in a background tab. It only
+    // fires for what is on screen, so a counter below the fold still counts up
+    // when the reader actually reaches it.
+    const rescue = () => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) show();
+    };
+
+    const failsafe = window.setTimeout(rescue, 2500);
+    document.addEventListener("visibilitychange", rescue);
 
     return () => {
-      observer.disconnect();
+      observer?.disconnect();
       window.clearTimeout(failsafe);
+      document.removeEventListener("visibilitychange", rescue);
     };
   }, [threshold]);
 

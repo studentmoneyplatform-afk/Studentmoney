@@ -5,12 +5,23 @@ import { getSupabaseServerClient } from "@/lib/supabase/server";
 
 export type JoinState = { status: "idle" | "ok" | "error"; message: string };
 
+type JoinResult = {
+  status: "ok" | "already" | "not_verified" | "not_open" | "not_signed_in";
+  code: string | null;
+};
+
 /**
  * Joins an opportunity and issues the student's tracking code.
  *
- * Both inserts run as the student, so RLS decides whether they are allowed:
- * the participation policy requires a verified profile and a live
- * opportunity. Nothing here grants itself permission.
+ * Both halves happen inside join_opportunity, in one statement, because they
+ * only make sense together: a participation without a code is a student who
+ * has joined something they cannot refer anybody to. That used to be exactly
+ * what happened -- referral_links had no insert policy, so the code was
+ * always refused while the participation saved.
+ *
+ * The function also issues a code to a participation that is missing one, so
+ * anyone stranded by that bug is repaired by joining again rather than
+ * needing their row fixed by hand.
  */
 export async function joinOpportunity(
   _prev: JoinState,
@@ -24,69 +35,57 @@ export async function joinOpportunity(
     return { status: "error", message: "Not connected yet. Nothing was saved." };
   }
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return { status: "error", message: "Sign in again to continue." };
-
   const { data: opportunity } = await supabase
     .from("opportunities")
-    .select("id, name")
+    .select("name")
     .eq("slug", slug)
     .eq("status", "live")
     .maybeSingle();
 
-  if (!opportunity) {
-    return { status: "error", message: "That opportunity is not open right now." };
-  }
+  const name = opportunity?.name ?? "that opportunity";
 
-  const { data: participation, error: joinError } = await supabase
-    .from("participations")
-    .insert({ opportunity_id: opportunity.id, student_id: user.id })
-    .select("id")
-    .single();
+  const { data, error } = await supabase.rpc("join_opportunity", { p_slug: slug });
 
-  if (joinError) {
-    // 23505 is the unique constraint: already joined, which is not a failure.
-    if (joinError.code === "23505") {
-      return { status: "ok", message: `You are already on ${opportunity.name}.` };
-    }
-    // 42501 is RLS: the profile is not verified yet.
-    if (joinError.code === "42501") {
+  if (error) {
+    // 42883 is "function does not exist": the migration has not been applied.
+    // Worth its own message, because every other failure here is transient
+    // and this one will never fix itself by trying again.
+    if (error.code === "42883") {
       return {
         status: "error",
-        message:
-          "Your account is not verified yet. We verify before a reward can be attributed to you.",
+        message: "Joining is not available yet. The database is missing a required update.",
       };
     }
     return { status: "error", message: "We could not join you. Try again shortly." };
   }
 
-  const { error: linkError } = await supabase
-    .from("referral_links")
-    .insert({ participation_id: participation.id, code: makeCode(slug) });
-
-  if (linkError) {
-    return {
-      status: "error",
-      message: "You joined, but the tracking code failed. Refresh and tell us if it persists.",
-    };
+  const result = (Array.isArray(data) ? data[0] : data) as JoinResult | undefined;
+  if (!result) {
+    return { status: "error", message: "We could not join you. Try again shortly." };
   }
 
-  revalidatePath("/dashboard");
-  revalidatePath("/dashboard/opportunities");
-  return { status: "ok", message: `You are on ${opportunity.name}. Your link is ready.` };
-}
-
-/**
- * A short, unambiguous code. No 0/O or 1/I, because students read these
- * aloud and type them on phones.
- */
-function makeCode(slug: string): string {
-  const alphabet = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
-  let tail = "";
-  for (let i = 0; i < 6; i++) {
-    tail += alphabet[Math.floor(Math.random() * alphabet.length)];
+  switch (result.status) {
+    case "not_signed_in":
+      return { status: "error", message: "Sign in again to continue." };
+    case "not_verified":
+      return {
+        status: "error",
+        message:
+          "Your account is not verified yet. We verify before a reward can be attributed to you.",
+      };
+    case "not_open":
+      return { status: "error", message: "That opportunity is not open right now." };
+    case "already":
+    case "ok": {
+      revalidatePath("/dashboard");
+      revalidatePath("/dashboard/opportunities");
+      const lead = result.status === "already" ? `You are already on ${name}.` : `You are on ${name}.`;
+      return {
+        status: "ok",
+        message: result.code ? `${lead} Your link is ready.` : lead,
+      };
+    }
+    default:
+      return { status: "error", message: "We could not join you. Try again shortly." };
   }
-  return `${slug.split("-")[0].toUpperCase().slice(0, 4)}-${tail}`;
 }

@@ -7,8 +7,8 @@ import { REFERRAL_COOKIE, REFERRAL_COOKIE_MAX_AGE } from "@/lib/referral";
  *
  * It records nothing on its own: a click is not a referral and earns nobody
  * anything, so there is no row to write yet and no reason to log who clicked.
- * It remembers the code in a cookie and sends the visitor to the opportunity,
- * and the referral is only created once that person finishes joining.
+ * It remembers the code in a cookie and sends the visitor to the invite page,
+ * where they choose between taking up the service and joining to earn.
  *
  * A dead or mistyped code is not an error for the visitor to deal with. They
  * came to look at an opportunity, so they are shown the list instead.
@@ -27,9 +27,10 @@ export async function GET(
   const match = Array.isArray(data) ? data[0] : null;
   if (error || !match?.opportunity_slug) return fallback;
 
-  const response = NextResponse.redirect(
-    new URL(`/opportunities/${match.opportunity_slug}`, request.url),
-  );
+  // To the invite page rather than the opportunity, because somebody arriving
+  // on a shared link has a choice to make that a browser of the public site
+  // does not: take up the service, or start earning too.
+  const response = NextResponse.redirect(new URL(`/invite/${code}`, request.url));
 
   response.cookies.set({
     name: REFERRAL_COOKIE,

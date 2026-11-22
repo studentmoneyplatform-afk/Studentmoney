@@ -226,13 +226,13 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
           <Parallax
             strength={34}
             innerClassName="h-full"
-            className="pointer-events-none absolute bottom-0 left-[43%] z-30 h-full"
+            className="pointer-events-none absolute bottom-0 left-[41%] z-50 h-full"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/photos/hero-cutout.webp"
               alt="A MirusEarn student pointing, holding a phone"
-              className="h-[106%] w-auto max-w-none object-contain object-bottom"
+              className="h-[84%] w-auto max-w-none object-contain object-bottom"
             />
           </Parallax>
 
@@ -241,7 +241,7 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
           {/* Script label and the three cards */}
           <Parallax
             strength={-30}
-            className="absolute right-0 top-[1%] z-40 w-[17.5rem]"
+            className="absolute right-[-1%] top-[-3%] z-40 w-[15rem]"
           >
             <p className="font-script rotate-[-4deg] pl-6 text-[2rem] leading-[1.05] text-forest">
               Three Ways

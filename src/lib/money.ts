@@ -1,5 +1,5 @@
 /**
- * Money formatting for Stormm.
+ * Money formatting for MirusEarn.
  *
  * Brand rule: naira beside every dollar. Never show a dollar figure alone.
  *

@@ -20,13 +20,13 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://stormm.ng"),
   title: {
-    default: "Stormm — Earn. Refer. Grow.",
-    template: "%s · Stormm",
+    default: "MirusEarn — Earn. Refer. Grow.",
+    template: "%s · MirusEarn",
   },
   description:
-    "Stormm helps students, graduates and freelancers turn their network into real money through simple referrals. Three opportunities, each with its own reward and its own rules.",
+    "MirusEarn helps students, graduates and freelancers turn their network into real money through simple referrals. Three opportunities, each with its own reward and its own rules.",
   openGraph: {
-    title: "Stormm — Earn. Refer. Grow.",
+    title: "MirusEarn — Earn. Refer. Grow.",
     description:
       "Turn your network into real money through simple referrals.",
     type: "website",

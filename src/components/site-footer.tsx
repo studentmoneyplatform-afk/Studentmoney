@@ -69,7 +69,7 @@ export function SiteFooter({ logo }: { logo?: { src?: string; reversedSrc?: stri
             posted on this site.
           </FinePrint>
           <FinePrint tone="reversed">
-            © {new Date().getFullYear()} Stormm.
+            © {new Date().getFullYear()} MirusEarn.
           </FinePrint>
         </div>
       </div>

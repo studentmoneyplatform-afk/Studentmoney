@@ -46,7 +46,7 @@ export default function JoinPage() {
       <Section tone="forest">
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
-            <Eyebrow tone="reversed">Join Stormm</Eyebrow>
+            <Eyebrow tone="reversed">Join MirusEarn</Eyebrow>
             <H2 className="mt-5">Three ways to earn. One account.</H2>
             <Lede tone="reversed" className="mx-auto mt-6">
               Joining is free. Pick one of the three opportunities, or run all three,

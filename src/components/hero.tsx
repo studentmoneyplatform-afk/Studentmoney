@@ -191,7 +191,7 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
             </h1>
 
             <p className="mt-7 max-w-[26rem] text-[1.0625rem] leading-relaxed text-paper/85">
-              Stormm helps you turn your network into{" "}
+              MirusEarn helps you turn your network into{" "}
               <span className="font-bold text-green-bright">real money</span> — through
               simple referrals.
             </p>
@@ -231,7 +231,7 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/photos/hero-cutout.webp"
-              alt="A Stormm student pointing, holding a phone"
+              alt="A MirusEarn student pointing, holding a phone"
               className="h-[106%] w-auto max-w-none object-contain object-bottom"
             />
           </Parallax>
@@ -300,7 +300,7 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
             </h1>
 
             <p className="mt-6 text-[1.0625rem] leading-relaxed text-paper/85">
-              Stormm helps you turn your network into{" "}
+              MirusEarn helps you turn your network into{" "}
               <span className="font-bold text-green-bright">real money</span> — through
               simple referrals.
             </p>
@@ -332,7 +332,7 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/photos/hero-cutout.webp"
-              alt="A Stormm student pointing, holding a phone"
+              alt="A MirusEarn student pointing, holding a phone"
               className="relative h-[20rem] w-auto object-contain"
             />
           </div>

@@ -75,7 +75,7 @@ export function ReferralLinkPanel({ code }: { code: string }) {
     if (typeof navigator !== "undefined" && navigator.share) {
       try {
         await navigator.share({
-          title: "Stormm",
+          title: "MirusEarn",
           text: "Join through my link and we both get going.",
           url,
         });

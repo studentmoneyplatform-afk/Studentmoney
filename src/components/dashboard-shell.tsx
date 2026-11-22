@@ -187,7 +187,7 @@ export function DashboardShell({
                 collapsed ? "lg:hidden" : ""
               }`}
             >
-              Stormm
+              MirusEarn
             </span>
           </Link>
 

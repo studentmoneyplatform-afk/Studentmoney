@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 /**
- * Shared primitives in the Stormm language: cream ground, deep green
+ * Shared primitives in the MirusEarn language: cream ground, deep green
  * surfaces, one bright green accent, generous radii and soft shadows.
  *
  * Prop names are unchanged from the previous system so every page inherits

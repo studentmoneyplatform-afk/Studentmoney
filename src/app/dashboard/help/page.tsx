@@ -59,7 +59,7 @@ export default function HelpPage() {
         </dl>
         <div className="mt-5">
           <FinePrint>
-            Stormm does not guarantee income or employment. Rewards are paid on referrals
+            MirusEarn does not guarantee income or employment. Rewards are paid on referrals
             that have been verified and approved, under the rules published on each
             opportunity.
           </FinePrint>

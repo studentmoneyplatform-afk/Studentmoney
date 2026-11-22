@@ -7,7 +7,7 @@ import { SectionHead, StatBand } from "@/components/sections";
 export const metadata: Metadata = {
   title: "FAQs",
   description:
-    "How referrals are counted, when rewards are paid, what a pending status means, and what Stormm will never do.",
+    "How referrals are counted, when rewards are paid, what a pending status means, and what MirusEarn will never do.",
 };
 
 const GROUPS = [

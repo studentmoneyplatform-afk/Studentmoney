@@ -117,7 +117,7 @@ export default async function HomePage() {
                 earning income and building their future.
               </p>
               <p className="mt-6 font-display text-[1.5rem]">
-                Welcome to a bigger Stormm.
+                Welcome to a bigger MirusEarn.
               </p>
             </Card>
           </Reveal>
@@ -177,7 +177,7 @@ export default async function HomePage() {
         <Reveal>
           <div className="mt-10 max-w-3xl">
             <FinePrint>
-              Stormm does not guarantee income or employment. Rewards are paid on
+              MirusEarn does not guarantee income or employment. Rewards are paid on
               referrals that have been verified and approved, under the rules published
               on each opportunity.
             </FinePrint>

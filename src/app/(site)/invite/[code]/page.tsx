@@ -64,7 +64,7 @@ export default async function InvitePage({
             <section className="rounded-[1.5rem] bg-forest p-7 text-[color:var(--on-dark-1)]">
               <h2 className="font-display text-[1.4rem]">I want to earn too</h2>
               <p className="mt-2 text-[color:var(--on-dark-2)]">
-                Join Stormm and you get your own link and your own dashboard, and can
+                Join MirusEarn and you get your own link and your own dashboard, and can
                 refer people to this and to everything else we run.
               </p>
               <div className="mt-6">
@@ -85,7 +85,7 @@ export default async function InvitePage({
 
           <div className="mt-10 max-w-2xl">
             <FinePrint>
-              Stormm does not guarantee income or employment. Leaving your details here
+              MirusEarn does not guarantee income or employment. Leaving your details here
               is not a purchase and commits you to nothing.
             </FinePrint>
           </div>

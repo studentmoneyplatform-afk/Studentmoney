@@ -3,12 +3,12 @@ import Link from "next/link";
 type Tone = "primary" | "reversed";
 
 /**
- * The Stormm lockup: a rounded square carrying a bolt-cut S, then the
- * wordmark. Drawn rather than placed so it stays crisp at any size and
- * recolours for the dark hero card without a second file.
+ * The MirusEarn lockup: the rounded-square mark carrying the rising chevron
+ * and arrow, then the wordmark.
  *
- * A real artwork file at /brand/logo.png takes over when `src` is passed
- * down from the layout.
+ * The artwork at /brand/logo.png (and logo-reversed.png for the deep green
+ * sections) is resolved by the layout and passed down as `src`. The inline
+ * fallback below only shows if those files go missing.
  */
 export function Logo({
   tone = "primary",
@@ -27,7 +27,7 @@ export function Logo({
 
   const lockup = srcToUse ? (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={srcToUse} alt="Stormm" style={{ height: size, width: "auto" }} className="block" />
+    <img src={srcToUse} alt="MirusEarn" style={{ height: size, width: "auto" }} className="block" />
   ) : (
     <span className="inline-flex items-center gap-2.5">
       <Mark size={size} tone={tone} />
@@ -37,31 +37,36 @@ export function Logo({
         }`}
         style={{ fontSize: size * 0.72 }}
       >
-        Stormm
+        MirusEarn
       </span>
     </span>
   );
 
   if (!href) return lockup;
   return (
-    <Link href={href} className="inline-flex items-center" aria-label="Stormm home">
+    <Link href={href} className="inline-flex items-center" aria-label="MirusEarn home">
       {lockup}
     </Link>
   );
 }
 
-export function Mark({ size = 34, tone = "primary" }: { size?: number; tone?: Tone }) {
-  const bg = tone === "reversed" ? "var(--color-paper)" : "var(--color-forest)";
-  const fg = tone === "reversed" ? "var(--color-forest)" : "var(--color-paper)";
-
+/**
+ * The mark on its own, for the dashboard rail and anywhere the wordmark would
+ * not fit. The tile carries its own forest gradient, which separates it from
+ * both the cream and the deep green grounds, so it does not need a reversed
+ * variant — `tone` is kept so existing callers do not have to change.
+ */
+export function Mark({ size = 34, tone }: { size?: number; tone?: Tone }) {
+  void tone;
   return (
-    <svg width={size} height={size} viewBox="0 0 40 40" role="img" aria-label="Stormm" fill="none">
-      <rect width="40" height="40" rx="11" fill={bg} />
-      {/* A bolt sliced through an S: the two strokes read as both. */}
-      <path
-        d="M25.5 9.5 14.8 20.2h5.1L14.5 30.5l10.9-11h-5.2l5.3-10Z"
-        fill={fg}
-      />
-    </svg>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/brand/mark.png"
+      alt="MirusEarn"
+      width={size}
+      height={size}
+      style={{ width: size, height: size }}
+      className="block shrink-0"
+    />
   );
 }

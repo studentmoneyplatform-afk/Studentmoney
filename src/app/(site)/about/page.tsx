@@ -8,7 +8,7 @@ import { CtaBand, SectionHead, StatBand } from "@/components/sections";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Stormm exists so Nigerian students, graduates and freelancers do not have to wait for a job offer to earn, build commercial skills and take part in the economy.",
+    "MirusEarn exists so Nigerian students, graduates and freelancers do not have to wait for a job offer to earn, build commercial skills and take part in the economy.",
 };
 
 const PRINCIPLES = [
@@ -40,7 +40,7 @@ export default function AboutPage() {
           "have to wait for",
           <span key="l3" className="italic text-green-bright">a job offer.</span>,
         ]}
-        lede="Stormm is a Nigerian platform where students, graduates and freelancers find legitimate earning opportunities, refer real customers to real businesses, and earn from the network they already have."
+        lede="MirusEarn is a Nigerian platform where students, graduates and freelancers find legitimate earning opportunities, refer real customers to real businesses, and earn from the network they already have."
         actions={
           <>
             <Button href="/opportunities" size="lg">Explore opportunities</Button>
@@ -68,7 +68,7 @@ export default function AboutPage() {
               <p>
                 Businesses need customers. Students, graduates and freelancers have
                 networks, creativity, communities and access to people who genuinely need
-                useful products and services. Stormm connects those two sides and pays
+                useful products and services. MirusEarn connects those two sides and pays
                 you for the introductions that work out.
               </p>
               <p>

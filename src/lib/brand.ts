@@ -1,25 +1,20 @@
-import "server-only";
-import { existsSync } from "node:fs";
-import { join } from "node:path";
-
 /**
- * Looks for the brand artwork on disk. Server-only: the header and footer are
- * client components, so this must never be imported into them — the layout
- * resolves it once and passes the result down as plain strings.
+ * Where the brand artwork lives.
  *
- * Drop files into /public/brand:
- *   logo.png           used on light grounds
- *   logo-reversed.png  optional, used on the deep green sections
+ * These are plain public paths rather than a filesystem probe: `public/` is
+ * served statically but is not reliably present in a serverless function's
+ * own filesystem, so an existsSync() check here can come back false in
+ * production and silently drop the site back to the text logo.
+ *
+ *   logo.png           wordmark in forest, for the cream grounds
+ *   logo-reversed.png  wordmark in bone, for the deep green sections
+ *   mark.png           the tile on its own, for the dashboard rail
  */
 export type BrandLogo = { src?: string; reversedSrc?: string };
 
 export function getBrandLogo(): BrandLogo {
-  const find = (file: string) =>
-    existsSync(join(process.cwd(), "public", file)) ? file : undefined;
-
-  const src = find("/brand/logo.png") ?? find("/brand/logo.svg");
-  const reversedSrc =
-    find("/brand/logo-reversed.png") ?? find("/brand/logo-reversed.svg") ?? src;
-
-  return { src, reversedSrc };
+  return {
+    src: "/brand/logo.png",
+    reversedSrc: "/brand/logo-reversed.png",
+  };
 }

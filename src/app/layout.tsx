@@ -18,7 +18,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://stormm.ng"),
+  metadataBase: new URL("https://studentmoney-beta.vercel.app"),
   title: {
     default: "MirusEarn — Earn. Refer. Grow.",
     template: "%s · MirusEarn",

@@ -30,6 +30,10 @@ export const metadata: Metadata = {
     description:
       "Turn your network into real money through simple referrals.",
     type: "website",
+    // Declared here rather than via opengraph-image.alt.txt: the file-based
+    // alt is baked into the build cache, so a correction to it never reaches
+    // a rebuilt deploy.
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "MirusEarn: Earn. Refer. Grow." }],
   },
   // app/twitter-image.png is 1200x630; without this the card would be shown
   // as a small square thumbnail instead of the full-width image.

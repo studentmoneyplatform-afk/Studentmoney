@@ -31,6 +31,11 @@ export const metadata: Metadata = {
       "Turn your network into real money through simple referrals.",
     type: "website",
   },
+  // app/twitter-image.png is 1200x630; without this the card would be shown
+  // as a small square thumbnail instead of the full-width image.
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({

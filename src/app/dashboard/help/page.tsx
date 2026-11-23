@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { WhatsAppButton } from "@/components/whatsapp";
+import { WA } from "@/lib/whatsapp";
 import Link from "next/link";
 import { Panel } from "@/components/dashboard-ui";
 import { FinePrint } from "@/components/ui";
@@ -33,6 +35,9 @@ export default function HelpPage() {
           Anything about who a reward belongs to is decided by a person, not a rule.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
+          <WhatsAppButton message={WA.help()} variant="wa">
+            Message us on WhatsApp
+          </WhatsAppButton>
           <Link
             href="/faqs"
             className="rounded-full bg-forest px-5 py-2.5 font-bold text-[color:var(--on-dark-1)] transition-colors hover:bg-forest-deep"

@@ -3,6 +3,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { OPPORTUNITY_ICONS } from "@/components/opportunity-icons";
 import { ReferralLinkPanel } from "@/components/referral-link";
+import { WhatsAppButton } from "@/components/whatsapp";
+import { WA } from "@/lib/whatsapp";
 import { FinePrint } from "@/components/ui";
 import { getDashboardData, type ReferralRow } from "@/lib/dashboard-data";
 import { getLiveOpportunities } from "@/lib/opportunities-data";
@@ -237,6 +239,16 @@ export default async function DashboardHomePage() {
                       {goal.approvedCount} / {goal.target}
                     </span>
                   </div>
+                  {goal.approvedCount >= goal.target && linked?.referralCode && (
+                    <div className="mt-5">
+                      <WhatsAppButton
+                        message={WA.rewardReleased(linked.referralCode, goal.name, formatUsd(goal.earnedUsd))}
+                        variant="wa"
+                      >
+                        Claim it on WhatsApp
+                      </WhatsAppButton>
+                    </div>
+                  )}
                 </>
               ) : (
                 <p className="mt-2 text-[color:var(--ink-2)]">
@@ -310,6 +322,16 @@ export default async function DashboardHomePage() {
                       <p className="truncate text-caption text-[color:var(--ink-3)]">
                         {r.label} &middot; {r.opportunityName}
                       </p>
+                      {linked?.referralCode && waForStage(r.stage) && (
+                        <WhatsAppButton
+                          message={waForStage(r.stage)!(linked.referralCode, r.opportunityName)}
+                          variant="ghost"
+                          size="sm"
+                          className="mt-2"
+                        >
+                          Confirm on WhatsApp
+                        </WhatsAppButton>
+                      )}
                     </div>
                     <span className="shrink-0 text-caption text-[color:var(--ink-3)]">
                       {timeAgo(r.createdAt)}
@@ -329,6 +351,17 @@ export default async function DashboardHomePage() {
       </div>
     </div>
   );
+}
+
+/**
+ * Which stages are worth starting a conversation about. A referral that is
+ * still pending has nothing to confirm yet, and a rejected one is a question
+ * for support rather than a confirmation.
+ */
+function waForStage(stage: string) {
+  if (stage === "registered") return WA.linkUsed;
+  if (stage === "approved" || stage === "paid") return WA.referralApproved;
+  return null;
 }
 
 /** What each stage is called when it is read as an event rather than a status. */

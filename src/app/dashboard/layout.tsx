@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { DashboardShell } from "@/components/dashboard-shell";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { WhatsAppButton, WhatsAppFloat } from "@/components/whatsapp";
+import { WA } from "@/lib/whatsapp";
 
 /**
  * Guards every dashboard route in one place: signed in, and onboarded.
@@ -50,9 +52,15 @@ export default async function DashboardLayout({
             we verify who you are, because attribution has to belong to a real person.
             We will message you on WhatsApp when that is done.
           </p>
+          <div className="mt-4">
+            <WhatsAppButton message={WA.verification(profile.full_name)} variant="wa" size="sm">
+              Complete it on WhatsApp
+            </WhatsAppButton>
+          </div>
         </div>
       )}
       {children}
+      <WhatsAppFloat message={WA.help()} />
     </DashboardShell>
   );
 }

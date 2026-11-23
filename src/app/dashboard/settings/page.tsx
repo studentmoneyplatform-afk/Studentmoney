@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { WhatsAppButton } from "@/components/whatsapp";
+import { WA } from "@/lib/whatsapp";
 import { redirect } from "next/navigation";
 import { Panel } from "@/components/dashboard-ui";
 import { FinePrint } from "@/components/ui";
@@ -68,6 +70,11 @@ export default async function SettingsPage() {
             account. Details that decide who a reward belongs to are not edited without
             a person checking.
           </FinePrint>
+        </div>
+        <div className="mt-4">
+          <WhatsAppButton message={WA.help()} variant="ghost" size="sm">
+            Message us on WhatsApp
+          </WhatsAppButton>
         </div>
       </Panel>
 

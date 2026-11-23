@@ -1,6 +1,8 @@
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getBrandLogo } from "@/lib/brand";
+import { WhatsAppFloat } from "@/components/whatsapp";
+import { WA } from "@/lib/whatsapp";
 
 /**
  * The public site's chrome.
@@ -24,6 +26,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <SiteHeader logo={logo} />
       <main id="main">{children}</main>
       <SiteFooter logo={logo} />
+      <WhatsAppFloat message={WA.help()} />
     </>
   );
 }

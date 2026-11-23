@@ -4,6 +4,8 @@ import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { submitSignup, type SignupState } from "@/app/(site)/join/actions";
 import { FinePrint } from "@/components/ui";
+import { WhatsAppButton } from "@/components/whatsapp";
+import { WA } from "@/lib/whatsapp";
 
 const INITIAL: SignupState = { status: "idle", message: "" };
 
@@ -74,6 +76,13 @@ export function SignupForm({
         >
           {state.message}
         </p>
+      )}
+
+      {/* The form promises a WhatsApp message; this is how they start it. */}
+      {state.status === "ok" && (
+        <WhatsAppButton message={WA.confirmSignup()} variant="wa">
+          Confirm on WhatsApp
+        </WhatsAppButton>
       )}
 
       <FinePrint tone="reversed">

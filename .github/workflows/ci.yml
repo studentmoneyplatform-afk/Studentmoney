@@ -1,0 +1,43 @@
+name: CI
+
+# Vercel builds and deploys on its own; this exists to say *why* a deploy is
+# bad before it is live, and to run the tests, which Vercel never does.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  # A newer push makes an older run pointless - don't pay for both.
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        run: npx eslint src --max-warnings=0
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Tests
+        run: npm test
+
+      - name: Build
+        # The Supabase keys are public (anon) and the build only needs to
+        # resolve them, not reach the database.
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        run: npm run build

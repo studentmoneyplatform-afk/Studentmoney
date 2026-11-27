@@ -1,13 +1,13 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { NIGERIAN_PHONE, normalisePhone } from "@/lib/phone";
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 import { REFERRAL_COOKIE } from "@/lib/referral";
 
 export type ProfileState = { status: "idle" | "error"; message: string };
 
-const NIGERIAN_PHONE = /^(\+?234|0)[789]\d{9}$/;
 
 /**
  * Finishes joining: turns a Google account into a MirusEarn profile.
@@ -26,7 +26,7 @@ export async function completeProfile(
     return { status: "error", message: "Please enter your full name." };
   }
 
-  const phone = phoneRaw.replace(/[\s-]/g, "");
+  const phone = normalisePhone(phoneRaw);
   if (!NIGERIAN_PHONE.test(phone)) {
     return {
       status: "error",

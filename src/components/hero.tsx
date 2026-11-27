@@ -232,6 +232,8 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
             <img
               src="/photos/hero-cutout.webp"
               alt="A MirusEarn student pointing, holding a phone"
+              srcSet="/photos/hero-cutout-640.webp 640w, /photos/hero-cutout.webp 1254w"
+              sizes="(min-width: 1280px) 486px, 435px"
               className="h-[80%] w-auto max-w-none object-contain object-bottom"
             />
           </Parallax>
@@ -333,6 +335,8 @@ export function Hero({ opportunities }: { opportunities: Opportunity[] }) {
             <img
               src="/photos/hero-cutout.webp"
               alt="A MirusEarn student pointing, holding a phone"
+              srcSet="/photos/hero-cutout-640.webp 640w, /photos/hero-cutout.webp 1254w"
+              sizes="320px"
               className="relative h-[20rem] w-auto object-contain"
             />
           </div>

@@ -1,13 +1,13 @@
 "use server";
 
 import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { NIGERIAN_PHONE, normalisePhone } from "@/lib/phone";
 
 export type SignupState = {
   status: "idle" | "ok" | "error";
   message: string;
 };
 
-const NIGERIAN_PHONE = /^(\+?234|0)[789]\d{9}$/;
 
 /**
  * Records interest from the marketing site. Writes to `signups`, which is
@@ -29,7 +29,7 @@ export async function submitSignup(
     return { status: "error", message: "Please enter your full name." };
   }
 
-  const phone = phoneRaw.replace(/[\s-]/g, "");
+  const phone = normalisePhone(phoneRaw);
   if (!NIGERIAN_PHONE.test(phone)) {
     return {
       status: "error",

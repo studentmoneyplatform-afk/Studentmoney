@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Panel, StatTile } from "@/components/dashboard-ui";
 import { FinePrint } from "@/components/ui";
 import { getParticipations, getReviewQueue, getStudents } from "@/lib/admin-data";
-import { formatUsd } from "@/lib/money";
+import { formatUsd, NGN_PER_USD, NGN_RATE_IS_PLACEHOLDER } from "@/lib/money";
 
 export const metadata: Metadata = { title: "Admin" };
 
@@ -20,6 +20,22 @@ export default async function AdminOverviewPage() {
 
   return (
     <div className="space-y-8">
+      {/*
+        Every naira figure on the site is a dollar amount multiplied by this
+        rate. When it has not been configured, the site still quotes naira to
+        students - it just quotes them at a made-up rate, and nobody is told.
+      */}
+      {NGN_RATE_IS_PLACEHOLDER && (
+        <div className="rounded-[var(--radius-lg)] border-2 border-warning/50 bg-warning/5 px-5 py-4">
+          <p className="font-bold">The naira rate is a placeholder</p>
+          <p className="mt-1 text-[color:var(--ink-2)]">
+            Students are being shown naira figures converted at{" "}
+            <span className="font-bold">₦{NGN_PER_USD.toLocaleString("en-NG")} to $1</span>, which
+            nobody set. Set NEXT_PUBLIC_NGN_PER_USD to the rate you actually post
+            and redeploy, or every reward on the site is quoted wrongly.
+          </p>
+        </div>
+      )}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatTile label="Awaiting review" count={queue.length} hint="Referrals needing a decision" />
         <StatTile label="Owed to students" usd={Math.max(earned - paid, 0)} hint="Approved, not yet paid" />

@@ -114,6 +114,8 @@ export default async function DashboardHomePage() {
               src="/photos/hero-cutout.webp"
               alt=""
               aria-hidden="true"
+              srcSet="/photos/hero-cutout-640.webp 640w, /photos/hero-cutout.webp 1254w"
+              sizes="240px"
               className="absolute bottom-[-2rem] right-[7rem] h-[15rem] w-auto max-w-none object-contain object-bottom"
             />
             <p className="font-script relative z-10 mb-6 -rotate-3 text-right text-[1.9rem] leading-[1.1] text-forest">

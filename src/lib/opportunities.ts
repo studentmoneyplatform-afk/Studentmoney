@@ -90,10 +90,17 @@ export function earnedSoFar(reward: RewardModel, progress: number): number {
     case "per_referral":
       return round2(reward.rewardUsd * Math.max(progress, 0));
     case "proportional": {
+      // A non-positive target is not a real opportunity. The database
+      // rejects one (reward_shape_is_complete checks target > 0), but the
+      // seeded definitions below are not behind that check, and without
+      // this the arithmetic pays the whole pot for a zero target - or
+      // renders $NaN at zero progress. Nothing earned is the safe answer.
+      if (!(reward.target > 0)) return 0;
       const share = Math.min(Math.max(progress / reward.target, 0), 1);
       return round2(reward.potUsd * share);
     }
     case "threshold":
+      if (!(reward.target > 0)) return 0;
       return progress >= reward.target ? reward.rewardUsd : 0;
   }
 }

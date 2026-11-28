@@ -72,3 +72,24 @@ describe("rewardCeiling", () => {
     expect(rewardCeiling(threshold)).toBe(35);
   });
 });
+
+describe("a reward model the database would reject", () => {
+  // reward_shape_is_complete enforces target > 0, so these cannot come from
+  // the database - but the seeded definitions in opportunities.ts are not
+  // behind that check. Paying out on a malformed config is the one direction
+  // that must never happen.
+  it("pays nothing on a zero-target proportional, rather than the whole pot", () => {
+    const bad: RewardModel = { kind: "proportional", potUsd: 50, target: 0, unit: "x" };
+    expect(earnedSoFar(bad, 0)).toBe(0);
+    expect(earnedSoFar(bad, 3)).toBe(0);
+  });
+  it("never returns NaN, which would render as $NaN", () => {
+    const bad: RewardModel = { kind: "proportional", potUsd: 50, target: 0, unit: "x" };
+    expect(Number.isNaN(earnedSoFar(bad, 0))).toBe(false);
+  });
+  it("pays nothing on a zero-target threshold, rather than the full reward", () => {
+    const bad: RewardModel = { kind: "threshold", rewardUsd: 35, target: 0, unit: "x" };
+    expect(earnedSoFar(bad, 0)).toBe(0);
+    expect(earnedSoFar(bad, 99)).toBe(0);
+  });
+});

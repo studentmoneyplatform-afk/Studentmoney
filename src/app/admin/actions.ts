@@ -133,8 +133,23 @@ export async function saveOpportunity(
 
   try {
     const supabase = await client();
-    const { error } = await supabase.from("opportunities").update(patch).eq("slug", slug);
+    // .select() so the write reports what it actually changed. Row level
+    // security filters an update it will not allow rather than failing it,
+    // and a slug that matches nothing is not an error either - so without
+    // this, both come back with error null and the caller is told "Saved."
+    // when nothing was.
+    const { data, error } = await supabase
+      .from("opportunities")
+      .update(patch)
+      .eq("slug", slug)
+      .select("slug");
     if (error) return { status: "error", message: humanise(error.message) };
+    if (!data || data.length === 0) {
+      return {
+        status: "error",
+        message: "Nothing was saved. That opportunity was not found, or you are not staff.",
+      };
+    }
   } catch {
     return { status: "error", message: "Not connected. Nothing was changed." };
   }

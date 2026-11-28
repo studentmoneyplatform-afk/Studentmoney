@@ -3,7 +3,14 @@ import Link from "next/link";
 import { Panel, StatTile } from "@/components/dashboard-ui";
 import { FinePrint } from "@/components/ui";
 import { getParticipations, getReviewQueue, getStudents } from "@/lib/admin-data";
-import { formatUsd, NGN_PER_USD, NGN_RATE_IS_PLACEHOLDER } from "@/lib/money";
+import {
+  formatUsd,
+  NGN_PER_USD,
+  NGN_RATE_SET_ON,
+  NGN_RATE_STALE_AFTER_DAYS,
+  ngnRateAgeDays,
+  ngnRateIsStale,
+} from "@/lib/money";
 
 export const metadata: Metadata = { title: "Admin" };
 
@@ -21,18 +28,21 @@ export default async function AdminOverviewPage() {
   return (
     <div className="space-y-8">
       {/*
-        Every naira figure on the site is a dollar amount multiplied by this
-        rate. When it has not been configured, the site still quotes naira to
-        students - it just quotes them at a made-up rate, and nobody is told.
+        Every naira figure on the site is a dollar amount times this rate.
+        It is posted, not live, so the risk is not that it is wrong today but
+        that nobody looks at it again while the naira moves.
       */}
-      {NGN_RATE_IS_PLACEHOLDER && (
+      {ngnRateIsStale() && (
         <div className="rounded-[var(--radius-lg)] border-2 border-warning/50 bg-warning/5 px-5 py-4">
-          <p className="font-bold">The naira rate is a placeholder</p>
+          <p className="font-bold">The naira rate needs another look</p>
           <p className="mt-1 text-[color:var(--ink-2)]">
-            Students are being shown naira figures converted at{" "}
-            <span className="font-bold">₦{NGN_PER_USD.toLocaleString("en-NG")} to $1</span>, which
-            nobody set. Set NEXT_PUBLIC_NGN_PER_USD to the rate you actually post
-            and redeploy, or every reward on the site is quoted wrongly.
+            Students are seeing figures converted at{" "}
+            <span className="font-bold">
+              ₦{NGN_PER_USD.toLocaleString("en-NG")} to $1
+            </span>
+            , set on {NGN_RATE_SET_ON} — {ngnRateAgeDays()} days ago. Anything over{" "}
+            {NGN_RATE_STALE_AFTER_DAYS} days is worth rechecking, because a rate that has
+            drifted misquotes every reward on the site.
           </p>
         </div>
       )}

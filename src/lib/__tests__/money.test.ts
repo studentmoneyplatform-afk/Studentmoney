@@ -1,5 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { formatNgn, formatUsd, formatPercent, NGN_PER_USD } from "@/lib/money";
+import {
+  formatNgn,
+  formatUsd,
+  formatPercent,
+  NGN_PER_USD,
+  NGN_RATE_SET_ON,
+  NGN_RATE_STALE_AFTER_DAYS,
+  ngnRateAgeDays,
+  ngnRateIsStale,
+} from "@/lib/money";
 
 const digits = (s: string) => s.replace(/\D/g, "");
 
@@ -36,5 +45,27 @@ describe("formatPercent", () => {
     expect(formatPercent(0.5)).toBe("50%");
     expect(formatPercent(0.333)).toBe("33%");
     expect(formatPercent(1)).toBe("100%");
+  });
+});
+
+describe("the posted naira rate", () => {
+  const setOn = new Date(`${NGN_RATE_SET_ON}T00:00:00Z`);
+  const plus = (d: number) => new Date(setOn.getTime() + d * 86_400_000);
+
+  it("records a parseable date beside the rate", () => {
+    expect(Number.isNaN(setOn.getTime())).toBe(false);
+  });
+  it("is not stale on the day it was set", () => {
+    expect(ngnRateAgeDays(setOn)).toBe(0);
+    expect(ngnRateIsStale(setOn)).toBe(false);
+  });
+  it("is still fine the day before the cutoff", () => {
+    expect(ngnRateIsStale(plus(NGN_RATE_STALE_AFTER_DAYS))).toBe(false);
+  });
+  it("goes stale the day after the cutoff", () => {
+    expect(ngnRateIsStale(plus(NGN_RATE_STALE_AFTER_DAYS + 1))).toBe(true);
+  });
+  it("counts the days elapsed", () => {
+    expect(ngnRateAgeDays(plus(10))).toBe(10);
   });
 });
